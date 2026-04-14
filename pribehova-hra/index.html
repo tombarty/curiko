@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dobrodružství Laury</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- START SCREEN -->
+    <div id="start-screen" class="screen">
+      <div class="start-content">
+        <div class="start-emoji">🌲✨🔑</div>
+        <h1>Dobrodružství Laury</h1>
+        <p class="subtitle">Tajemství tichého světa</p>
+        <div class="start-buttons">
+          <button id="btn-new-game" class="btn btn-primary" onclick="Game.newGame()">Nová hra</button>
+          <button id="btn-continue" class="btn btn-secondary hidden" onclick="Game.continueGame()">Pokračovat</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="game-screen" class="screen hidden">
+      <header id="game-header">
+        <div class="header-title">
+          <span id="chapter-title"></span>
+        </div>
+        <div class="header-score" id="score-bar"></div>
+      </header>
+
+      <main id="scene-container"></main>
+
+      <footer id="inventory-bar">
+        <div class="inventory-label">Batůžek:</div>
+        <div id="inventory-items"></div>
+      </footer>
+    </div>
+
+    <!-- REWARD SCREEN -->
+    <div id="reward-screen" class="screen hidden">
+      <div class="reward-content">
+        <div class="reward-stars">⭐⭐⭐</div>
+        <h2>Výborně!</h2>
+        <div id="reward-item-emoji" class="reward-item-emoji"></div>
+        <p id="reward-item-name" class="reward-item-name"></p>
+        <p id="reward-item-desc" class="reward-item-desc"></p>
+        <div class="cliffhanger-box">
+          <p id="cliffhanger-text"></p>
+        </div>
+        <button class="btn btn-primary" onclick="Game.nextChapter()">Pokračovat →</button>
+      </div>
+    </div>
+
+    <!-- AUTOR HRY -->
+    <div id="about-screen" class="screen hidden">
+      <div class="about-content">
+        <button class="btn btn-secondary about-back" onclick="Game.hideAbout()">← Zpět</button>
+        <h2 class="about-title">✨ Autor hry</h2>
+
+        <div class="about-card">
+          <div class="about-name">Tomáš Bártek</div>
+          <div class="about-sub">Vytvořeno s pomocí <strong>Claude Code</strong> 🤖</div>
+          <div class="about-feedback">💬 Pro nápady a zpětnou vazbu mi napiš na LinkedIn</div>
+          <a href="https://www.linkedin.com/in/tomasbartek/" target="_blank" rel="noopener" class="about-link">
+            🔗 LinkedIn profil
+          </a>
+        </div>
+
+        <div class="about-card">
+          <div class="about-coffee-title">☕ Kupte mi kafe!</div>
+          <div class="about-coffee-text">Pokud se vám hra líbí, můžete autora podpořit částkou 30&nbsp;Kč.</div>
+          <div id="about-qr" class="about-qr"></div>
+          <div class="about-coffee-hint">Naskenuj telefonem v bankovní aplikaci 📱</div>
+        </div>
+
+        <div class="about-copyright">© 2026 Tomáš Bártek</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <button id="footer-about" class="footer-about" onclick="Game.showAbout()">Autor hry</button>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+  <script src="chapters/chapter1.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

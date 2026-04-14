@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>✏️ Pravopisné pětiminutovky</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ─── Barvy ──────────────────────────────────────────────────────────────── */
+:root, [data-theme="dark"] {
+  --bg: #0e0520; --bg2: #1a0a30; --card: #1e1040; --card2: #281450;
+  --border: #3d2870; --text: #f0e8ff; --text-sub: #a08cc8;
+  --gold: #f4c842; --teal: #b48eff; --green: #66bb6a; --red: #ef5350;
+  --shadow: 0 4px 24px rgba(20,0,40,0.7);
+  --glow-gold: 0 0 16px rgba(244,200,66,0.45);
+}
+[data-theme="light"] {
+  --bg: #f5eeff; --bg2: #e8dcf8; --card: #ffffff; --card2: #f8f0ff;
+  --border: #c8b0e8; --text: #2a1040; --text-sub: #7050a0;
+  --gold: #c08000; --teal: #7c4dff; --green: #2e7d32; --red: #c62828;
+  --shadow: 0 4px 20px rgba(80,40,120,0.15);
+  --glow-gold: 0 0 12px rgba(192,128,0,0.3);
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%; font-family: 'Nunito', sans-serif;
+  background: var(--bg); color: var(--text); overflow-x: hidden;
+}
+
+/* ─── Layout ─────────────────────────────────────────────────────────────── */
+#app {
+  min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+  padding: 20px 16px 40px;
+}
+
+.header { text-align: center; margin-bottom: 16px; }
+.header h1 { font-size: clamp(20px, 5vw, 28px); color: var(--gold); margin-bottom: 4px; }
+.header p { color: var(--text-sub); font-size: 14px; }
+
+/* ─── Přepínač tématu ────────────────────────────────────────────────────── */
+#theme-toggle {
+  position: fixed; top: 12px; right: 16px; z-index: 100;
+  background: var(--card); border: 1px solid var(--border); border-radius: 50%;
+  width: 40px; height: 40px; font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ─── Kategorie ──────────────────────────────────────────────────────────── */
+.categories {
+  display: flex; flex-direction: column; gap: 10px;
+  width: 100%; max-width: 420px;
+}
+
+.cat-card {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 14px 16px; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.cat-card:hover { transform: scale(1.02); box-shadow: var(--glow-gold); border-color: var(--gold); }
+.cat-card:active { transform: scale(0.98); }
+.cat-emoji { font-size: 28px; flex-shrink: 0; }
+.cat-info { display: flex; flex-direction: column; gap: 2px; }
+.cat-title { font-weight: 700; font-size: 15px; color: var(--text); }
+.cat-desc { font-size: 12px; color: var(--text-sub); }
+
+/* ─── Hra ────────────────────────────────────────────────────────────────── */
+.game-area { width: 100%; max-width: 420px; }
+.hidden { display: none !important; }
+
+/* ─── Motivační progress (nad úkolem) ──────────────────────────────────── */
+.motif-container {
+  text-align: center; margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.motif-label { font-size: 13px; font-weight: 700; color: var(--text-sub); margin-top: 6px; }
+
+/* Raketa */
+.motif-rocket { display: flex; align-items: center; gap: 6px; padding: 8px 0; }
+.motif-ep { font-size: 28px; flex-shrink: 0; }
+.rocket-track {
+  flex: 1; height: 6px; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 3px; position: relative;
+}
+.rocket-ship {
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  font-size: 26px; transition: left 0.6s ease;
+}
+
+/* Vláček */
+.motif-train { font-size: 28px; letter-spacing: 2px; white-space: nowrap; }
+.train-wagon-empty { opacity: 0.12; }
+
+/* Vajíčko */
+.motif-egg { display: flex; justify-content: center; align-items: center; min-height: 80px; }
+.egg-inner { transition: font-size 0.3s ease; }
+.egg-wobble { animation: wobble ease-in-out infinite; }
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+.bonus-word-display { text-align: center; margin: 20px 0 14px; }
+.bonus-word { font-size: clamp(28px, 8vw, 42px); font-weight: 800; letter-spacing: 2px; }
+.bonus-blank { display: inline-block; color: transparent; border-bottom: 3px solid var(--gold); min-width: 24px; margin: 0 2px; }
+.bonus-filled { color: var(--green); font-weight: 800; }
+
+.feedback-line { text-align: center; min-height: 28px; font-size: 14px; font-weight: 700; margin: 8px 0; }
+.correct-flash { color: var(--green); }
+.wrong-flash { color: var(--red); }
+
+.options-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-option {
+  background: var(--card2); border: 2px solid var(--border); border-radius: 12px;
+  padding: 14px 24px; font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 700;
+  color: var(--text); cursor: pointer; min-width: 70px;
+  transition: transform 0.1s, border-color 0.2s, background 0.2s;
+}
+.btn-option:hover { border-color: var(--gold); }
+.btn-option:active { transform: scale(0.95); }
+.btn-option.correct { background: rgba(102,187,106,0.25); border-color: var(--green); color: var(--green); }
+.btn-option.wrong { background: rgba(239,83,80,0.2); border-color: var(--red); color: var(--red); }
+
+/* ─── Tlačítka ───────────────────────────────────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), #e0a800);
+  color: #1a1000; border: none; border-radius: 14px;
+  padding: 14px 28px; font-family: 'Nunito', sans-serif; font-size: 16px;
+  font-weight: 800; cursor: pointer; width: 100%; max-width: 320px;
+  transition: filter 0.15s, transform 0.1s;
+}
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-secondary {
+  background: transparent; border: 2px solid var(--teal); color: var(--teal);
+  border-radius: 14px; padding: 12px 24px; font-family: 'Nunito', sans-serif;
+  font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; max-width: 320px;
+  transition: background 0.15s;
+}
+.btn-secondary:hover { background: rgba(180,142,255,0.1); }
+
+.btn-back {
+  align-self: flex-start; background: none; border: none; color: var(--text-sub);
+  font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700;
+  cursor: pointer; padding: 6px 10px; margin-bottom: 10px;
+}
+.btn-back:hover { color: var(--gold); }
+
+/* ─── Výsledek ───────────────────────────────────────────────────────────── */
+.result {
+  text-align: center; padding: 24px 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.result-score { font-size: 16px; font-weight: 700; color: var(--text-sub); }
+
+/* ─── Shake ──────────────────────────────────────────────────────────────── */
+.shake { animation: shake 0.5s ease-in-out; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+
+.fade-in { animation: fadeIn 0.3s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } }
+
+/* ─── Hvězdičky (efekt) ──────────────────────────────────────────────────── */
+.star-particle {
+  position: fixed; font-size: 18px; pointer-events: none; z-index: 9999;
+  animation: starBurst 0.85s ease-out forwards;
+}
+@keyframes starBurst {
+  0% { transform: translate(0,0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0.3); opacity: 0; }
+}
+
+/* ─── Stránka Autor hry ──────────────────────────────────────────────────── */
+#screen-about { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.about-back-btn {
+  align-self: flex-start;
+  background: var(--card);
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.about-back-btn:hover { background: var(--bg2); border-color: var(--gold); color: var(--gold); }
+.about-title {
+  font-size: 24px; color: var(--gold); margin: 0;
+  text-align: center; text-shadow: var(--glow-gold);
+}
+.about-card {
+  background: var(--card); border: 2px solid var(--border); border-radius: 16px;
+  padding: 20px; width: 100%; text-align: center; box-shadow: var(--shadow);
+}
+.about-name { font-size: 22px; font-weight: 800; color: var(--gold); margin-bottom: 8px; }
+.about-sub { font-size: 14px; color: var(--text-sub); margin-bottom: 12px; line-height: 1.5; }
+.about-feedback {
+  font-size: 13px; color: var(--text); margin-bottom: 14px; line-height: 1.5;
+  padding: 8px 12px; background: var(--bg2); border-radius: 8px;
+}
+.about-link {
+  display: inline-block; padding: 10px 20px; background: var(--teal); color: #fff;
+  border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px;
+  transition: transform 0.2s, filter 0.2s;
+}
+.about-link:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.about-coffee-title { font-size: 18px; color: var(--gold); margin-bottom: 8px; font-weight: 800; }
+.about-coffee-text { font-size: 13px; color: var(--text-sub); margin-bottom: 14px; line-height: 1.5; }
+.about-qr {
+  display: flex; justify-content: center; background: #fff; padding: 12px;
+  border-radius: 10px; margin: 0 auto 12px; width: fit-content;
+}
+.about-qr img { display: block; width: 200px; height: 200px; }
+.about-coffee-hint { font-size: 12px; color: var(--text-sub); font-style: italic; }
+.about-copyright { font-size: 12px; color: var(--text-sub); opacity: 0.7; margin-top: 4px; }
+
+.site-footer {
+  position: fixed !important; bottom: 0 !important; left: 0; width: 100%; padding: 8px 0;
+  text-align: center; background: #160830; border-top: 1px solid var(--border);
+  z-index: 99999;
+}
+[data-theme="light"] .site-footer { background: #e8dcf8; }
+body { padding-bottom: 36px !important; }
+.footer-about {
+  background: transparent; border: none; color: var(--text-sub);
+  font-size: 11px; font-family: inherit; opacity: 0.7; cursor: pointer;
+  padding: 4px 10px; transition: opacity 0.2s; text-decoration: underline;
+}
+.footer-about:hover { opacity: 1; }
+
+  </style>
+</head>
+<body>
+
+<button id="theme-toggle" title="Přepnout den/noc">☀️</button>
+
+<div id="app">
+
+  <!-- VÝBĚR KATEGORIE -->
+  <div id="screen-menu">
+    <div class="header">
+      <h1>✏️ Pravopisné pětiminutovky</h1>
+      <p>Vyber si kategorii a procvičuj!</p>
+    </div>
+    <div id="categories" class="categories"></div>
+  </div>
+
+  <!-- HRA -->
+  <div id="screen-game" class="hidden">
+    <button class="btn-back" id="btn-back">← Kategorie</button>
+    <div id="game-container" class="game-area"></div>
+    <div id="game-result" class="result hidden">
+      <div id="result-text"></div>
+      <button class="btn-primary" id="btn-again" style="margin-top:8px">🔄 Znovu</button>
+      <button class="btn-secondary" id="btn-menu" style="margin-top:4px">📋 Kategorie</button>
+    </div>
+  </div>
+
+  <!-- AUTOR HRY -->
+  <div id="screen-about" class="hidden">
+    <button class="about-back-btn" id="btn-about-back">← Zpět</button>
+    <h2 class="about-title">✨ Autor hry</h2>
+
+    <div class="about-card">
+      <div class="about-name">Tomáš Bártek</div>
+      <div class="about-sub">Vytvořeno s pomocí <strong>Claude Code</strong> 🤖</div>
+      <div class="about-feedback">💬 Pro nápady a zpětnou vazbu mi napiš na LinkedIn</div>
+      <a href="https://www.linkedin.com/in/tomasbartek/" target="_blank" rel="noopener" class="about-link">
+        🔗 LinkedIn profil
+      </a>
+    </div>
+
+    <div class="about-card">
+      <div class="about-coffee-title">☕ Kupte mi kafe!</div>
+      <div class="about-coffee-text">Pokud se vám hra líbí, můžete autora podpořit částkou 30&nbsp;Kč.</div>
+      <div id="about-qr" class="about-qr"></div>
+      <div class="about-coffee-hint">Naskenuj telefonem v bankovní aplikaci 📱</div>
+    </div>
+
+    <div class="about-copyright">© 2026 Tomáš Bártek</div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <button id="footer-about" class="footer-about">Autor hry</button>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// ZVUK
+// ═══════════════════════════════════════════════════════════════════════════
+const Sound = {
+  ctx: null, enabled: true,
+  init() { try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { this.enabled = false; } },
+  resume() { if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume(); },
+  tone(freq, start, dur, type='sine', vol=0.25) {
+    if (!this.enabled || !this.ctx) return;
+    try {
+      const o = this.ctx.createOscillator(), g = this.ctx.createGain();
+      o.connect(g); g.connect(this.ctx.destination); o.type = type;
+      const t = this.ctx.currentTime + start;
+      o.frequency.setValueAtTime(freq, t); g.gain.setValueAtTime(vol, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+      o.start(t); o.stop(t + dur + 0.05);
+    } catch(e) {}
+  },
+  correct() { this.resume(); this.tone(523,0,0.15); this.tone(659,0.15,0.15); this.tone(784,0.3,0.3); },
+  wrong() { this.resume(); this.tone(300,0,0.15,'sawtooth',0.2); this.tone(220,0.15,0.25,'sawtooth',0.15); },
+  click() { this.resume(); this.tone(880,0,0.05,'sine',0.1); }
+};
+
+function spawnStars(container) {
+  const rect = container.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+  for (let i = 0; i < 9; i++) {
+    const s = document.createElement('div'); s.className = 'star-particle';
+    s.textContent = i % 3 === 0 ? '✨' : '⭐';
+    const angle = (i / 9) * 2 * Math.PI, dist = 60 + Math.random() * 70;
+    s.style.left = cx + 'px'; s.style.top = cy + 'px';
+    s.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+    s.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+    document.body.appendChild(s); setTimeout(() => s.remove(), 950);
+  }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="data.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// APLIKACE
+// ═══════════════════════════════════════════════════════════════════════════
+const App = {
+  currentCat: null,
+
+  init() {
+    Sound.init();
+    this.loadTheme();
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      const cur = document.documentElement.dataset.theme;
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem('pp_theme', next);
+      document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+    document.getElementById('btn-back').addEventListener('click', () => { Sound.click(); this.showMenu(); });
+    document.getElementById('btn-again').addEventListener('click', () => { Sound.click(); this.startCategory(this.currentCat); });
+    document.getElementById('btn-menu').addEventListener('click', () => { Sound.click(); this.showMenu(); });
+    document.getElementById('footer-about').addEventListener('click', () => { Sound.click(); this.showAbout(); });
+    document.getElementById('btn-about-back').addEventListener('click', () => { Sound.click(); this.showMenu(); });
+    this.showMenu();
+  },
+
+  showAbout() {
+    document.getElementById('screen-menu').classList.add('hidden');
+    document.getElementById('screen-game').classList.add('hidden');
+    document.getElementById('screen-about').classList.remove('hidden');
+    const qrEl = document.getElementById('about-qr');
+    if (qrEl && !qrEl.dataset.generated && typeof qrcode !== 'undefined') {
+      try {
+        const qr = qrcode(0, 'M');
+        qr.addData('SPD*1.0*ACC:CZ8262106701002211168451*AM:30*CC:CZK*MSG:Kafe pro autora');
+        qr.make();
+        qrEl.innerHTML = qr.createImgTag(5, 0);
+        qrEl.dataset.generated = '1';
+      } catch (e) {}
+    }
+  },
+
+  loadTheme() {
+    const t = localStorage.getItem('pp_theme') || 'dark';
+    document.documentElement.dataset.theme = t;
+    document.getElementById('theme-toggle').textContent = t === 'dark' ? '☀️' : '🌙';
+  },
+
+  showMenu() {
+    document.getElementById('screen-menu').classList.remove('hidden');
+    document.getElementById('screen-game').classList.add('hidden');
+    document.getElementById('screen-about').classList.add('hidden');
+    const cats = document.getElementById('categories');
+    cats.innerHTML = '';
+
+    BONUS_CATEGORIES.forEach(cat => {
+      const card = document.createElement('div');
+      card.className = 'cat-card';
+      card.innerHTML = `
+        <span class="cat-emoji">${cat.emoji}</span>
+        <div class="cat-info">
+          <div class="cat-title">${cat.title}</div>
+          <div class="cat-desc">${cat.description}</div>
+        </div>
+      `;
+      card.addEventListener('click', () => { Sound.click(); this.startCategory(cat); });
+      cats.appendChild(card);
+    });
+
+  },
+
+  startCategory(cat) {
+    this.currentCat = cat;
+    document.getElementById('screen-menu').classList.add('hidden');
+    document.getElementById('screen-game').classList.remove('hidden');
+    document.getElementById('game-result').classList.add('hidden');
+    const gc = document.getElementById('game-container');
+    gc.innerHTML = '';
+    BonusGame.start(gc, cat, () => this.showResult(cat));
+  },
+
+  showResult(cat) {
+    document.getElementById('game-container').innerHTML = '';
+    const result = document.getElementById('game-result');
+    const textEl = document.getElementById('result-text');
+    spawnStars(result);
+    setTimeout(() => spawnStars(result), 400);
+    const errors = BonusGame.totalAnswered - BonusGame.TARGET_SCORE;
+    const grade = errors <= 1 ? '🏆 Perfektní!'
+      : errors <= 3 ? '⭐ Výborně!'
+      : errors <= 5 ? '👍 Dobře!'
+      : errors <= 7 ? '💪 Jde to!'
+      : '📚 Ještě procvičuj!';
+    const motifHtml = BonusGame.motif.render(100, BonusGame.TARGET_SCORE, BonusGame.TARGET_SCORE);
+    textEl.innerHTML = `
+      <div class="motif-container" style="border:none;margin:0;padding-bottom:0">${motifHtml}</div>
+      <p style="margin-top:16px">${cat.emoji} ${cat.title} — hotovo!</p>
+      <div class="result-score" style="margin-top:8px">${grade}</div>
+      <div class="result-score" style="margin-top:4px">(${BonusGame.TARGET_SCORE} z ${BonusGame.totalAnswered})</div>
+    `;
+    result.classList.remove('hidden');
+    result.classList.add('fade-in');
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => App.init());
+</script>
+</body>
+</html>

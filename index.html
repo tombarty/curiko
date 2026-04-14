@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Curiko — vzdělávací hry pro děti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+/* ─── Reset & Base ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  font-family: 'Nunito', sans-serif;
+  background: #0e0520;
+  color: #f0e8ff;
+  overflow-x: hidden;
+}
+
+/* ─── Layout ─────────────────────────────────────────────────────────────── */
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 16px 0;
+  gap: 28px;
+}
+
+/* ─── Logo & Header ──────────────────────────────────────────────────────── */
+.logo {
+  text-align: center;
+}
+.logo-name {
+  font-size: clamp(36px, 8vw, 56px);
+  font-weight: 800;
+  background: linear-gradient(135deg, #f4c842, #ff8a65, #f06292);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 2px;
+}
+.logo-tagline {
+  font-size: clamp(14px, 3.5vw, 18px);
+  color: #a08cc8;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* ─── Karty her ──────────────────────────────────────────────────────────── */
+.games-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.game-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #1e1040;
+  border: 2px solid #3d2870;
+  border-radius: 16px;
+  padding: 18px 20px;
+  text-decoration: none;
+  color: #f0e8ff;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.game-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(244, 200, 66, 0.3);
+  border-color: #f4c842;
+}
+.game-card:active {
+  transform: scale(0.98);
+}
+
+.card-emoji {
+  font-size: 40px;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(244, 200, 66, 0.1);
+  border-radius: 14px;
+}
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.card-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #f4c842;
+}
+.card-desc {
+  font-size: 13px;
+  color: #a08cc8;
+  line-height: 1.4;
+}
+.card-arrow {
+  margin-left: auto;
+  font-size: 20px;
+  color: #3d2870;
+  transition: color 0.15s;
+}
+.game-card:hover .card-arrow {
+  color: #f4c842;
+}
+
+/* ─── Patička ────────────────────────────────────────────────────────────── */
+.site-footer {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0;
+  width: 100%;
+  padding: 8px 0;
+  text-align: center;
+  background: #0e0520;
+  border-top: 1px solid #2a1850;
+  z-index: 99999;
+}
+body { padding-bottom: 36px !important; }
+.site-footer a {
+  color: #a08cc8;
+  font-size: 12px;
+  text-decoration: underline;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+.site-footer a:hover {
+  opacity: 1;
+}
+
+/* ─── Stránka Autor hry ──────────────────────────────────────────────────── */
+#screen-about {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 420px;
+  padding-top: 20px;
+}
+#screen-about.active {
+  display: flex;
+}
+#screen-main.hidden {
+  display: none;
+}
+
+.about-back-btn {
+  align-self: flex-start;
+  background: #1e1040;
+  border: 2px solid #3d2870;
+  color: #f0e8ff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 10px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.about-back-btn:hover { background: #281450; border-color: #f4c842; color: #f4c842; }
+
+.about-title {
+  font-size: 24px;
+  color: #f4c842;
+  text-align: center;
+}
+.about-card {
+  background: #1e1040;
+  border: 2px solid #3d2870;
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+}
+.about-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: #f4c842;
+  margin-bottom: 8px;
+}
+.about-sub {
+  font-size: 14px;
+  color: #a08cc8;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.about-feedback {
+  font-size: 13px;
+  color: #f0e8ff;
+  margin-bottom: 14px;
+  line-height: 1.5;
+  padding: 8px 12px;
+  background: #0e0520;
+  border-radius: 8px;
+}
+.about-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #b48eff;
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  transition: transform 0.2s, filter 0.2s;
+}
+.about-link:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+.about-coffee-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #f4c842;
+  margin-bottom: 8px;
+}
+.about-coffee-text {
+  font-size: 13px;
+  color: #a08cc8;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.about-qr {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 0 auto 12px;
+  width: fit-content;
+}
+.about-qr img { display: block; width: 200px; height: 200px; }
+.about-coffee-hint {
+  font-size: 12px;
+  color: #a08cc8;
+  font-style: italic;
+}
+.about-copyright {
+  font-size: 12px;
+  color: #a08cc8;
+  opacity: 0.7;
+}
+  </style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- HLAVNÍ OBSAH -->
+  <div id="screen-main">
+    <div class="logo">
+      <div class="logo-name">Curiko</div>
+      <div class="logo-tagline">Vzdělávací hry pro zvědavé děti</div>
+    </div>
+
+    <div class="games-grid">
+      <a href="./svet-poznani/" class="game-card">
+        <div class="card-emoji">✨</div>
+        <div class="card-info">
+          <div class="card-title">Magický svět poznání</div>
+          <div class="card-desc">Vyber si říši, plň výzvy a staň se mistrem poznání!</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="./petiminutovky/" class="game-card">
+        <div class="card-emoji">✏️</div>
+        <div class="card-info">
+          <div class="card-title">Pravopisné pětiminutovky</div>
+          <div class="card-desc">Procvičuj pravopis v krátkých kolech!</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="./pribehova-hra/" class="game-card">
+        <div class="card-emoji">🌲</div>
+        <div class="card-info">
+          <div class="card-title">Dobrodružství Laury</div>
+          <div class="card-desc">Příběhová hra plná záhad a dobrodružství.</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- AUTOR HRY -->
+  <div id="screen-about">
+    <button class="about-back-btn" id="btn-about-back">← Zpět</button>
+    <h2 class="about-title">✨ Autor hry</h2>
+
+    <div class="about-card">
+      <div class="about-name">Tomáš Bártek</div>
+      <div class="about-sub">Vytvořeno s pomocí <strong>Claude Code</strong> 🤖</div>
+      <div class="about-feedback">💬 Pro nápady a zpětnou vazbu mi napiš na LinkedIn</div>
+      <a href="https://www.linkedin.com/in/tomasbartek/" target="_blank" rel="noopener" class="about-link">
+        🔗 LinkedIn profil
+      </a>
+    </div>
+
+    <div class="about-card">
+      <div class="about-coffee-title">☕ Kupte mi kafe!</div>
+      <div class="about-coffee-text">Pokud se vám hry líbí, můžete autora podpořit částkou 30&nbsp;Kč.</div>
+      <div id="about-qr" class="about-qr"></div>
+      <div class="about-coffee-hint">Naskenuj telefonem v bankovní aplikaci 📱</div>
+    </div>
+
+    <div class="about-copyright">© 2026 Tomáš Bártek</div>
+  </div>
+
+</div>
+
+<!-- PATIČKA -->
+<footer class="site-footer">
+  <a id="footer-about">Autor hry</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script>
+  const mainEl = document.getElementById('screen-main');
+  const aboutEl = document.getElementById('screen-about');
+
+  function showAbout() {
+    mainEl.classList.add('hidden');
+    aboutEl.classList.add('active');
+    window.scrollTo(0, 0);
+    const qrEl = document.getElementById('about-qr');
+    if (qrEl && !qrEl.dataset.generated && typeof qrcode !== 'undefined') {
+      try {
+        const qr = qrcode(0, 'M');
+        qr.addData('SPD*1.0*ACC:CZ8262106701002211168451*AM:30*CC:CZK*MSG:Kafe pro autora');
+        qr.make();
+        qrEl.innerHTML = qr.createImgTag(5, 0);
+        qrEl.dataset.generated = '1';
+      } catch (e) {}
+    }
+  }
+
+  function hideAbout() {
+    aboutEl.classList.remove('active');
+    mainEl.classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  document.getElementById('footer-about').addEventListener('click', showAbout);
+  document.getElementById('btn-about-back').addEventListener('click', hideAbout);
+</script>
+</body>
+</html>

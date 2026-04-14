@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="dark" data-game-theme="vesmir">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Magický svět poznání a dobrodružství</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Hvězdné pozadí -->
+  <div id="stars"></div>
+
+  <!-- Přepínač den/noc -->
+  <button id="theme-toggle" title="Přepnout den/noc">☀️</button>
+
+  <!-- ══════════════════════════════════════════════════════
+       INTRO
+  ══════════════════════════════════════════════════════ -->
+  <div id="screen-intro" class="screen">
+
+    <div class="logo">✨ Magický svět poznání<br>a dobrodružství ✨</div>
+    <div class="subtitle">Otevři bránu a vstup do své říše!</div>
+
+    <p style="max-width:340px; text-align:center; color:var(--text-sub); font-size:14px; line-height:1.6;">
+      Vyber si svou říši, plň výzvy<br>a staň se mistrem poznání!
+    </p>
+
+    <button id="btn-new-game" class="btn-primary">📖 Začít dobrodružství</button>
+    <button id="btn-continue" class="btn-secondary hidden">🌟 Pokračovat</button>
+    <button id="btn-leaderboard" class="btn-secondary" style="border-color:var(--text-sub);color:var(--text-sub)">🏆 Výsledky</button>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       VÝBĚR TÉMATU
+  ══════════════════════════════════════════════════════ -->
+  <div id="screen-theme" class="screen">
+
+    <button id="btn-theme-back" class="btn-back">← Zpět</button>
+    <div class="theme-select-title">🌟 Vyber si svou říši! 🌟</div>
+    <div class="theme-select-sub">Který magický svět prozkoumáš?</div>
+
+    <div id="theme-grid" class="theme-grid"></div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       VÝBĚR PŘEZDÍVKY
+  ══════════════════════════════════════════════════════ -->
+  <div id="screen-nickname" class="screen">
+    <button id="btn-nick-back" class="btn-back">← Zpět</button>
+
+    <div class="nickname-content">
+      <h2 id="nickname-title">✨ Jak se jmenuješ?</h2>
+      <p id="nickname-text">Dokaž svou odvahu — a magický svět se ti otevře!</p>
+
+      <div id="nickname-form">
+        <input
+          type="text"
+          id="nickname-input"
+          placeholder="Tvoje přezdívka..."
+          maxlength="15"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="words"
+          spellcheck="false"
+        >
+
+        <div id="nickname-challenge" class="hidden">
+          <p class="challenge-text" id="challenge-text"></p>
+          <div class="answer-options options-row" id="challenge-options"></div>
+        </div>
+
+        <button id="btn-nickname-enter" class="btn-primary">
+          ➡️ Vstoupit do dobrodružství
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       VÝBĚR LEVELU
+  ══════════════════════════════════════════════════════ -->
+  <div id="screen-levels" class="screen">
+
+    <div class="map-top-bar">
+      <button id="btn-levels-home" class="btn-icon" title="Úvodní stránka">🏠</button>
+      <button id="btn-levels-lb" class="btn-icon" title="Výsledky">🏆</button>
+    </div>
+
+    <div class="levels-header">
+      <div class="player-info">
+        🧙 <span id="levels-player-name">Hrdino</span>
+        <span class="stars-display">⭐ <span id="levels-star-count">0</span></span>
+        <span class="rank-badge" id="levels-rank-badge">🌱 Nováček</span>
+      </div>
+    </div>
+
+    <div class="levels-title" id="levels-title">🗺️ Vyber úroveň</div>
+    <div id="levels-grid" class="levels-grid"></div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       MAPA
+  ══════════════════════════════════════════════════════ -->
+  <div id="screen-map" class="screen">
+
+    <div class="map-top-bar">
+      <button id="btn-back-levels" class="btn-icon" title="Zpět na úrovně">⬅️</button>
+      <button id="btn-map-lb" class="btn-icon" title="Výsledky">🏆</button>
+    </div>
+
+    <div class="map-header">
+      <div class="player-info">
+        🧙 <span id="player-name">Hrdino</span>
+        <span class="stars-display">⭐ <span id="star-count">0</span></span>
+        <span class="rank-badge" id="rank-badge">🌱 Nováček</span>
+      </div>
+      <div class="tma-indicator">
+        <span id="danger-label">🌑 Tma</span>
+        <div class="tma-bar-small"><div id="tma-fill-map"></div></div>
+        <div id="tma-pct-label">100%</div>
+      </div>
+    </div>
+
+    <div id="map-title-label">🗺️ Mapa Fantazie</div>
+
+    <div id="chapters-map"></div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       KAPITOLA + HRA
+  ══════════════════════════════════════════════════════ -->
+  <div id="screen-chapter" class="screen">
+
+    <button id="btn-back-map" class="btn-back">← Mapa</button>
+
+    <div class="chapter-header">
+      <span id="chapter-emoji">📖</span>
+      <h2 id="chapter-title">Název kapitoly</h2>
+      <span class="subject-badge" id="subject-badge">Matematika</span>
+    </div>
+
+    <div id="story-text" class="story-text"></div>
+
+    <div id="game-container" class="game-container"></div>
+
+    <div id="chapter-result" class="chapter-result hidden">
+      <div id="result-text"></div>
+      <div id="stars-earned"></div>
+      <button id="btn-back-to-map" class="btn-primary">🗺️ Zpět na mapu</button>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ARKÁDOVÁ HRA (ODMĚNA ZA LEVEL)
+  ══════════════════════════════════════════════════════ -->
+  <div id="screen-arcade" class="screen">
+    <button id="btn-arcade-back" class="btn-back">← Zpět</button>
+
+    <div class="arcade-header">
+      <h2 id="arcade-title">🎮 Bonusová hra</h2>
+    </div>
+
+    <div id="arcade-container" class="arcade-container"></div>
+
+    <div id="arcade-result" class="arcade-result hidden">
+      <div id="arcade-result-text"></div>
+      <button id="btn-arcade-again" class="btn-primary">🔄 Znovu</button>
+      <button id="btn-arcade-levels" class="btn-secondary" style="margin-top:8px">🗺️ Zpět na úrovně</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ŽEBŘÍČEK
+  ══════════════════════════════════════════════════════ -->
+  <div id="screen-leaderboard" class="screen">
+    <button id="btn-lb-back" class="btn-back">← Zpět</button>
+    <h2 class="lb-title">🏆 Výsledky</h2>
+    <div id="lb-content" class="lb-content"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       O AUTOROVI
+  ══════════════════════════════════════════════════════ -->
+  <div id="screen-about" class="screen">
+    <button id="btn-about-back" class="btn-back">← Zpět</button>
+    <h2 class="about-title">✨ Autor hry</h2>
+
+    <div class="about-card">
+      <div class="about-name">Tomáš Bártek</div>
+      <div class="about-sub">Vytvořeno s pomocí <strong>Claude Code</strong> 🤖</div>
+      <div class="about-feedback">💬 Pro nápady a zpětnou vazbu mi napiš na LinkedIn</div>
+      <a href="https://www.linkedin.com/in/tomasbartek/" target="_blank" rel="noopener" class="about-link">
+        🔗 LinkedIn profil
+      </a>
+    </div>
+
+    <div class="about-card about-coffee">
+      <div class="about-coffee-title">☕ Kupte mi kafe!</div>
+      <div class="about-coffee-text">Pokud se vám hra líbí, můžete autora podpořit částkou 30&nbsp;Kč.</div>
+      <div id="about-qr" class="about-qr"></div>
+      <div class="about-coffee-hint">Naskenuj telefonem v bankovní aplikaci 📱</div>
+    </div>
+
+    <div class="about-copyright">© 2026 Tomáš Bártek</div>
+  </div>
+
+
+</div>
+
+<!-- Fixní patička -->
+<footer class="site-footer">
+  <button id="footer-about" class="footer-about">Autor hry</button>
+</footer>
+
+<!-- Skripty — pořadí je důležité! -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/themes.js"></script>
+<script src="js/story.js"></script>
+<script src="js/games.js"></script>
+<script src="js/arcade.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
