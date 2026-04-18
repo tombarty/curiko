@@ -55,7 +55,8 @@ Pořadí je střídavé (kluk/holka). Každá říše definuje:
 - `levelIcons` + `levelLabels` — emoji a názvy pro 3 levely
 - `ranks` — 5 hodností hráče (min hvězd, label, emoji, barva)
 - `zones` — 5 zón s názvy a ID kapitol
-- `games[0..13]` — pořadí 14 mini-her
+- `games[0..16]` — pořadí 17 mini-her
+- `messages` — 10 tematických motivačních hlášek (per říše)
 - `titles[gameType]` — názvy kapitol
 - `stories[gameType]` — příběhové texty (1–2 věty)
 
@@ -65,13 +66,15 @@ Pořadí je střídavé (kluk/holka). Každá říše definuje:
 const LEVELS = [
   { id: 1, chapters: [1, 2, 3, 4, 5] },
   { id: 2, chapters: [6, 7, 8, 9, 10] },
-  { id: 3, chapters: [11, 12, 13, 14] },
+  { id: 3, chapters: [11, 12, 13, 14, 15, 16, 17] },
 ];
 ```
 
-- 3 levely, odemykají se postupně (level 2 až po dokončení všech her levelu 1)
+- 3 levely, 17 kapitol celkem (TOTAL_CHAPTERS = 17), odemykají se postupně
+- Level 3 rozšířen o 3 hry cílené na SVP diagnostiku (čtení s porozuměním, diakritika, skládání slov)
 - Ikonky a názvy levelů se berou z `theme.levelIcons` a `theme.levelLabels`
 - Mapa zobrazuje jen kapitoly aktuálního levelu (quest karty na celou šířku)
+- Story chapters: `STORY.chapters` v `story.js` musí mít záznam pro každý chapter ID
 
 ## Arkádové hry (js/arcade.js)
 
@@ -91,7 +94,7 @@ const LEVELS = [
 - **TARGET_SCORE** = náhodně 5–7 při startu každé hry
 - Hvězdičky za efektivitu: 0 extra = 5⭐, 1-2 = 4, 3-4 = 3, 5-7 = 2, 8+ = 1
 - Špatná odpověď přidá novou otázku (nikdy nezablokuje)
-- Série: 2× → 👍, 3× → 🔥, 4× → ⚡, 5× → 🌟
+- Série: 2× → 👍, 3× → 🔥, 4× → ⚡, 5× → 🌟, 6× → 💎, 7× → 🏆, 8× → 👑, 9× → 🌈, 10+ → 🦸
 - Psací stroj + hlasové čtení (Web Speech API, cs-CZ) pro příběhové texty
 - Hra s řazením abecedy: kliknutí na slot = odebrání slova (undo)
 
@@ -124,17 +127,31 @@ Každá říše má 5 vlastních hodností v `theme.ranks`:
 - **Pravopis v datech** — slova v `games.js` (párové souhlásky) musí mít správné háčky/čárky ve slově (např. `chlé_` ne `chle_`, `mrá_` ne `mra_`). Uživatel je testuje a hlásí chyby.
 - **Arkádové tlačítko po levelu** — zobrazí se JEN když `levelJustCompleted` (ne když je level už dávno hotový). Detekuje se porovnáním stavu PŘED a PO uložení výsledku.
 - **Staré dynamické prvky** — v `onGameComplete()` se na začátku odstraňují `.arcade-reward-btn` a `.finale-summary` z předchozích renderů, jinak se kumulují.
-- **Adresář projektu** — uživatel přejmenovává adresáře. Aktuální: `/Users/tomasbartek/ClaudeCode/Projekty/Svet-poznani/`. Nepoužívat hardcoded cesty ze starých konverzací.
+- **Adresář projektu** — aktuální cesta: `/Users/tomasbartek/ClaudeCode/Projekty/Curiko/svet-poznani/`. Projekt je podadresář Curiko.
 
-## Separátní projekt: Pravopisné pětiminutovky
+## Herní typy — kompletní seznam (17 her)
 
-Odděleno do samostatného projektu:
-```
-/Users/tomasbartek/ClaudeCode/Projekty/Pravopisne-petiminutovky/
-├── index.html   – celá aplikace (HTML + CSS + app logika)
-└── data.js      – data kategorií + herní engine + nahlašování chyb + motivační motivy
-```
-- Nezávislé — vlastní localStorage klíče (`pp_theme`, `pp_errors`)
-- 12 kategorií pravopisu, 15 otázek na kolo
-- Motivační motivy (raketa, rostlinka, hrad, vajíčko) — náhodně se přiřadí při startu kola
-- Nahlašování chyb s kopírováním do schránky
+### Matematika
+- `math-addition-easy` — sčítání do 20
+- `math-subtraction` — odčítání
+- `math-multiply2` — násobení a dělení
+- `math-decompose` — rozklad čísla na části
+- `math-wordproblem` — slovní úlohy (pole WORD_PROBLEMS)
+- `math-pyramid` — doplnění číselné pyramidy
+
+### Čeština
+- `czech-soft-i` — tvrdé/měkké souhlásky (Y/I), 50 slov
+- `czech-long-iy` — krátké/dlouhé I/Y (i, í, y, ý), 50 slov
+- `czech-paired` — párové souhlásky (b/p, d/t, z/s, ž/š, h/ch, k/g), 40 slov
+- `czech-alphabet` — řazení 3 slov podle abecedy, 25 sad
+- `czech-hypernym` — nadřazená slova (kategorie), 20 otázek
+- `czech-reading` — čtení s porozuměním (krátký text + otázka), 12 textů ⭐ NOVÉ
+- `czech-diacritics` — doplnit diakritiku (vyber správné slovo), 15 slov ⭐ NOVÉ
+- `czech-letters` — skládání slov z písmen (klikáním), 15 slov ⭐ NOVÉ
+
+### Angličtina
+- `english-match` — přiřazení emoji k anglickému slovu, 50 slov
+- `english-spelling` — složení anglického slova z písmen
+- `english-reading` — čtení krátkých anglických textů
+
+Hry označené ⭐ NOVÉ byly přidány na základě diagnostiky SVP pro Amélii.
