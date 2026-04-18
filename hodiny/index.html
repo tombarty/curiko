@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Hodinový mistr — Curiko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ═══ MENU ═══ -->
+  <section id="screen-menu" class="screen active">
+    <a href="../index.html" class="back-link">← zpět na Curiko</a>
+
+    <header class="game-header">
+      <h1 class="game-title">🕐 Hodinový mistr</h1>
+      <p class="game-sub">Nauč se číst čas a sbírej minutky!</p>
+    </header>
+
+    <!-- Počítadlo minutek -->
+    <div class="minutky-box">
+      <div class="minutky-clock" id="minutky-clock">
+        <svg viewBox="0 0 100 100" width="80" height="80">
+          <circle cx="50" cy="50" r="44" fill="#1e1040" stroke="#3d2870" stroke-width="3"/>
+          <circle id="minutky-progress" cx="50" cy="50" r="44" fill="none" stroke="#f4c842" stroke-width="5"
+                  stroke-dasharray="276.46" stroke-dashoffset="276.46"
+                  transform="rotate(-90 50 50)" stroke-linecap="round"/>
+          <text id="minutky-text" x="50" y="56" text-anchor="middle" fill="#f4c842" font-size="22" font-weight="800" font-family="Nunito">0</text>
+        </svg>
+      </div>
+      <div class="minutky-info">
+        <div class="minutky-label">Nasbírané minutky</div>
+        <div class="minutky-value"><span id="minutky-now">0</span> / 60</div>
+        <div class="minutky-total" id="minutky-total">Celkem: 0 min</div>
+      </div>
+    </div>
+
+    <button class="teach-btn" id="btn-teach">
+      <span class="teach-emoji">📚</span>
+      <div class="teach-info">
+        <span class="teach-title">Naučím tě hodiny!</span>
+        <span class="teach-desc">Krok za krokem — co je hodina, minuta, ručičky...</span>
+      </div>
+      <span class="teach-arrow">→</span>
+    </button>
+
+    <h2 class="section-title">Nebo si zahraj úkol:</h2>
+
+    <div class="mode-grid" id="mode-grid">
+      <button class="mode-btn" data-mode="match">
+        <span class="mode-emoji">🕐</span>
+        <span class="mode-label">Přiřaď čas</span>
+        <span class="mode-desc">Hodiny → číslo</span>
+      </button>
+      <button class="mode-btn" data-mode="set-hands">
+        <span class="mode-emoji">🎯</span>
+        <span class="mode-label">Nastav ručičky</span>
+        <span class="mode-desc">Posuň ručičky na správný čas</span>
+      </button>
+      <button class="mode-btn" data-mode="words">
+        <span class="mode-emoji">💬</span>
+        <span class="mode-label">Slovně → čas</span>
+        <span class="mode-desc">Třičtvrtě, půl, čtvrt, celá</span>
+      </button>
+      <button class="mode-btn" data-mode="ampm">
+        <span class="mode-emoji">🌓</span>
+        <span class="mode-label">Dopo / odpoledne</span>
+        <span class="mode-desc">4 odpoledne = 16:00</span>
+      </button>
+      <button class="mode-btn" data-mode="minutes">
+        <span class="mode-emoji">⏱️</span>
+        <span class="mode-label">Jen minuty</span>
+        <span class="mode-desc">Kolik je minut?</span>
+      </button>
+      <button class="mode-btn" data-mode="day-night">
+        <span class="mode-emoji">🌙</span>
+        <span class="mode-label">Den či noc?</span>
+        <span class="mode-desc">Kdy co děláš</span>
+      </button>
+      <button class="mode-btn mix" data-mode="mix">
+        <span class="mode-emoji">🎲</span>
+        <span class="mode-label">Vše dohromady</span>
+        <span class="mode-desc">Mix všech úkolů</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══ HRA ═══ -->
+  <section id="screen-game" class="screen">
+    <div class="game-topbar">
+      <button class="topbar-btn" id="btn-back-menu">← Menu</button>
+      <div class="topbar-title" id="topbar-title">Úkol</div>
+      <div class="topbar-counter" id="topbar-counter">0 / 7</div>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <!-- Malé počítadlo minutek nahoře -->
+    <div class="mini-minutky">
+      <svg viewBox="0 0 100 100" width="36" height="36">
+        <circle cx="50" cy="50" r="44" fill="#1e1040" stroke="#3d2870" stroke-width="4"/>
+        <circle id="mini-minutky-progress" cx="50" cy="50" r="44" fill="none" stroke="#f4c842" stroke-width="7"
+                stroke-dasharray="276.46" stroke-dashoffset="276.46"
+                transform="rotate(-90 50 50)" stroke-linecap="round"/>
+      </svg>
+      <span id="mini-minutky-text">0/60</span>
+    </div>
+
+    <div class="game-area" id="game-area">
+      <!-- Sem se renderuje aktuální otázka -->
+    </div>
+
+    <div class="feedback-line" id="feedback-line"></div>
+  </section>
+
+  <!-- ═══ VÝSLEDKY ═══ -->
+  <section id="screen-result" class="screen">
+    <div class="result-card">
+      <div class="result-emoji" id="result-emoji">🎉</div>
+      <h2 class="result-title">Kolo dokončeno!</h2>
+      <div class="result-stars" id="result-stars"></div>
+      <div class="result-stats" id="result-stats"></div>
+      <div class="result-gain" id="result-gain">+ 0 minutek</div>
+      <div class="result-actions">
+        <button class="btn-primary" id="btn-play-again">Hrát znovu</button>
+        <button class="btn-secondary" id="btn-to-menu">Menu</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ UČENÍ ═══ -->
+  <section id="screen-teach" class="screen">
+    <div class="teach-topbar">
+      <button class="topbar-btn" id="btn-teach-back">← Menu</button>
+      <div class="topbar-title" id="teach-title">Učení</div>
+      <div class="topbar-counter" id="teach-counter">1 / 11</div>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="teach-progress"></div>
+    </div>
+
+    <div class="teach-card" id="teach-card">
+      <!-- Sem se renderuje karta -->
+    </div>
+
+    <div class="teach-nav">
+      <button class="btn-secondary" id="btn-teach-prev">← Zpět</button>
+      <button class="btn-primary" id="btn-teach-next">Další →</button>
+    </div>
+  </section>
+
+  <!-- ═══ ODMĚNA (KUKAČKA) ═══ -->
+  <section id="screen-kukacka" class="screen">
+    <div class="kukacka-wrap">
+      <div class="kukacka-clock">
+        <div class="kukacka-door" id="kukacka-door">
+          <span class="kukacka-bird">🐦</span>
+        </div>
+        <div class="kukacka-face">
+          <svg viewBox="0 0 200 200" width="220" height="220">
+            <circle cx="100" cy="100" r="92" fill="#1e1040" stroke="#f4c842" stroke-width="6"/>
+            <g id="kukacka-dots"></g>
+            <line x1="100" y1="100" x2="100" y2="55" stroke="#f4c842" stroke-width="6" stroke-linecap="round"/>
+            <line x1="100" y1="100" x2="135" y2="100" stroke="#f4c842" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="100" cy="100" r="6" fill="#f4c842"/>
+          </svg>
+        </div>
+      </div>
+      <h2 class="kukacka-title">Kuku! 🎉</h2>
+      <p class="kukacka-text">Nasbíral jsi celou hodinu!</p>
+      <p class="kukacka-sub" id="kukacka-sub">Celkem už máš: 1 hodinu</p>
+      <button class="btn-primary" id="btn-kukacka-continue">Pokračuj! ➜</button>
+    </div>
+  </section>
+
+  <!-- ═══ AUTOR HRY ═══ -->
+  <section id="screen-about" class="screen">
+    <button class="about-back-btn" id="btn-about-back">← Zpět</button>
+    <h2 class="about-title">✨ Autor hry</h2>
+
+    <div class="about-card">
+      <div class="about-name">Tomáš Bártek</div>
+      <div class="about-sub">Vytvořeno s pomocí <strong>Claude Code</strong> 🤖</div>
+      <div class="about-feedback">💬 Pro nápady a zpětnou vazbu mi napiš na LinkedIn</div>
+      <a href="https://www.linkedin.com/in/tomasbartek/" target="_blank" rel="noopener" class="about-link">
+        🔗 LinkedIn profil
+      </a>
+    </div>
+
+    <div class="about-card">
+      <div class="about-coffee-title">☕ Kupte mi kafe!</div>
+      <div class="about-coffee-text">Pokud se vám hry líbí, můžete autora podpořit částkou 30&nbsp;Kč.</div>
+      <div id="about-qr" class="about-qr"></div>
+      <div class="about-coffee-hint">Naskenuj telefonem v bankovní aplikaci 📱</div>
+    </div>
+
+    <div class="about-copyright">© 2026 Tomáš Bártek</div>
+  </section>
+
+</div>
+
+<!-- PATIČKA -->
+<footer class="site-footer">
+  <a id="footer-about">Autor hry</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/clock.js"></script>
+<script src="js/motivace.js"></script>
+<script src="js/games.js"></script>
+<script src="js/teach.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

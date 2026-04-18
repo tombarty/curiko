@@ -1,0 +1,681 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Hodinový mistr — styly
+   Fialovo-zlaté téma, mobile-first, SVG hodiny
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg: #0e0520;
+  --bg-elev: #1e1040;
+  --border: #3d2870;
+  --text: #f0e8ff;
+  --text-sub: #a08cc8;
+  --gold: #f4c842;
+  --gold-dim: #a08a30;
+  --green: #6ed39a;
+  --red: #ff7a7a;
+  --purple: #b48eff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body { padding-bottom: 42px; }
+
+#app {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 18px 14px;
+  position: relative;
+}
+
+/* ─── Obrazovky ─────────────────────────────────────────────────────────── */
+.screen { display: none; flex-direction: column; gap: 14px; }
+.screen.active { display: flex; }
+
+/* ─── Horní lišta ───────────────────────────────────────────────────────── */
+.back-link {
+  color: var(--text-sub);
+  font-size: 13px;
+  text-decoration: none;
+  opacity: 0.85;
+  align-self: flex-start;
+}
+.back-link:hover { color: var(--gold); }
+
+.game-header { text-align: center; margin: 6px 0 4px; }
+.game-title {
+  font-size: clamp(26px, 6vw, 34px);
+  font-weight: 900;
+  background: linear-gradient(135deg, #f4c842, #ff8a65, #f06292);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+}
+.game-sub { font-size: 14px; color: var(--text-sub); margin-top: 4px; }
+
+/* ─── Počítadlo minutek na menu ─────────────────────────────────────────── */
+.minutky-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 12px 16px;
+}
+.minutky-clock { flex-shrink: 0; }
+.minutky-info { display: flex; flex-direction: column; gap: 2px; }
+.minutky-label { font-size: 12px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.minutky-value { font-size: 22px; font-weight: 900; color: var(--gold); }
+.minutky-total { font-size: 12px; color: var(--text-sub); font-style: italic; }
+
+/* Malé počítadlo ve hře */
+.mini-minutky {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px 3px 4px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+/* ─── Sekce nadpis ──────────────────────────────────────────────────────── */
+.section-title {
+  font-size: 16px;
+  color: var(--text-sub);
+  text-align: center;
+  margin: 6px 0 0;
+  font-weight: 700;
+}
+
+/* ─── Učební tlačítko ───────────────────────────────────────────────────── */
+.teach-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #2d1665, #4a2090);
+  border: 2px solid var(--purple);
+  border-radius: 16px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+}
+.teach-btn:hover {
+  transform: scale(1.02);
+  border-color: var(--gold);
+  box-shadow: 0 0 22px rgba(180, 142, 255, 0.35);
+}
+.teach-btn:active { transform: scale(0.98); }
+.teach-emoji {
+  font-size: 38px;
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(244, 200, 66, 0.1);
+  border-radius: 14px;
+}
+.teach-info { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+.teach-title { font-size: 17px; font-weight: 900; color: var(--gold); }
+.teach-desc { font-size: 12px; color: var(--text-sub); line-height: 1.4; }
+.teach-arrow { font-size: 20px; color: var(--gold); font-weight: 900; }
+
+/* ─── Mřížka módů ───────────────────────────────────────────────────────── */
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.mode-btn {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 10px;
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+  min-height: 108px;
+}
+.mode-btn:active { transform: scale(0.97); }
+.mode-btn:hover { border-color: var(--gold); box-shadow: 0 0 18px rgba(244, 200, 66, 0.25); }
+.mode-btn.mix {
+  grid-column: 1 / -1;
+  min-height: 72px;
+  flex-direction: row;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #2a1555, #3d2870);
+}
+.mode-emoji { font-size: 32px; }
+.mode-label { font-size: 14px; font-weight: 800; color: var(--gold); text-align: center; }
+.mode-desc { font-size: 11px; color: var(--text-sub); text-align: center; line-height: 1.3; }
+.mode-btn.mix .mode-emoji { font-size: 28px; }
+.mode-btn.mix .mode-label { font-size: 16px; }
+.mode-btn.mix .mode-desc { font-size: 12px; }
+
+/* ─── Herní topbar ──────────────────────────────────────────────────────── */
+.game-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-right: 90px; /* místo pro mini-minutky */
+}
+.topbar-btn {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.topbar-btn:hover { border-color: var(--gold); color: var(--gold); }
+.topbar-title { font-size: 14px; font-weight: 800; color: var(--gold); flex: 1; text-align: center; }
+.topbar-counter { font-size: 14px; color: var(--gold); font-weight: 800; }
+
+/* Progress bar */
+.progress-bar {
+  height: 8px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: -6px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold), #ff8a65);
+  border-radius: 10px;
+  transition: width 0.35s ease;
+}
+
+/* ─── Herní plocha ──────────────────────────────────────────────────────── */
+.game-area {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 18px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-height: 420px;
+}
+
+.q-instr {
+  font-size: 15px;
+  color: var(--text-sub);
+  text-align: center;
+  font-weight: 700;
+}
+.q-task {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--gold);
+  text-align: center;
+  line-height: 1.3;
+  padding: 4px 0;
+}
+.q-task .small { font-size: 16px; color: var(--text); font-weight: 700; display: block; margin-top: 4px; }
+.q-scene-emoji { font-size: 64px; line-height: 1; padding: 8px 0; }
+
+/* ─── SVG Hodiny ────────────────────────────────────────────────────────── */
+.clock-svg {
+  width: min(280px, 78vw);
+  height: min(280px, 78vw);
+  touch-action: none;
+  user-select: none;
+}
+.clock-svg .hand-hour { stroke: #f4c842; stroke-width: 6; stroke-linecap: round; }
+.clock-svg .hand-minute { stroke: #ff8a65; stroke-width: 4; stroke-linecap: round; }
+.clock-svg .hand-minute-only { stroke: #ff8a65; stroke-width: 5; stroke-linecap: round; }
+.clock-svg .face-bg { fill: #0e0520; stroke: var(--gold); stroke-width: 3; }
+.clock-svg .num-label { fill: var(--text); font-weight: 800; font-family: 'Nunito'; font-size: 13px; text-anchor: middle; dominant-baseline: central; }
+.clock-svg .big-num { font-size: 18px; fill: var(--gold); }
+.clock-svg .mini-hint { font-size: 10px; fill: var(--text-sub); font-weight: 700; opacity: 0.75; }
+.clock-svg .tick { stroke: var(--text-sub); stroke-width: 2; }
+.clock-svg .tick-big { stroke: var(--gold); stroke-width: 3; }
+.clock-svg .center { fill: var(--gold); }
+.clock-svg .hand-drag { cursor: grab; }
+.clock-svg.dragging .hand-drag { cursor: grabbing; }
+.clock-svg .drag-handle { fill: transparent; stroke: transparent; stroke-width: 28; pointer-events: stroke; cursor: grab; }
+.clock-svg .drag-handle:active { cursor: grabbing; }
+
+/* Digitální displej */
+.digital-display {
+  font-family: 'Nunito', monospace;
+  font-size: 38px;
+  font-weight: 900;
+  color: var(--gold);
+  background: #0e0520;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 24px;
+  letter-spacing: 3px;
+  min-width: 140px;
+  text-align: center;
+}
+
+/* ─── Tlačítka odpovědí ─────────────────────────────────────────────────── */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 380px;
+}
+.opt-btn {
+  background: #281450;
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 800;
+  padding: 14px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.12s, border-color 0.12s, background 0.12s;
+  min-height: 56px;
+}
+.opt-btn:hover { border-color: var(--gold); }
+.opt-btn:active { transform: scale(0.97); }
+.opt-btn:focus { outline: none; }
+.opt-btn.correct { background: #1d4d36; border-color: var(--green); color: var(--green); }
+.opt-btn.wrong { background: #4d1d1d; border-color: var(--red); color: var(--red); }
+.opt-btn.disabled { pointer-events: none; opacity: 0.55; }
+
+/* Širší textové možnosti (slovní popis) */
+.options-grid.wide { grid-template-columns: 1fr; max-width: 320px; }
+.options-grid.wide .opt-btn { font-size: 16px; padding: 12px; }
+
+/* ─── Tlačítko Hotovo pro drag ──────────────────────────────────────────── */
+.btn-confirm {
+  background: linear-gradient(135deg, var(--gold), #e0a820);
+  border: none;
+  color: #2a1555;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 900;
+  padding: 12px 28px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.12s, filter 0.12s;
+  margin-top: 4px;
+}
+.btn-confirm:active { transform: scale(0.96); }
+.btn-confirm:hover { filter: brightness(1.1); }
+.btn-confirm.disabled { opacity: 0.5; pointer-events: none; }
+
+/* ─── Učební karty ──────────────────────────────────────────────────────── */
+.teach-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.teach-card {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 18px;
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  min-height: 420px;
+  text-align: center;
+  animation: fadeIn 0.35s ease;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.teach-emoji-big {
+  font-size: 72px;
+  line-height: 1;
+}
+.teach-heading {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1.3;
+}
+.teach-text {
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.5;
+  max-width: 380px;
+}
+.teach-text strong { color: var(--gold); }
+.teach-highlight {
+  background: rgba(244, 200, 66, 0.12);
+  border: 2px dashed var(--gold);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.5;
+  max-width: 380px;
+}
+.teach-clocks-row {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.teach-mini-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.teach-mini-clock .label {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--gold);
+}
+.teach-nav {
+  display: flex;
+  gap: 10px;
+}
+.teach-nav .btn-primary,
+.teach-nav .btn-secondary { flex: 1; }
+.teach-nav .btn-secondary:disabled,
+.teach-nav .btn-primary:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.teach-compare {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.teach-compare .vs {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text-sub);
+}
+.teach-list {
+  text-align: left;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.8;
+  max-width: 340px;
+}
+.teach-list li { margin-left: 16px; }
+
+/* ─── Feedback ──────────────────────────────────────────────────────────── */
+.feedback-line {
+  min-height: 30px;
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  padding: 4px;
+}
+.correct-flash { color: var(--green); }
+.wrong-flash { color: var(--red); }
+
+/* ─── Třes při chybě ────────────────────────────────────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+.shake { animation: shake 0.5s ease !important; }
+
+/* ─── Létající hvězdičky ────────────────────────────────────────────────── */
+.star-particle {
+  position: fixed;
+  font-size: 20px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: starBurst 0.85s ease-out forwards;
+}
+@keyframes starBurst {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0.3); opacity: 0; }
+}
+
+/* ─── Výsledky ──────────────────────────────────────────────────────────── */
+.result-card {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 18px;
+  padding: 24px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.result-emoji { font-size: 72px; }
+.result-title { font-size: 24px; color: var(--gold); }
+.result-stars { font-size: 32px; letter-spacing: 4px; }
+.result-stats { font-size: 15px; color: var(--text-sub); }
+.result-gain {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--gold);
+  background: rgba(244, 200, 66, 0.1);
+  border: 2px dashed var(--gold);
+  border-radius: 12px;
+  padding: 10px;
+}
+.result-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), #e0a820);
+  border: none;
+  color: #2a1555;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 900;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.12s, filter 0.12s;
+}
+.btn-primary:active { transform: scale(0.97); }
+.btn-primary:hover { filter: brightness(1.1); }
+
+.btn-secondary {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ─── Kukačka ───────────────────────────────────────────────────────────── */
+.kukacka-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 30px 16px;
+  text-align: center;
+}
+.kukacka-clock {
+  position: relative;
+  width: 240px;
+  height: 300px;
+}
+.kukacka-face {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.kukacka-door {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 90px;
+  background: #281450;
+  border: 3px solid var(--gold);
+  border-radius: 50% 50% 12px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  animation: kukackaOpen 1.2s cubic-bezier(.17,.67,.35,1.33) forwards;
+}
+.kukacka-bird {
+  font-size: 54px;
+  display: inline-block;
+  animation: kukackaBounce 0.7s ease-in-out 0.6s infinite alternate;
+}
+@keyframes kukackaOpen {
+  0% { transform: translateX(-50%) translateY(-80px) scale(0.4); opacity: 0; }
+  60% { transform: translateX(-50%) translateY(0) scale(1.1); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+}
+@keyframes kukackaBounce {
+  0% { transform: translateY(0) rotate(-6deg); }
+  100% { transform: translateY(-8px) rotate(6deg); }
+}
+.kukacka-title {
+  font-size: 36px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), #ff8a65);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.kukacka-text { font-size: 18px; color: var(--text); }
+.kukacka-sub { font-size: 14px; color: var(--text-sub); margin-bottom: 8px; }
+
+/* ─── Patička ───────────────────────────────────────────────────────────── */
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 0;
+  text-align: center;
+  background: var(--bg);
+  border-top: 1px solid #2a1850;
+  z-index: 99999;
+}
+.site-footer a {
+  color: var(--text-sub);
+  font-size: 12px;
+  text-decoration: underline;
+  opacity: 0.7;
+  cursor: pointer;
+}
+.site-footer a:hover { opacity: 1; }
+
+/* ─── Autor hry ─────────────────────────────────────────────────────────── */
+.about-back-btn {
+  align-self: flex-start;
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 10px;
+}
+.about-back-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+.about-title { font-size: 24px; color: var(--gold); text-align: center; }
+.about-card {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+}
+.about-name { font-size: 22px; font-weight: 800; color: var(--gold); margin-bottom: 8px; }
+.about-sub { font-size: 14px; color: var(--text-sub); margin-bottom: 12px; line-height: 1.5; }
+.about-feedback {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.5;
+  padding: 8px 12px;
+  background: var(--bg);
+  border-radius: 8px;
+}
+.about-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--purple);
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+.about-link:hover { filter: brightness(1.1); }
+
+.about-coffee-title { font-size: 18px; font-weight: 800; color: var(--gold); margin-bottom: 8px; }
+.about-coffee-text { font-size: 13px; color: var(--text-sub); margin-bottom: 14px; line-height: 1.5; }
+.about-qr {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 0 auto 12px;
+  width: fit-content;
+}
+.about-qr img { display: block; width: 200px; height: 200px; }
+.about-coffee-hint { font-size: 12px; color: var(--text-sub); font-style: italic; }
+.about-copyright { font-size: 12px; color: var(--text-sub); opacity: 0.7; text-align: center; }
+
+/* ─── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 360px) {
+  .mode-emoji { font-size: 28px; }
+  .mode-label { font-size: 13px; }
+  .mode-desc { font-size: 10px; }
+  .q-task { font-size: 19px; }
+  .digital-display { font-size: 32px; padding: 8px 18px; }
+}
