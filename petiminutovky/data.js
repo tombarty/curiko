@@ -143,6 +143,76 @@ const BONUS_CATEGORIES = [
     ]
   },
   {
+    id: 'iy-phrases', title: 'i/í – y/ý ve spojeních', emoji: '🐱',
+    description: '3 etapy po 15 — celkem 45 spojení z učebnice',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['bez pot_ží', 'í', ['i','í','y','ý']],
+          ['plach_ srnec', 'ý', ['i','í','y','ý']],
+          ['je uř_cená', 'í', ['i','í','y','ý']],
+          ['č_stí boty', 'i', ['i','í','y','ý']],
+          ['umí š_t', 'í', ['i','í','y','ý']],
+          ['hlubok_ důl', 'ý', ['i','í','y','ý']],
+          ['je nejch_třejší', 'y', ['i','í','y','ý']],
+          ['r_tířský', 'y', ['i','í','y','ý']],
+          ['něco vyhod_l', 'i', ['i','í','y','ý']],
+          ['je v prác_', 'i', ['i','í','y','ý']],
+          ['do brad_', 'y', ['i','í','y','ý']],
+          ['čtvrt_ žák', 'ý', ['i','í','y','ý']],
+          ['tkan_čky', 'i', ['i','í','y','ý']],
+          ['malý zaj_ček', 'í', ['i','í','y','ý']],
+          ['bez zelenin_', 'y', ['i','í','y','ý']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['na pobřež_', 'í', ['i','í','y','ý']],
+          ['pavouč_ síť', 'í', ['i','í','y','ý']],
+          ['za Jiř_kem', 'í', ['i','í','y','ý']],
+          ['málo vláh_', 'y', ['i','í','y','ý']],
+          ['do c_le', 'í', ['i','í','y','ý']],
+          ['hr_že mrkev', 'y', ['i','í','y','ý']],
+          ['pěkn_ den', 'ý', ['i','í','y','ý']],
+          ['buď zt_cha', 'i', ['i','í','y','ý']],
+          ['byl vyn_kající', 'i', ['i','í','y','ý']],
+          ['zach_til mě', 'y', ['i','í','y','ý']],
+          ['ostrá d_ka', 'ý', ['i','í','y','ý']],
+          ['pod_vej se', 'í', ['i','í','y','ý']],
+          ['v baž_nách', 'i', ['i','í','y','ý']],
+          ['nejdelš_ lano', 'í', ['i','í','y','ý']],
+          ['nová žák_ně', 'y', ['i','í','y','ý']]
+        ]
+      },
+      {
+        title: '3. etapa',
+        words: [
+          ['mot_lí let', 'ý', ['i','í','y','ý']],
+          ['kraj_c chleba', 'í', ['i','í','y','ý']],
+          ['nen_ tady', 'í', ['i','í','y','ý']],
+          ['osel zah_kal', 'ý', ['i','í','y','ý']],
+          ['ut_ká ven', 'í', ['i','í','y','ý']],
+          ['je to c_zinec', 'i', ['i','í','y','ý']],
+          ['ž_tné pole', 'i', ['i','í','y','ý']],
+          ['zazář_l', 'i', ['i','í','y','ý']],
+          ['umí poč_tat', 'í', ['i','í','y','ý']],
+          ['tich_ pláč', 'ý', ['i','í','y','ý']],
+          ['hladk_ ubrus', 'ý', ['i','í','y','ý']],
+          ['had_ syčí', 'i', ['i','í','y','ý']],
+          ['v úter_', 'ý', ['i','í','y','ý']],
+          ['dlouhé klád_', 'y', ['i','í','y','ý']],
+          ['bílé šat_', 'y', ['i','í','y','ý']]
+        ]
+      }
+    ],
+    // Pro Mix-all sbírání — všech 45 spojení dohromady
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
     id: 'mix-all', title: 'Mix — všechno', emoji: '🎲',
     description: 'Náhodný mix ze všech kategorií', _isMix: true, words: []
   }

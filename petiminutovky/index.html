@@ -259,7 +259,9 @@ body { padding-bottom: 36px !important; }
     <div id="game-container" class="game-area"></div>
     <div id="game-result" class="result hidden">
       <div id="result-text"></div>
+      <button class="btn-primary" id="btn-next-stage" style="margin-top:8px;display:none">➡️ Další etapa</button>
       <button class="btn-primary" id="btn-again" style="margin-top:8px">🔄 Znovu</button>
+      <button class="btn-secondary" id="btn-stages-back" style="margin-top:4px;display:none">📚 Výběr etap</button>
       <button class="btn-secondary" id="btn-menu" style="margin-top:4px">📋 Kategorie</button>
     </div>
   </div>
@@ -352,8 +354,20 @@ const App = {
       document.getElementById('theme-toggle').textContent = next === 'dark' ? '☀️' : '🌙';
     });
     document.getElementById('btn-back').addEventListener('click', () => { Sound.click(); this.showMenu(); });
-    document.getElementById('btn-again').addEventListener('click', () => { Sound.click(); this.startCategory(this.currentCat); });
-    document.getElementById('btn-menu').addEventListener('click', () => { Sound.click(); this.showMenu(); });
+    document.getElementById('btn-again').addEventListener('click', () => {
+      Sound.click();
+      if (this._currentStage) this.startStage(this._currentStage.cat, this._currentStage.stageIdx);
+      else this.startCategory(this.currentCat);
+    });
+    document.getElementById('btn-menu').addEventListener('click', () => { Sound.click(); this._currentStage = null; this.showMenu(); });
+    document.getElementById('btn-stages-back').addEventListener('click', () => {
+      Sound.click();
+      if (this._currentStage) { const c = this._currentStage.cat; this._currentStage = null; this.renderStagesMenu(c); }
+    });
+    document.getElementById('btn-next-stage').addEventListener('click', () => {
+      Sound.click();
+      if (this._currentStage) this.startStage(this._currentStage.cat, this._currentStage.stageIdx + 1);
+    });
     document.getElementById('footer-about').addEventListener('click', () => { Sound.click(); this.showAbout(); });
     document.getElementById('btn-about-back').addEventListener('click', () => { Sound.click(); this.showMenu(); });
     this.showMenu();
@@ -405,13 +419,106 @@ const App = {
   },
 
   startCategory(cat) {
+    // Pokud má etapy, zobraz výběr etap místo přímo hry
+    if (cat._stages) {
+      this._currentStage = null;
+      this.currentCat = cat;
+      this.renderStagesMenu(cat);
+      return;
+    }
     this.currentCat = cat;
+    this._currentStage = null;
     document.getElementById('screen-menu').classList.add('hidden');
     document.getElementById('screen-game').classList.remove('hidden');
     document.getElementById('game-result').classList.add('hidden');
     const gc = document.getElementById('game-container');
     gc.innerHTML = '';
     BonusGame.start(gc, cat, () => this.showResult(cat));
+  },
+
+  renderStagesMenu(cat) {
+    document.getElementById('screen-menu').classList.remove('hidden');
+    document.getElementById('screen-game').classList.add('hidden');
+    document.getElementById('screen-about').classList.add('hidden');
+    const cats = document.getElementById('categories');
+    cats.innerHTML = '';
+
+    // Zpět na kategorie
+    const back = document.createElement('button');
+    back.className = 'btn-secondary';
+    back.textContent = '← Zpět na kategorie';
+    back.style.marginBottom = '10px';
+    back.addEventListener('click', () => { Sound.click(); this.showMenu(); });
+    cats.appendChild(back);
+
+    // Nadpis
+    const heading = document.createElement('div');
+    heading.style.cssText = 'text-align:center;padding:6px 0 10px';
+    heading.innerHTML = `
+      <div style="font-size:18px;font-weight:800;color:var(--gold)">${cat.emoji} ${cat.title}</div>
+      <div style="font-size:13px;color:var(--text-sub);margin-top:2px">${cat.description}</div>
+    `;
+    cats.appendChild(heading);
+
+    const done = this.getStagesDone(cat.id);
+
+    cat._stages.forEach((stage, idx) => {
+      const card = document.createElement('div');
+      card.className = 'cat-card';
+      const isDone = done.has(idx);
+      const emoji = isDone ? '✅' : '📝';
+      card.innerHTML = `
+        <span class="cat-emoji">${emoji}</span>
+        <div class="cat-info">
+          <div class="cat-title">${stage.title}${isDone ? ' — hotovo' : ''}</div>
+          <div class="cat-desc">${stage.words.length} slovních spojení</div>
+        </div>
+      `;
+      card.addEventListener('click', () => { Sound.click(); this.startStage(cat, idx); });
+      cats.appendChild(card);
+    });
+  },
+
+  startStage(cat, stageIdx) {
+    const stage = cat._stages[stageIdx];
+    if (!stage) return;
+    this.currentCat = cat;
+    this._currentStage = { cat, stageIdx };
+    document.getElementById('screen-menu').classList.add('hidden');
+    document.getElementById('screen-game').classList.remove('hidden');
+    document.getElementById('game-result').classList.add('hidden');
+    const gc = document.getElementById('game-container');
+    gc.innerHTML = '';
+    // Pseudo-kategorie s jen 15 slovy této etapy
+    const pseudo = {
+      id: cat.id + '-stage-' + stageIdx,
+      title: cat.title + ' — ' + stage.title,
+      emoji: cat.emoji,
+      description: stage.title,
+      words: stage.words,
+    };
+    BonusGame.start(gc, pseudo, () => {
+      this.markStageDone(cat.id, stageIdx);
+      this.showResult(pseudo);
+    });
+  },
+
+  getStagesDone(catId) {
+    try {
+      const raw = localStorage.getItem('pp_stages_done');
+      const all = raw ? JSON.parse(raw) : {};
+      return new Set(all[catId] || []);
+    } catch (e) { return new Set(); }
+  },
+
+  markStageDone(catId, idx) {
+    try {
+      const raw = localStorage.getItem('pp_stages_done');
+      const all = raw ? JSON.parse(raw) : {};
+      if (!all[catId]) all[catId] = [];
+      if (!all[catId].includes(idx)) all[catId].push(idx);
+      localStorage.setItem('pp_stages_done', JSON.stringify(all));
+    } catch (e) {}
   },
 
   showResult(cat) {
@@ -433,6 +540,20 @@ const App = {
       <div class="result-score" style="margin-top:8px">${grade}</div>
       <div class="result-score" style="margin-top:4px">(${BonusGame.TARGET_SCORE} z ${BonusGame.totalAnswered})</div>
     `;
+
+    // Pokud jsme v etapě, nabídni další etapu / zpět na výběr etap
+    const nextBtn = document.getElementById('btn-next-stage');
+    const stagesBackBtn = document.getElementById('btn-stages-back');
+    if (this._currentStage) {
+      const mainCat = this._currentStage.cat;
+      const hasNext = this._currentStage.stageIdx + 1 < mainCat._stages.length;
+      nextBtn.style.display = hasNext ? '' : 'none';
+      stagesBackBtn.style.display = '';
+    } else {
+      nextBtn.style.display = 'none';
+      stagesBackBtn.style.display = 'none';
+    }
+
     result.classList.remove('hidden');
     result.classList.add('fade-in');
   }
