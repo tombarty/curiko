@@ -2,8 +2,86 @@
 // teach.js — učební režim (vysvětluje základy hodin)
 // ═══════════════════════════════════════════════════════════════════════════
 
+// Helper — vytvoří samostatnou ověřovací kartu
+function checkCard(cfg) {
+  return {
+    isCheck: true,
+    render(card) {
+      card.innerHTML = '';
+      card.appendChild(el('div', 'teach-emoji-big', '🎯'));
+      card.appendChild(el('div', 'teach-heading', 'Zkus si to!'));
+      if (cfg.subtitle) {
+        card.appendChild(el('div', 'teach-text', cfg.subtitle, true));
+      }
+      Teach.addCheck(card, cfg);
+    },
+  };
+}
+
 const Teach = {
   currentStep: 0,
+  checkPassed: true, // true = Další povoleno, false = čeká na správnou odpověď
+
+  // Vykreslí ověřovací blok uvnitř karty.
+  // Dokud dítě neodpoví správně, „Další →" zůstává zablokované.
+  // Pokud odpoví špatně, povolí tlačítko „← Zpět" na vysvětlení.
+  addCheck(card, cfg) {
+    this.checkPassed = false;
+    this._updateNextBtn();
+
+    const box = el('div', 'teach-check');
+    const q = el('div', 'teach-check-q');
+    q.innerHTML = cfg.question;
+    const opts = el('div', 'teach-check-opts' + (cfg.wide ? ' wide' : ''));
+    const feedback = el('div', 'teach-check-feedback');
+
+    cfg.options.forEach(opt => {
+      const b = el('button', 'opt-btn', opt.label);
+      b.addEventListener('click', () => {
+        if (this.checkPassed) return;
+        if (opt.correct) {
+          Sound.correct();
+          spawnStars(box);
+          b.classList.add('correct');
+          box.classList.add('done');
+          feedback.className = 'teach-check-feedback correct-flash';
+          feedback.textContent = '✅ Správně! Pokračuj dál →';
+          opts.querySelectorAll('button').forEach(x => x.classList.add('disabled'));
+          this.checkPassed = true;
+          this._updateNextBtn();
+        } else {
+          Sound.wrong();
+          box.classList.add('shake');
+          setTimeout(() => box.classList.remove('shake'), 500);
+          b.classList.add('wrong', 'disabled');
+          feedback.className = 'teach-check-feedback wrong-flash';
+          feedback.innerHTML = 'Ještě ne 🤔 Můžeš se vrátit zpět a podívat se znovu.';
+        }
+      });
+      opts.appendChild(b);
+    });
+
+    box.appendChild(q);
+    box.appendChild(opts);
+    box.appendChild(feedback);
+    card.appendChild(box);
+  },
+
+  _updateNextBtn() {
+    const nextBtn = document.getElementById('btn-teach-next');
+    if (!nextBtn) return;
+    const isLast = this.currentStep === this.CARDS.length - 1;
+    if (isLast) {
+      nextBtn.disabled = true;
+      nextBtn.style.opacity = '0.3';
+    } else if (!this.checkPassed) {
+      nextBtn.disabled = true;
+      nextBtn.style.opacity = '0.4';
+    } else {
+      nextBtn.disabled = false;
+      nextBtn.style.opacity = '1';
+    }
+  },
 
   // Pole karet — každá má render funkci, která dostane kontejner
   CARDS: [
@@ -35,6 +113,16 @@ const Teach = {
         card.appendChild(hl);
       }
     },
+    checkCard({
+      subtitle: 'Zopakujme si, kolik hodin má den.',
+      question: 'Kolik hodin má celý den?',
+      options: [
+        { label: '12', correct: false },
+        { label: '24', correct: true },
+        { label: '60', correct: false },
+        { label: '10', correct: false },
+      ],
+    }),
 
     // ─── 3. Dopo + odpo ─────────────────────────────────────────────────
     {
@@ -52,6 +140,16 @@ const Teach = {
           'Proto když řekneš „ve 4 odpoledne", znamená to <strong>16 hodin</strong> (12 + 4).', true));
       }
     },
+    checkCard({
+      subtitle: 'Zkusíme převést odpolední čas.',
+      question: 'Je <strong>3 hodiny odpoledne</strong>. Kolik to je na digitálních hodinách?',
+      options: [
+        { label: '3:00', correct: false },
+        { label: '13:00', correct: false },
+        { label: '15:00', correct: true },
+        { label: '30:00', correct: false },
+      ],
+    }),
 
     // ─── 4. Hodina má 60 minut ──────────────────────────────────────────
     {
@@ -66,6 +164,16 @@ const Teach = {
         card.appendChild(hl);
       }
     },
+    checkCard({
+      subtitle: 'Zopakujme si minuty.',
+      question: 'Kolik minut má <strong>jedna hodina</strong>?',
+      options: [
+        { label: '24', correct: false },
+        { label: '12', correct: false },
+        { label: '60', correct: true },
+        { label: '30', correct: false },
+      ],
+    }),
 
     // ─── 5. Analogové vs. digitální ─────────────────────────────────────
     {
@@ -111,6 +219,15 @@ const Teach = {
         card.appendChild(hl);
       }
     },
+    checkCard({
+      subtitle: 'Zapamatoval sis to?',
+      question: 'Která ručička ukazuje <strong>hodinu</strong>?',
+      wide: true,
+      options: [
+        { label: '📏 Krátká a tlustá (zlatá)', correct: true },
+        { label: '📐 Dlouhá a tenká (oranžová)', correct: false },
+      ],
+    }),
 
     // ─── 7. Dlouhá = minutová ───────────────────────────────────────────
     {
@@ -128,6 +245,16 @@ const Teach = {
         card.appendChild(hl);
       }
     },
+    checkCard({
+      subtitle: 'Nezapomeň: číslo × 5.',
+      question: 'Minutová ručička ukazuje na <strong>číslo 6</strong>. Kolik je to minut?',
+      options: [
+        { label: '6 minut', correct: false },
+        { label: '30 minut', correct: true },
+        { label: '12 minut', correct: false },
+        { label: '60 minut', correct: false },
+      ],
+    }),
 
     // ─── 8. Celá hodina ─────────────────────────────────────────────────
     {
@@ -190,6 +317,17 @@ const Teach = {
           'Čtvrt a třičtvrtě počítáme <strong>k další hodině</strong>.', true));
       }
     },
+    checkCard({
+      subtitle: 'Teď čtení času.',
+      question: 'Hodiny ukazují <strong>7:45</strong>. Jak to řekneme slovy?',
+      wide: true,
+      options: [
+        { label: 'čtvrt na 8', correct: false },
+        { label: 'třičtvrtě na 8', correct: true },
+        { label: 'půl osmé', correct: false },
+        { label: 'sedm hodin celých', correct: false },
+      ],
+    }),
 
     // ─── 11. Teď to zkus! ───────────────────────────────────────────────
     {
@@ -240,6 +378,8 @@ const Teach = {
   render() {
     const card = document.getElementById('teach-card');
     if (!card) return;
+    // Výchozí stav: povoleno. Pokud karta zavolá addCheck, přepne se na false.
+    this.checkPassed = true;
     this.CARDS[this.currentStep].render(card);
 
     // Counter + progress bar
@@ -249,17 +389,11 @@ const Teach = {
     const fill = document.getElementById('teach-progress');
     if (fill) fill.style.width = (step / total * 100) + '%';
 
-    // Disable/enable tlačítka
+    // Tlačítko Zpět
     const prevBtn = document.getElementById('btn-teach-prev');
-    const nextBtn = document.getElementById('btn-teach-next');
     prevBtn.disabled = this.currentStep === 0;
-    if (this.currentStep === this.CARDS.length - 1) {
-      nextBtn.disabled = true;
-      nextBtn.style.opacity = '0.3';
-    } else {
-      nextBtn.disabled = false;
-      nextBtn.style.opacity = '1';
-    }
+    // Tlačítko Další — zohledňuje checkPassed
+    this._updateNextBtn();
 
     window.scrollTo(0, 0);
   },

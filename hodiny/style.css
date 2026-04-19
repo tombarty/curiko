@@ -439,6 +439,49 @@ body { padding-bottom: 42px; }
 }
 .teach-list li { margin-left: 16px; }
 
+/* Kontrolní otázka v učební kartě */
+.teach-check {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 380px;
+  background: rgba(180, 142, 255, 0.08);
+  border: 2px solid var(--purple);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.teach-check.done { border-color: var(--green); background: rgba(110, 211, 154, 0.1); }
+.teach-check-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--purple);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.teach-check.done .teach-check-label { color: var(--green); }
+.teach-check-q {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  line-height: 1.4;
+}
+.teach-check-opts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  width: 100%;
+}
+.teach-check-opts.wide { grid-template-columns: 1fr; }
+.teach-check-feedback {
+  min-height: 22px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
 /* ─── Feedback ──────────────────────────────────────────────────────────── */
 .feedback-line {
   min-height: 30px;
