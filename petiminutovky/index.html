@@ -290,7 +290,7 @@ body { padding-bottom: 36px !important; }
     <div id="game-result" class="result hidden">
       <div id="result-text"></div>
       <button class="btn-primary" id="btn-next-stage" style="margin-top:8px;display:none">➡️ Další etapa</button>
-      <button class="btn-primary" id="btn-again" style="margin-top:8px">🔄 Znovu</button>
+      <button class="btn-secondary" id="btn-again" style="margin-top:8px">🔄 Znovu</button>
       <button class="btn-secondary" id="btn-stages-back" style="margin-top:4px;display:none">📚 Výběr etap</button>
       <button class="btn-secondary" id="btn-menu" style="margin-top:4px">📋 Kategorie</button>
     </div>
@@ -536,6 +536,7 @@ const App = {
       emoji: cat.emoji,
       description: stage.title,
       words: stage.words,
+      target: stage.words.length,
     };
     BonusGame.start(gc, pseudo, () => {
       this.markStageDone(cat.id, stageIdx);

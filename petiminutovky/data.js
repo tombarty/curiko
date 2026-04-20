@@ -214,6 +214,113 @@ const BONUS_CATEGORIES = [
     }
   },
   {
+    id: 'lowup-phrases', title: 'malé / velké (str. 18)', emoji: '🔠',
+    description: '3 etapy (19+18+18) — velká písmena ve jménech',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          // koťátko mourek
+          ['_oťátko mourek', 'k', ['k','K']],
+          ['koťátko _ourek', 'm', ['m','M']],
+          // sestra je u Kláry
+          ['_estra je u Kláry', 's', ['s','S']],
+          ['sestra je u _láry', 'K', ['k','K']],
+          // z Brna do Zlína
+          ['z _rna do Zlína', 'B', ['b','B']],
+          ['z Brna do _lína', 'Z', ['z','Z']],
+          // v nedalekém městě
+          ['v nedalekém _ěstě', 'm', ['m','M']],
+          // pes umí plavat
+          ['_es umí plavat', 'p', ['p','P']],
+          // Tereza nebo Honza
+          ['_ereza nebo Honza', 'T', ['t','T']],
+          ['Tereza nebo _onza', 'H', ['h','H']],
+          // Rex vrčí na kočky
+          ['_ex vrčí na kočky', 'R', ['r','R']],
+          ['Rex vrčí na _očky', 'k', ['k','K']],
+          // malíř Josef Lada
+          ['_alíř Josef Lada', 'm', ['m','M']],
+          ['malíř _osef Lada', 'J', ['j','J']],
+          ['malíř Josef _ada', 'L', ['l','L']],
+          // Iva má neštovice
+          ['_va má neštovice', 'I', ['i','I']],
+          ['Iva má _eštovice', 'n', ['n','N']],
+          // pan Kučera
+          ['_an Kučera', 'p', ['p','P']],
+          ['pan _učera', 'K', ['k','K']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          // Božena Němcová
+          ['_ožena Němcová', 'B', ['b','B']],
+          ['Božena _ěmcová', 'N', ['n','N']],
+          // papoušek v kleci
+          ['_apoušek v kleci', 'p', ['p','P']],
+          ['papoušek v _leci', 'k', ['k','K']],
+          // cesta do vesnice
+          ['_esta do vesnice', 'c', ['c','C']],
+          ['cesta do _esnice', 'v', ['v','V']],
+          // růže pro babičku
+          ['_ůže pro babičku', 'r', ['r','R']],
+          ['růže pro _abičku', 'b', ['b','B']],
+          // babička Marta
+          ['_abička Marta', 'b', ['b','B']],
+          ['babička _arta', 'M', ['m','M']],
+          // Bára bydlí v Praze
+          ['_ára bydlí v Praze', 'B', ['b','B']],
+          ['Bára bydlí v _raze', 'P', ['p','P']],
+          // krtek na louce
+          ['_rtek na louce', 'k', ['k','K']],
+          ['krtek na _ouce', 'l', ['l','L']],
+          // učitelka Vlasta
+          ['_čitelka Vlasta', 'u', ['u','U']],
+          ['učitelka _lasta', 'V', ['v','V']],
+          // Petr Suchánek
+          ['_etr Suchánek', 'P', ['p','P']],
+          ['Petr _uchánek', 'S', ['s','S']]
+        ]
+      },
+      {
+        title: '3. etapa',
+        words: [
+          // hudební skladatel
+          ['_udební skladatel', 'h', ['h','H']],
+          ['hudební _kladatel', 's', ['s','S']],
+          // Antonín Dvořák
+          ['_ntonín Dvořák', 'A', ['a','A']],
+          ['Antonín _vořák', 'D', ['d','D']],
+          // tygr je šelma
+          ['_ygr je šelma', 't', ['t','T']],
+          ['tygr je _elma', 'š', ['š','Š']],
+          // maminka a tatínek
+          ['_aminka a tatínek', 'm', ['m','M']],
+          ['maminka a _atínek', 't', ['t','T']],
+          // morče Ferdík
+          ['_orče Ferdík', 'm', ['m','M']],
+          ['morče _erdík', 'F', ['f','F']],
+          // vesnice Loukov
+          ['_esnice Loukov', 'v', ['v','V']],
+          ['vesnice _oukov', 'L', ['l','L']],
+          // Dan hraje fotbal
+          ['_an hraje fotbal', 'D', ['d','D']],
+          ['Dan hraje _otbal', 'f', ['f','F']],
+          // Šemík byl kůň
+          ['_emík byl kůň', 'Š', ['š','Š']],
+          ['Šemík byl _ůň', 'k', ['k','K']],
+          // dárek pro Filipa
+          ['_árek pro Filipa', 'd', ['d','D']],
+          ['dárek pro _ilipa', 'F', ['f','F']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
     id: 'vf-phrases', title: 'v / f (str. 27)', emoji: '🐈',
     description: '3 etapy (15+15+14) — celkem 44 spojení',
     _stages: [
@@ -274,6 +381,74 @@ const BONUS_CATEGORIES = [
           ['zlato je ko_', 'v', ['v','f']],
           ['celý náze_', 'v', ['v','f']],
           ['Stanisla_', 'v', ['v','f']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
+    id: 'zs-phrases', title: 'z / s (str. 28)', emoji: '🐅',
+    description: '3 etapy (15+15+14) — celkem 44 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['tuhý mrá_', 'z', ['z','s']],
+          ['tenký vla_', 's', ['z','s']],
+          ['zarostlá me_', 'z', ['z','s']],
+          ['nápi_ na zdi', 's', ['z','s']],
+          ['přísný záka_', 'z', ['z','s']],
+          ['můj průka_', 'z', ['z','s']],
+          ['oteklý no_', 's', ['z','s']],
+          ['nemám ča_', 's', ['z','s']],
+          ['silný prova_', 'z', ['z','s']],
+          ['liščí oca_', 's', ['z','s']],
+          ['slabý hla_', 's', ['z','s']],
+          ['hraje teni_', 's', ['z','s']],
+          ['ove_ je obilí', 's', ['z','s']],
+          ['prudký nára_', 'z', ['z','s']],
+          ['přive_ nákup', 'z', ['z','s']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['tvůj podpi_', 's', ['z','s']],
+          ['nový časopi_', 's', ['z','s']],
+          ['ku_ cesty', 's', ['z','s']],
+          ['vosa je hmy_', 'z', ['z','s']],
+          ['lehký úra_', 'z', ['z','s']],
+          ['zápi_ do školy', 's', ['z','s']],
+          ['starý paře_', 'z', ['z','s']],
+          ['hluboký le_', 's', ['z','s']],
+          ['vysoká hrá_', 'z', ['z','s']],
+          ['pevný řetě_', 'z', ['z','s']],
+          ['černý obry_', 's', ['z','s']],
+          ['krásný obra_', 'z', ['z','s']],
+          ['rychlý vů_', 'z', ['z','s']],
+          ['plus a mínu_', 's', ['z','s']],
+          ['nový vynále_', 'z', ['z','s']]
+        ]
+      },
+      {
+        title: '3. etapa',
+        words: [
+          ['dělá rámu_', 's', ['z','s']],
+          ['málo peně_', 'z', ['z','s']],
+          ['odvo_ odpadků', 'z', ['z','s']],
+          ['cestovní pa_', 's', ['z','s']],
+          ['nele_ tam', 'z', ['z','s']],
+          ['město Brandý_', 's', ['z','s']],
+          ['rytmu_', 's', ['z','s']],
+          ['jeden poku_', 's', ['z','s']],
+          ['silniční provo_', 'z', ['z','s']],
+          ['Francou_', 'z', ['z','s']],
+          ['je_ na řece', 'z', ['z','s']],
+          ['be_ omluvy', 'z', ['z','s']],
+          ['autobu_', 's', ['z','s']],
+          ['šimpan_', 'z', ['z','s']]
         ]
       }
     ],
@@ -357,7 +532,9 @@ const BonusGame = {
   start(container, category, callback) {
     this.container = container; this.category = category; this.onComplete = callback;
     this.score = 0; this.streak = 0; this.totalAnswered = 0; this.qIndex = 0;
-    this.processing = false; this.TARGET_SCORE = 15;
+    this.processing = false;
+    // Etapa může mít vlastní target (např. 18), jinak default 15
+    this.TARGET_SCORE = category.target || 15;
     this.motif = MOTIFS[Math.floor(Math.random() * MOTIFS.length)];
     let allWords;
     if (category._isMix) {
@@ -373,7 +550,13 @@ const BonusGame = {
       const j = Math.floor(Math.random() * (i + 1));
       [allWords[i], allWords[j]] = [allWords[j], allWords[i]];
     }
-    this.questionPool = allWords.slice(0, Math.max(25, this.TARGET_SCORE + 10));
+    // Pool = přesně target (pro etapy projede celá), nebo všech slov (pokud je méně)
+    const poolSize = Math.min(allWords.length, this.TARGET_SCORE);
+    this.questionPool = allWords.slice(0, poolSize);
+    // Pokud target > poolSize, sniž target (nemá smysl vyžadovat víc než kolik je slov)
+    if (this.TARGET_SCORE > this.questionPool.length) {
+      this.TARGET_SCORE = this.questionPool.length;
+    }
     this.render();
   },
 
@@ -434,15 +617,16 @@ const BonusGame = {
       const area = this.container.querySelector('.game-area');
       if (area) { area.classList.add('shake'); setTimeout(() => area.classList.remove('shake'), 600); }
       if (feedbackEl) { feedbackEl.className = 'feedback-line wrong-flash'; feedbackEl.innerHTML = 'Nevadí! 💪 Jede se dál.'; }
-      if (this.qIndex >= this.questionPool.length - 2) {
-        const all = this.category.words; const extra = all[Math.floor(Math.random() * all.length)];
-        if (extra) this.questionPool.push(extra);
-      }
     }
     setTimeout(() => {
-      this.processing = false; this.qIndex++;
-      if (this.score >= this.TARGET_SCORE) this.onComplete();
-      else this.render();
+      this.processing = false;
+      this.qIndex++;
+      // Etapa končí když dosáhne target score nebo projde všechny otázky
+      if (this.score >= this.TARGET_SCORE || this.qIndex >= this.questionPool.length) {
+        this.onComplete();
+        return;
+      }
+      this.render();
     }, isCorrect ? 950 : 1350);
   },
 
