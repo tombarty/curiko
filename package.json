@@ -1,0 +1,9 @@
+{
+  "name": "curiko",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vzdělávací hry pro děti — statický web s Netlify Functions",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

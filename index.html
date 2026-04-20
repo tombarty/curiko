@@ -140,6 +140,16 @@ body { padding-bottom: 36px !important; }
 .site-footer a:hover {
   opacity: 1;
 }
+.footer-counter {
+  display: inline-block;
+  margin-left: 14px;
+  padding-left: 14px;
+  border-left: 1px solid #2a1850;
+  color: #a08cc8;
+  font-size: 12px;
+  opacity: 0.7;
+}
+.footer-counter .count-num { color: #f4c842; font-weight: 700; }
 
 /* ─── Stránka Autor hry ──────────────────────────────────────────────────── */
 #screen-about {
@@ -342,6 +352,7 @@ body { padding-bottom: 36px !important; }
 <!-- PATIČKA -->
 <footer class="site-footer">
   <a id="footer-about">Autor hry</a>
+  <span class="footer-counter" id="footer-counter" style="display:none">👥 <span class="count-num" id="count-num">—</span> sessions</span>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
@@ -373,6 +384,30 @@ body { padding-bottom: 36px !important; }
 
   document.getElementById('footer-about').addEventListener('click', showAbout);
   document.getElementById('btn-about-back').addEventListener('click', hideAbout);
+
+  // ─── Počítadlo sessions (Netlify Function + Blobs) ───────────────────────
+  // Nová session zvýší čítač o 1; refresh během stejné session nezvýší.
+  // Funguje pouze v nasazené verzi (Netlify). Lokálně přes file:// nefunguje.
+  (async function updateSessionCounter() {
+    const STORAGE_KEY = 'curiko_visit_counted';
+    const BASE = '/api/counter';
+    const already = sessionStorage.getItem(STORAGE_KEY);
+    const url = already ? BASE : BASE + '?action=up';
+    try {
+      const resp = await fetch(url, { cache: 'no-store' });
+      if (!resp.ok) throw new Error('http ' + resp.status);
+      const data = await resp.json();
+      const n = data.count;
+      if (typeof n !== 'number') throw new Error('bad count');
+      sessionStorage.setItem(STORAGE_KEY, '1');
+      const el = document.getElementById('count-num');
+      if (el) el.textContent = n.toLocaleString('cs-CZ');
+      const wrap = document.getElementById('footer-counter');
+      if (wrap) wrap.style.display = '';
+    } catch (e) {
+      // Lokální vývoj nebo chyba → patička zůstane jen s "Autor hry"
+    }
+  })();
 </script>
 </body>
 </html>

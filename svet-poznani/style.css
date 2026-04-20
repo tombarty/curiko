@@ -173,6 +173,18 @@ html, body {
 }
 .screen.active { display: flex; flex-direction: column; align-items: center; }
 
+.home-link {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  color: var(--text-sub);
+  font-size: 13px;
+  text-decoration: none;
+  opacity: 0.8;
+  z-index: 10;
+}
+.home-link:hover { color: var(--gold); opacity: 1; }
+
 /* ─── INTRO ──────────────────────────────────────────────────────────────── */
 #screen-intro {
   justify-content: center;

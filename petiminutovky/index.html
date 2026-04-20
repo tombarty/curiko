@@ -50,23 +50,52 @@ html, body {
 }
 
 /* ─── Kategorie ──────────────────────────────────────────────────────────── */
-.categories {
-  display: flex; flex-direction: column; gap: 10px;
-  width: 100%; max-width: 420px;
+.home-link {
+  display: inline-block;
+  align-self: flex-start;
+  color: var(--text-sub);
+  font-size: 13px;
+  text-decoration: none;
+  opacity: 0.85;
+  padding: 4px 0;
+  margin-bottom: 4px;
 }
+.home-link:hover { color: var(--gold); opacity: 1; }
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%; max-width: 440px;
+}
+.categories.stages-mode { grid-template-columns: 1fr; }
 
 .cat-card {
-  display: flex; align-items: center; gap: 14px;
+  display: flex; align-items: center; gap: 10px;
   background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-  padding: 14px 16px; cursor: pointer;
+  padding: 12px; cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  min-height: 72px;
 }
 .cat-card:hover { transform: scale(1.02); box-shadow: var(--glow-gold); border-color: var(--gold); }
 .cat-card:active { transform: scale(0.98); }
-.cat-emoji { font-size: 28px; flex-shrink: 0; }
-.cat-info { display: flex; flex-direction: column; gap: 2px; }
-.cat-title { font-weight: 700; font-size: 15px; color: var(--text); }
-.cat-desc { font-size: 12px; color: var(--text-sub); }
+.cat-emoji { font-size: 26px; flex-shrink: 0; }
+.cat-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cat-title { font-weight: 700; font-size: 14px; color: var(--text); line-height: 1.2; }
+.cat-desc { font-size: 11px; color: var(--text-sub); line-height: 1.3; }
+.cat-section {
+  grid-column: 1 / -1;
+  font-size: 13px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--gold); padding: 10px 4px 2px;
+  border-top: 1px dashed var(--border); margin-top: 6px;
+  text-align: center;
+}
+.cat-section:first-child { border-top: none; margin-top: 0; padding-top: 4px; }
+
+/* Na velmi úzkých mobilech přepneme zpět na 1 sloupec */
+@media (max-width: 340px) {
+  .categories { grid-template-columns: 1fr; }
+}
 
 /* ─── Hra ────────────────────────────────────────────────────────────────── */
 .game-area { width: 100%; max-width: 420px; }
@@ -246,6 +275,7 @@ body { padding-bottom: 36px !important; }
 
   <!-- VÝBĚR KATEGORIE -->
   <div id="screen-menu">
+    <a href="../index.html" class="home-link">← zpět na Curiko</a>
     <div class="header">
       <h1>✏️ Pravopisné pětiminutovky</h1>
       <p>Vyber si kategorii a procvičuj!</p>
@@ -400,9 +430,18 @@ const App = {
     document.getElementById('screen-game').classList.add('hidden');
     document.getElementById('screen-about').classList.add('hidden');
     const cats = document.getElementById('categories');
+    cats.classList.remove('stages-mode');
     cats.innerHTML = '';
 
     BONUS_CATEGORIES.forEach(cat => {
+      // Section marker — hlavička, ne klikatelná karta
+      if (cat._section) {
+        const header = document.createElement('div');
+        header.className = 'cat-section';
+        header.textContent = cat._section;
+        cats.appendChild(header);
+        return;
+      }
       const card = document.createElement('div');
       card.className = 'cat-card';
       card.innerHTML = `
@@ -441,6 +480,7 @@ const App = {
     document.getElementById('screen-game').classList.add('hidden');
     document.getElementById('screen-about').classList.add('hidden');
     const cats = document.getElementById('categories');
+    cats.classList.add('stages-mode');
     cats.innerHTML = '';
 
     // Zpět na kategorie

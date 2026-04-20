@@ -142,9 +142,10 @@ const BONUS_CATEGORIES = [
       ['š_pek','í',['y','i','ý','í']]
     ]
   },
+  { _section: '📚 Procvičování z učebnice' },
   {
-    id: 'iy-phrases', title: 'i/í – y/ý ve spojeních', emoji: '🐱',
-    description: '3 etapy po 15 — celkem 45 spojení z učebnice',
+    id: 'iy-phrases', title: 'i/í – y/ý (str. 17)', emoji: '🐱',
+    description: '3 etapy po 15 — celkem 45 spojení',
     _stages: [
       {
         title: '1. etapa',
@@ -208,6 +209,74 @@ const BONUS_CATEGORIES = [
       }
     ],
     // Pro Mix-all sbírání — všech 45 spojení dohromady
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
+    id: 'vf-phrases', title: 'v / f (str. 27)', emoji: '🐈',
+    description: '3 etapy (15+15+14) — celkem 44 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['Václa_', 'v', ['v','f']],
+          ['Jose_', 'f', ['v','f']],
+          ['tenká věte_', 'v', ['v','f']],
+          ['hou_ kuřat', 'f', ['v','f']],
+          ['do kopři_', 'v', ['v','f']],
+          ['hraje gol_', 'f', ['v','f']],
+          ['jíme mrke_', 'v', ['v','f']],
+          ['pozdra_ ho', 'v', ['v','f']],
+          ['Jarosla_', 'v', ['v','f']],
+          ['málo bare_', 'v', ['v','f']],
+          ['hrozný ře_', 'v', ['v','f']],
+          ['Ladisla_', 'v', ['v','f']],
+          ['na venko_', 'v', ['v','f']],
+          ['lo_ zvěře', 'v', ['v','f']],
+          ['Benešo_', 'v', ['v','f']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['šé_ banky', 'f', ['v','f']],
+          ['pustý ostro_', 'v', ['v','f']],
+          ['rudá kre_', 'v', ['v','f']],
+          ['náš domo_', 'v', ['v','f']],
+          ['pár kra_', 'v', ['v','f']],
+          ['hezký zpě_', 'v', ['v','f']],
+          ['její úsmě_', 'v', ['v','f']],
+          ['Rudol_', 'f', ['v','f']],
+          ['bez podko_', 'v', ['v','f']],
+          ['pracovní odě_', 'v', ['v','f']],
+          ['pět vrste_', 'v', ['v','f']],
+          ['mladý le_', 'v', ['v','f']],
+          ['eso je trum_', 'f', ['v','f']],
+          ['na hřbito_', 'v', ['v','f']],
+          ['pár slo_', 'v', ['v','f']]
+        ]
+      },
+      {
+        title: '3. etapa',
+        words: [
+          ['výlo_ rybníka', 'v', ['v','f']],
+          ['Mirosla_', 'v', ['v','f']],
+          ['fotogra_', 'f', ['v','f']],
+          ['plná láhe_', 'v', ['v','f']],
+          ['nová kone_', 'v', ['v','f']],
+          ['minigol_', 'f', ['v','f']],
+          ['čistý chlé_', 'v', ['v','f']],
+          ['velký hně_', 'v', ['v','f']],
+          ['koropte_', 'v', ['v','f']],
+          ['Kryšto_', 'f', ['v','f']],
+          ['ruká_ košile', 'v', ['v','f']],
+          ['zlato je ko_', 'v', ['v','f']],
+          ['celý náze_', 'v', ['v','f']],
+          ['Stanisla_', 'v', ['v','f']]
+        ]
+      }
+    ],
     get words() {
       return this._stages.flatMap(s => s.words);
     }
@@ -293,7 +362,10 @@ const BonusGame = {
     let allWords;
     if (category._isMix) {
       allWords = [];
-      BONUS_CATEGORIES.forEach(cat => { if (!cat._isMix) allWords.push(...cat.words); });
+      BONUS_CATEGORIES.forEach(cat => {
+        if (cat._isMix || cat._section) return;
+        if (cat.words && cat.words.length) allWords.push(...cat.words);
+      });
     } else {
       allWords = [...category.words];
     }
