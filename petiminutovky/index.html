@@ -152,6 +152,8 @@ html, body {
 }
 .btn-option:hover { border-color: var(--gold); }
 .btn-option:active { transform: scale(0.95); }
+.btn-option:focus { outline: none; }
+.btn-option:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .btn-option.correct { background: rgba(102,187,106,0.25); border-color: var(--green); color: var(--green); }
 .btn-option.wrong { background: rgba(239,83,80,0.2); border-color: var(--red); color: var(--red); }
 
@@ -289,6 +291,7 @@ body { padding-bottom: 36px !important; }
     <div id="game-container" class="game-area"></div>
     <div id="game-result" class="result hidden">
       <div id="result-text"></div>
+      <button class="btn-primary" id="btn-practice-mistakes" style="margin-top:8px;display:none">🔁 Procvič chyby</button>
       <button class="btn-primary" id="btn-next-stage" style="margin-top:8px;display:none">➡️ Další etapa</button>
       <button class="btn-secondary" id="btn-again" style="margin-top:8px">🔄 Znovu</button>
       <button class="btn-secondary" id="btn-stages-back" style="margin-top:4px;display:none">📚 Výběr etap</button>
@@ -397,6 +400,10 @@ const App = {
     document.getElementById('btn-next-stage').addEventListener('click', () => {
       Sound.click();
       if (this._currentStage) this.startStage(this._currentStage.cat, this._currentStage.stageIdx + 1);
+    });
+    document.getElementById('btn-practice-mistakes').addEventListener('click', () => {
+      Sound.click();
+      this.practiceMistakes();
     });
     document.getElementById('footer-about').addEventListener('click', () => { Sound.click(); this.showAbout(); });
     document.getElementById('btn-about-back').addEventListener('click', () => { Sound.click(); this.showMenu(); });
@@ -568,7 +575,7 @@ const App = {
     const textEl = document.getElementById('result-text');
     spawnStars(result);
     setTimeout(() => spawnStars(result), 400);
-    const errors = BonusGame.totalAnswered - BonusGame.TARGET_SCORE;
+    const errors = Math.max(0, BonusGame.totalAnswered - BonusGame.score);
     const grade = errors <= 1 ? '🏆 Perfektní!'
       : errors <= 3 ? '⭐ Výborně!'
       : errors <= 5 ? '👍 Dobře!'
@@ -579,7 +586,7 @@ const App = {
       <div class="motif-container" style="border:none;margin:0;padding-bottom:0">${motifHtml}</div>
       <p style="margin-top:16px">${cat.emoji} ${cat.title} — hotovo!</p>
       <div class="result-score" style="margin-top:8px">${grade}</div>
-      <div class="result-score" style="margin-top:4px">(${BonusGame.TARGET_SCORE} z ${BonusGame.totalAnswered})</div>
+      <div class="result-score" style="margin-top:4px">Správně: ${BonusGame.score} z ${BonusGame.totalAnswered} · Chyby: ${errors}</div>
     `;
 
     // Pokud jsme v etapě, nabídni další etapu / zpět na výběr etap
@@ -595,8 +602,42 @@ const App = {
       stagesBackBtn.style.display = 'none';
     }
 
+    // Tlačítko "Procvič chyby" — jen když nějaké chyby jsou
+    const practiceBtn = document.getElementById('btn-practice-mistakes');
+    const mistakes = BonusGame.mistakes || [];
+    if (mistakes.length > 0) {
+      practiceBtn.style.display = '';
+      practiceBtn.textContent = `🔁 Procvič chyby (${mistakes.length})`;
+    } else {
+      practiceBtn.style.display = 'none';
+    }
+
     result.classList.remove('hidden');
     result.classList.add('fade-in');
+  },
+
+  practiceMistakes() {
+    const mistakes = (BonusGame.mistakes || []).slice();
+    if (mistakes.length === 0) return;
+    // Vytvoříme pseudo-kategorii ze seznamu chyb
+    const originCat = (this._currentStage && this._currentStage.cat) || this.currentCat;
+    const pseudo = {
+      id: (originCat ? originCat.id : 'practice') + '-mistakes',
+      title: '🔁 Procvičuj chyby',
+      emoji: '🔁',
+      description: 'Otázky, ve kterých Ami udělala chybu',
+      words: mistakes,
+      target: mistakes.length,
+    };
+    document.getElementById('screen-menu').classList.add('hidden');
+    document.getElementById('screen-game').classList.remove('hidden');
+    document.getElementById('game-result').classList.add('hidden');
+    const gc = document.getElementById('game-container');
+    gc.innerHTML = '';
+    // Po dokončení přemisťujeme zpět na showResult stejné etapy/kategorie
+    BonusGame.start(gc, pseudo, () => {
+      this.showResult(pseudo);
+    });
   }
 };
 

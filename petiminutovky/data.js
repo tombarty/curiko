@@ -533,6 +533,7 @@ const BonusGame = {
     this.container = container; this.category = category; this.onComplete = callback;
     this.score = 0; this.streak = 0; this.totalAnswered = 0; this.qIndex = 0;
     this.processing = false;
+    this.mistakes = [];
     // Etapa může mít vlastní target (např. 18), jinak default 15
     this.TARGET_SCORE = category.target || 15;
     this.motif = MOTIFS[Math.floor(Math.random() * MOTIFS.length)];
@@ -593,7 +594,9 @@ const BonusGame = {
       btn.textContent = opt;
       btn.addEventListener('click', () => {
         if (this.processing) return;
+        btn.blur();
         const isCorrect = opt === correct;
+        if (!isCorrect) this.mistakes.push(q);
         if (isCorrect) { btn.classList.add('correct'); }
         else { btn.classList.add('wrong'); optionsDiv.querySelectorAll('.btn-option').forEach(b => { if (b.textContent === correct) b.classList.add('correct'); }); }
         wordDisplay.querySelector('.bonus-word').innerHTML = `${parts[0]}<span class="bonus-filled">${correct}</span>${parts[1]||''}`;

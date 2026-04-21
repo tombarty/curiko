@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Druhákova násobilka — Curiko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ═══ MENU ═══ -->
+  <section id="screen-menu" class="screen active">
+    <a href="../index.html" class="back-link">← zpět na Curiko</a>
+
+    <header class="game-header">
+      <h1 class="game-title">✖️ Druhákova násobilka</h1>
+      <p class="game-sub">Násobení a dělení 2, 3 a 4</p>
+    </header>
+
+    <!-- Sbírka mincí -->
+    <div class="coins-box">
+      <div class="coins-chest" id="coins-chest">💰</div>
+      <div class="coins-info">
+        <div class="coins-label">Mince v truhlici</div>
+        <div class="coins-value"><span id="coins-now">0</span> / 10 mincí</div>
+        <div class="coins-total" id="coins-total">Celkem: 0 pokladů</div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Vyber si úkol:</h2>
+
+    <div class="mode-grid" id="mode-grid">
+      <button class="mode-btn" data-mode="mul2">
+        <span class="mode-emoji">✖️</span>
+        <span class="mode-label">Násobení × 2</span>
+        <span class="mode-desc">2 × 3 = ?</span>
+      </button>
+      <button class="mode-btn" data-mode="mul3">
+        <span class="mode-emoji">✖️</span>
+        <span class="mode-label">Násobení × 3</span>
+        <span class="mode-desc">3 × 4 = ?</span>
+      </button>
+      <button class="mode-btn" data-mode="mul4">
+        <span class="mode-emoji">✖️</span>
+        <span class="mode-label">Násobení × 4</span>
+        <span class="mode-desc">4 × 5 = ?</span>
+      </button>
+      <button class="mode-btn" data-mode="div2">
+        <span class="mode-emoji">➗</span>
+        <span class="mode-label">Dělení ÷ 2</span>
+        <span class="mode-desc">6 : 2 = ?</span>
+      </button>
+      <button class="mode-btn" data-mode="div3">
+        <span class="mode-emoji">➗</span>
+        <span class="mode-label">Dělení ÷ 3</span>
+        <span class="mode-desc">9 : 3 = ?</span>
+      </button>
+      <button class="mode-btn" data-mode="div4">
+        <span class="mode-emoji">➗</span>
+        <span class="mode-label">Dělení ÷ 4</span>
+        <span class="mode-desc">12 : 4 = ?</span>
+      </button>
+      <button class="mode-btn mix" data-mode="mix">
+        <span class="mode-emoji">🎲</span>
+        <span class="mode-label">Vše dohromady</span>
+        <span class="mode-desc">Mix všech úkolů</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══ HRA ═══ -->
+  <section id="screen-game" class="screen">
+    <div class="game-topbar">
+      <button class="topbar-btn" id="btn-back-menu">← Menu</button>
+      <div class="topbar-title" id="topbar-title">Úkol</div>
+      <div class="topbar-counter" id="topbar-counter">0 / 10</div>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+
+    <div class="mini-coins">
+      <span>💰</span>
+      <span id="mini-coins-text">0/10</span>
+    </div>
+
+    <div class="game-area" id="game-area"></div>
+
+    <div class="feedback-line" id="feedback-line"></div>
+  </section>
+
+  <!-- ═══ VÝSLEDKY ═══ -->
+  <section id="screen-result" class="screen">
+    <div class="result-card">
+      <div class="result-emoji" id="result-emoji">🎉</div>
+      <h2 class="result-title">Kolo dokončeno!</h2>
+      <div class="result-stars" id="result-stars"></div>
+      <div class="result-stats" id="result-stats"></div>
+      <div class="result-gain" id="result-gain">+ 0 mincí</div>
+      <div class="result-actions">
+        <button class="btn-primary" id="btn-practice-mistakes" style="display:none">🔁 Procvič chyby</button>
+        <button class="btn-secondary" id="btn-play-again">🔄 Hrát znovu</button>
+        <button class="btn-secondary" id="btn-to-menu">📋 Menu</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ODMĚNA (TRUHLA) ═══ -->
+  <section id="screen-truhla" class="screen">
+    <div class="truhla-wrap">
+      <div class="truhla-bounce" id="truhla-bounce">🏆</div>
+      <h2 class="truhla-title">Wow! 🎉</h2>
+      <p class="truhla-text">Nasbíral jsi celou <strong>truhlu pokladů</strong>!</p>
+      <p class="truhla-sub" id="truhla-sub">Celkem pokladů: 1</p>
+      <button class="btn-primary" id="btn-truhla-continue">Pokračuj! ➜</button>
+    </div>
+  </section>
+
+  <!-- ═══ AUTOR HRY ═══ -->
+  <section id="screen-about" class="screen">
+    <button class="about-back-btn" id="btn-about-back">← Zpět</button>
+    <h2 class="about-title">✨ Autor hry</h2>
+
+    <div class="about-card">
+      <div class="about-name">Tomáš Bártek</div>
+      <div class="about-sub">Vytvořeno s pomocí <strong>Claude Code</strong> 🤖</div>
+      <div class="about-feedback">💬 Pro nápady a zpětnou vazbu mi napiš na LinkedIn</div>
+      <a href="https://www.linkedin.com/in/tomasbartek/" target="_blank" rel="noopener" class="about-link">
+        🔗 LinkedIn profil
+      </a>
+    </div>
+
+    <div class="about-card">
+      <div class="about-coffee-title">☕ Kupte mi kafe!</div>
+      <div class="about-coffee-text">Pokud se vám hry líbí, můžete autora podpořit částkou 30&nbsp;Kč.</div>
+      <div id="about-qr" class="about-qr"></div>
+      <div class="about-coffee-hint">Naskenuj telefonem v bankovní aplikaci 📱</div>
+    </div>
+
+    <div class="about-copyright">© 2026 Tomáš Bártek</div>
+  </section>
+
+</div>
+
+<footer class="site-footer">
+  <a id="footer-about">Autor hry</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/motivace.js"></script>
+<script src="js/games.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

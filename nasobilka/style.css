@@ -1,0 +1,453 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Druhákova násobilka — modro-zlaté téma
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg: #0a1628;
+  --bg-elev: #14294a;
+  --border: #2a4878;
+  --text: #e8f0ff;
+  --text-sub: #8ba9d6;
+  --gold: #ffd966;
+  --blue: #5ba3ff;
+  --blue-dark: #2a6cc4;
+  --green: #7dd88a;
+  --red: #ff8080;
+  --orange: #ffa366;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body { padding-bottom: 42px; }
+
+#app {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 18px 14px;
+  position: relative;
+}
+
+.screen { display: none; flex-direction: column; gap: 14px; }
+.screen.active { display: flex; }
+
+.back-link {
+  color: var(--text-sub);
+  font-size: 13px;
+  text-decoration: none;
+  opacity: 0.85;
+  align-self: flex-start;
+}
+.back-link:hover { color: var(--gold); }
+
+.game-header { text-align: center; margin: 6px 0 4px; }
+.game-title {
+  font-size: clamp(26px, 6vw, 34px);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--blue), var(--gold), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 1px;
+}
+.game-sub { font-size: 14px; color: var(--text-sub); margin-top: 4px; }
+
+/* Mince */
+.coins-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 12px 16px;
+}
+.coins-chest {
+  font-size: 44px;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 217, 102, 0.1);
+  border-radius: 14px;
+  border: 2px solid var(--gold);
+}
+.coins-info { display: flex; flex-direction: column; gap: 2px; }
+.coins-label { font-size: 12px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.coins-value { font-size: 20px; font-weight: 900; color: var(--gold); }
+.coins-total { font-size: 12px; color: var(--text-sub); font-style: italic; }
+
+.mini-coins {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--gold);
+  z-index: 5;
+}
+.mini-coins span:first-child { font-size: 18px; }
+
+.section-title {
+  font-size: 16px;
+  color: var(--text-sub);
+  text-align: center;
+  margin: 6px 0 0;
+  font-weight: 700;
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.mode-btn {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 10px;
+  color: var(--text);
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+  min-height: 108px;
+}
+.mode-btn:active { transform: scale(0.97); }
+.mode-btn:hover { border-color: var(--blue); box-shadow: 0 0 18px rgba(91, 163, 255, 0.25); }
+.mode-btn.mix {
+  grid-column: 1 / -1;
+  min-height: 72px;
+  flex-direction: row;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #14294a, #2a4878);
+}
+.mode-emoji { font-size: 32px; }
+.mode-label { font-size: 14px; font-weight: 800; color: var(--blue); text-align: center; }
+.mode-desc { font-size: 12px; color: var(--text-sub); text-align: center; line-height: 1.3; font-family: 'Nunito', monospace; }
+
+/* Herní topbar */
+.game-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-right: 90px;
+}
+.topbar-btn {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.topbar-btn:hover { border-color: var(--blue); color: var(--blue); }
+.topbar-title { font-size: 14px; font-weight: 800; color: var(--blue); flex: 1; text-align: center; }
+.topbar-counter { font-size: 14px; color: var(--gold); font-weight: 800; }
+
+.progress-bar {
+  height: 8px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: -6px;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--gold));
+  border-radius: 10px;
+  transition: width 0.35s ease;
+}
+
+.game-area {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 18px;
+  padding: 26px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-height: 380px;
+}
+
+.q-instr {
+  font-size: 15px;
+  color: var(--text-sub);
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Velký matematický výraz */
+.math-expr {
+  font-family: 'Nunito', monospace;
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--gold);
+  background: var(--bg);
+  border: 3px solid var(--blue);
+  border-radius: 18px;
+  padding: 18px 32px;
+  letter-spacing: 4px;
+  min-width: 240px;
+  text-align: center;
+  user-select: none;
+}
+.math-expr .qmark { color: var(--orange); }
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+}
+.opt-btn {
+  background: #1e3a6a;
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: 'Nunito', serif;
+  font-size: 32px;
+  font-weight: 900;
+  padding: 14px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.12s, border-color 0.12s, background 0.12s;
+  min-height: 64px;
+}
+.opt-btn:hover { border-color: var(--blue); }
+.opt-btn:active { transform: scale(0.95); }
+.opt-btn:focus { outline: none; }
+.opt-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.opt-btn.correct { background: #1d5d3a; border-color: var(--green); color: var(--green); }
+.opt-btn.wrong { background: #5d1d1d; border-color: var(--red); color: var(--red); }
+.opt-btn.disabled { pointer-events: none; opacity: 0.55; }
+
+.feedback-line {
+  min-height: 30px;
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  padding: 4px;
+}
+.correct-flash { color: var(--green); }
+.wrong-flash { color: var(--red); }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+.shake { animation: shake 0.5s ease !important; }
+
+.star-particle {
+  position: fixed;
+  font-size: 20px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: starBurst 0.85s ease-out forwards;
+}
+@keyframes starBurst {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(0.3); opacity: 0; }
+}
+
+/* Výsledky */
+.result-card {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 18px;
+  padding: 24px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.result-emoji { font-size: 72px; }
+.result-title { font-size: 24px; color: var(--blue); }
+.result-stars { font-size: 32px; letter-spacing: 4px; }
+.result-stats { font-size: 15px; color: var(--text-sub); }
+.result-gain {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--gold);
+  background: rgba(255, 217, 102, 0.1);
+  border: 2px dashed var(--gold);
+  border-radius: 12px;
+  padding: 10px;
+}
+.result-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  border: none;
+  color: #2b2410;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 900;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.12s, filter 0.12s;
+}
+.btn-primary:active { transform: scale(0.97); }
+.btn-primary:hover { filter: brightness(1.1); }
+
+.btn-secondary {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
+
+/* Truhla odměna */
+.truhla-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 40px 16px;
+  text-align: center;
+}
+.truhla-bounce {
+  font-size: 140px;
+  animation: truhlaPop 1s cubic-bezier(.17,.67,.35,1.33) forwards;
+}
+@keyframes truhlaPop {
+  0% { transform: scale(0.2) rotate(-20deg); opacity: 0; }
+  60% { transform: scale(1.15) rotate(10deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.truhla-title {
+  font-size: 36px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.truhla-text { font-size: 18px; color: var(--text); }
+.truhla-sub { font-size: 14px; color: var(--text-sub); margin-bottom: 8px; }
+
+/* Patička */
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 0;
+  text-align: center;
+  background: var(--bg);
+  border-top: 1px solid #1a3250;
+  z-index: 99999;
+}
+.site-footer a {
+  color: var(--text-sub);
+  font-size: 12px;
+  text-decoration: underline;
+  opacity: 0.7;
+  cursor: pointer;
+}
+.site-footer a:hover { opacity: 1; }
+
+/* Autor hry */
+.about-back-btn {
+  align-self: flex-start;
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 10px;
+}
+.about-back-btn:hover { border-color: var(--blue); color: var(--blue); }
+.about-title { font-size: 24px; color: var(--blue); text-align: center; }
+.about-card {
+  background: var(--bg-elev);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+}
+.about-name { font-size: 22px; font-weight: 800; color: var(--blue); margin-bottom: 8px; }
+.about-sub { font-size: 14px; color: var(--text-sub); margin-bottom: 12px; line-height: 1.5; }
+.about-feedback {
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.5;
+  padding: 8px 12px;
+  background: var(--bg);
+  border-radius: 8px;
+}
+.about-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--blue-dark);
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+.about-link:hover { filter: brightness(1.1); }
+.about-coffee-title { font-size: 18px; font-weight: 800; color: var(--blue); margin-bottom: 8px; }
+.about-coffee-text { font-size: 13px; color: var(--text-sub); margin-bottom: 14px; line-height: 1.5; }
+.about-qr {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 0 auto 12px;
+  width: fit-content;
+}
+.about-qr img { display: block; width: 200px; height: 200px; }
+.about-coffee-hint { font-size: 12px; color: var(--text-sub); font-style: italic; }
+.about-copyright { font-size: 12px; color: var(--text-sub); opacity: 0.7; text-align: center; }
+
+@media (max-width: 360px) {
+  .math-expr { font-size: 44px; padding: 14px 22px; min-width: 180px; }
+  .opt-btn { font-size: 28px; }
+}
