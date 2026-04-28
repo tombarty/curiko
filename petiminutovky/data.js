@@ -686,9 +686,16 @@ const BonusGame = {
 
     const optionsDiv = document.createElement('div');
     optionsDiv.className = 'options-row';
-    choices.forEach(opt => {
+    // Promícháme volby — aby správná odpověď nebyla vždy na stejné pozici
+    const shuffledChoices = choices.slice();
+    for (let i = shuffledChoices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledChoices[i], shuffledChoices[j]] = [shuffledChoices[j], shuffledChoices[i]];
+    }
+    shuffledChoices.forEach(opt => {
       const btn = document.createElement('button');
       btn.className = 'btn-option';
+      btn.type = 'button';
       btn.textContent = opt;
       btn.addEventListener('click', () => {
         if (this.processing) return;
@@ -705,6 +712,11 @@ const BonusGame = {
     area.appendChild(optionsDiv);
 
     this.container.appendChild(area);
+
+    // Po překreslení shoď fokus, aby browser nepřenášel pozici z minulé otázky
+    if (document.activeElement && document.activeElement.blur && document.activeElement !== document.body) {
+      document.activeElement.blur();
+    }
   },
 
   submit(isCorrect, feedbackEl) {

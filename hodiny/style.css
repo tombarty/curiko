@@ -313,6 +313,7 @@ body { padding-bottom: 42px; }
 .opt-btn:hover { border-color: var(--gold); }
 .opt-btn:active { transform: scale(0.97); }
 .opt-btn:focus { outline: none; }
+.opt-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .opt-btn.correct { background: #1d4d36; border-color: var(--green); color: var(--green); }
 .opt-btn.wrong { background: #4d1d1d; border-color: var(--red); color: var(--red); }
 .opt-btn.disabled { pointer-events: none; opacity: 0.55; }

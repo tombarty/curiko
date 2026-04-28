@@ -169,6 +169,10 @@ const App = {
       }
       this._onAnswer(correct, btn, group);
     });
+    // Po překreslení shoď fokus, aby browser nepřenášel pozici z minulé otázky
+    if (document.activeElement && document.activeElement.blur && document.activeElement !== document.body) {
+      document.activeElement.blur();
+    }
   },
 
   _onAnswer(correct, clickedEl, group) {
