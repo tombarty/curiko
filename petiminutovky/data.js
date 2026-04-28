@@ -321,6 +321,104 @@ const BONUS_CATEGORIES = [
     }
   },
   {
+    id: 'bpvm-phrases-21', title: 'bě/pě/vě/mě (str. 21)', emoji: '🦊',
+    description: '2 etapy po 16 — celkem 32 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['leží na slá_', 'mě', ['mě','me']],
+          ['suchá _tev', 'vě', ['vě','ve']],
+          ['ještě neo_dvali', 'bě', ['bě','be']],
+          ['_stuje mrkev', 'pě', ['pě','pe']],
+          ['nes_la cvičit', 'mě', ['mě','me']],
+          ['s_chala ven', 'pě', ['pě','pe']],
+          ['boule na hla_', 'vě', ['vě','ve']],
+          ['zářivý _síc', 'mě', ['mě','me']],
+          ['veselé pří_hy', 'bě', ['bě','be']],
+          ['vysoké _že', 'vě', ['vě','ve']],
+          ['dobrá pa_ť', 'mě', ['mě','me']],
+          ['K_tuška', 'vě', ['vě','ve']],
+          ['_kně čte', 'pě', ['pě','pe']],
+          ['koláč v trou_', 'bě', ['bě','be']],
+          ['visí na _šáku', 'vě', ['vě','ve']],
+          ['šlápl na hrá_', 'bě', ['bě','be']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['ne_jte strach', 'mě', ['mě','me']],
+          ['pestré _jíře', 'vě', ['vě','ve']],
+          ['je nej_knější', 'pě', ['pě','pe']],
+          ['prá_ odjel', 'vě', ['vě','ve']],
+          ['o_ ruce', 'bě', ['bě','be']],
+          ['dos_lý člověk', 'pě', ['pě','pe']],
+          ['velká z_na', 'mě', ['mě','me']],
+          ['d_ děvčata', 'vě', ['vě','ve']],
+          ['_lásek létá', 'bě', ['bě','be']],
+          ['_tikoruna', 'pě', ['pě','pe']],
+          ['neu_la plavat', 'mě', ['mě','me']],
+          ['ve vysoké trá_', 'vě', ['vě','ve']],
+          ['jezevčí dou_', 'pě', ['pě','pe']],
+          ['bílá _na', 'pě', ['pě','pe']],
+          ['plést _neček', 'vě', ['vě','ve']],
+          ['sněhové zá_je', 'vě', ['vě','ve']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
+    id: 'bpvm-phrases-22', title: 'bě/pě/vě/mě (str. 22)', emoji: '🦔',
+    description: '2 etapy po 14 — celkem 28 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['úzká _šina', 'pě', ['pě','pe']],
+          ['ukliď si _ci', 'vě', ['vě','ve']],
+          ['naše Alž_ta', 'bě', ['bě','be']],
+          ['klisna a hří_', 'bě', ['bě','be']],
+          ['pro člo_ka', 'vě', ['vě','ve']],
+          ['růžové pou_', 'pě', ['pě','pe']],
+          ['pták _nkava', 'pě', ['pě','pe']],
+          ['ze_dělec', 'mě', ['mě','me']],
+          ['ch_je se', 'vě', ['vě','ve']],
+          ['umí to zpa_ti', 'mě', ['mě','me']],
+          ['lední med_di', 'vě', ['vě','ve']],
+          ['rychle _hat', 'bě', ['bě','be']],
+          ['na ná_stí', 'mě', ['mě','me']],
+          ['tomu ne_řím', 'vě', ['vě','ve']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['pořád se s_je', 'mě', ['mě','me']],
+          ['po_děl mi to', 'vě', ['vě','ve']],
+          ['Brno je _sto', 'mě', ['mě','me']],
+          ['od_hl z hřiště', 'bě', ['bě','be']],
+          ['_trník se točí', 'vě', ['vě','ve']],
+          ['zalézá do ze_', 'mě', ['mě','me']],
+          ['dostal _tku', 'pě', ['pě','pe']],
+          ['_lostný sníh', 'bě', ['bě','be']],
+          ['s_tlá barva', 'vě', ['vě','ve']],
+          ['ve skle_', 'pě', ['pě','pe']],
+          ['za_stnanec', 'mě', ['mě','me']],
+          ['roz_hl se', 'bě', ['bě','be']],
+          ['na celém s_tě', 'vě', ['vě','ve']],
+          ['nes_chej tak', 'pě', ['pě','pe']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
     id: 'vf-phrases', title: 'v / f (str. 27)', emoji: '🐈',
     description: '3 etapy (15+15+14) — celkem 44 spojení',
     _stages: [
