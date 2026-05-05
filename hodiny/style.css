@@ -310,7 +310,9 @@ body { padding-bottom: 42px; }
   transition: transform 0.12s, border-color 0.12s, background 0.12s;
   min-height: 56px;
 }
-.opt-btn:hover { border-color: var(--gold); }
+@media (hover: hover) {
+  .opt-btn:hover { border-color: var(--gold); }
+}
 .opt-btn:active { transform: scale(0.97); }
 .opt-btn:focus { outline: none; }
 .opt-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }

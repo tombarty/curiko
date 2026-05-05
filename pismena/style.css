@@ -240,7 +240,9 @@ body { padding-bottom: 42px; }
   min-width: 60px;
 }
 .opt-btn.word-btn { font-size: 20px; }
-.opt-btn:hover { border-color: var(--teal); }
+@media (hover: hover) {
+  .opt-btn:hover { border-color: var(--teal); }
+}
 .opt-btn:active { transform: scale(0.95); }
 .opt-btn:focus { outline: none; }
 .opt-btn:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
