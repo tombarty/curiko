@@ -419,6 +419,74 @@ const BONUS_CATEGORIES = [
     }
   },
   {
+    id: 'hch-phrases', title: 'h / ch (str. 26)', emoji: '🐺',
+    description: '3 etapy (15+15+14) — celkem 44 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['velký stra_', 'ch', ['h','ch']],
+          ['hodný ho_', 'ch', ['h','ch']],
+          ['Vojtě_', 'ch', ['h','ch']],
+          ['nízký bře_', 'h', ['h','ch']],
+          ['lískový oře_', 'ch', ['h','ch']],
+          ['malý pstru_', 'h', ['h','ch']],
+          ['veselý smí_', 'ch', ['h','ch']],
+          ['velký úspě_', 'ch', ['h','ch']],
+          ['padal sní_', 'h', ['h','ch']],
+          ['dobrý či_', 'ch', ['h','ch']],
+          ['ro_ pokoje', 'h', ['h','ch']],
+          ['Jindři_', 'ch', ['h','ch']],
+          ['levný nocle_', 'h', ['h','ch']],
+          ['cvičí postře_', 'h', ['h','ch']],
+          ['měkký tvaro_', 'h', ['h','ch']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['velký dlu_', 'h', ['h','ch']],
+          ['rozvr_ hodin', 'h', ['h','ch']],
+          ['železný plu_', 'h', ['h','ch']],
+          ['živoči_', 'ch', ['h','ch']],
+          ['pra_ na polici', 'ch', ['h','ch']],
+          ['prá_ u domu', 'h', ['h','ch']],
+          ['do Če_', 'ch', ['h','ch']],
+          ['vr_ koulí', 'h', ['h','ch']],
+          ['kluzký povr_', 'ch', ['h','ch']],
+          ['hluboký náde_', 'ch', ['h','ch']],
+          ['nový výta_', 'h', ['h','ch']],
+          ['prudký sva_', 'h', ['h','ch']],
+          ['čistý vzdu_', 'ch', ['h','ch']],
+          ['šest mu_', 'ch', ['h','ch']],
+          ['rychlý bě_', 'h', ['h','ch']]
+        ]
+      },
+      {
+        title: '3. etapa',
+        words: [
+          ['jeli na ji_', 'h', ['h','ch']],
+          ['několik kni_', 'h', ['h','ch']],
+          ['tvůj návr_', 'h', ['h','ch']],
+          ['bez poru_', 'ch', ['h','ch']],
+          ['pět spr_', 'ch', ['h','ch']],
+          ['hebký me_', 'ch', ['h','ch']],
+          ['výbě_ slonů', 'h', ['h','ch']],
+          ['kreslí kru_', 'h', ['h','ch']],
+          ['úzký pru_', 'h', ['h','ch']],
+          ['zralý hrá_', 'ch', ['h','ch']],
+          ['srnčí paro_', 'h', ['h','ch']],
+          ['pes Voře_', 'ch', ['h','ch']],
+          ['planý popla_', 'ch', ['h','ch']],
+          ['veletr_', 'h', ['h','ch']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
     id: 'vf-phrases', title: 'v / f (str. 27)', emoji: '🐈',
     description: '3 etapy (15+15+14) — celkem 44 spojení',
     _stages: [
