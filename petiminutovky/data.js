@@ -144,485 +144,6 @@ const BONUS_CATEGORIES = [
   },
   { _section: '📚 Procvičování z učebnice' },
   {
-    id: 'iy-phrases', title: 'i/í – y/ý (str. 17)', emoji: '🐱',
-    description: '3 etapy po 15 — celkem 45 spojení',
-    _stages: [
-      {
-        title: '1. etapa',
-        words: [
-          ['bez pot_ží', 'í', ['i','í','y','ý']],
-          ['plach_ srnec', 'ý', ['i','í','y','ý']],
-          ['je uř_cená', 'í', ['i','í','y','ý']],
-          ['č_stí boty', 'i', ['i','í','y','ý']],
-          ['umí š_t', 'í', ['i','í','y','ý']],
-          ['hlubok_ důl', 'ý', ['i','í','y','ý']],
-          ['je nejch_třejší', 'y', ['i','í','y','ý']],
-          ['r_tířský', 'y', ['i','í','y','ý']],
-          ['něco vyhod_l', 'i', ['i','í','y','ý']],
-          ['je v prác_', 'i', ['i','í','y','ý']],
-          ['do brad_', 'y', ['i','í','y','ý']],
-          ['čtvrt_ žák', 'ý', ['i','í','y','ý']],
-          ['tkan_čky', 'i', ['i','í','y','ý']],
-          ['malý zaj_ček', 'í', ['i','í','y','ý']],
-          ['bez zelenin_', 'y', ['i','í','y','ý']]
-        ]
-      },
-      {
-        title: '2. etapa',
-        words: [
-          ['na pobřež_', 'í', ['i','í','y','ý']],
-          ['pavouč_ síť', 'í', ['i','í','y','ý']],
-          ['za Jiř_kem', 'í', ['i','í','y','ý']],
-          ['málo vláh_', 'y', ['i','í','y','ý']],
-          ['do c_le', 'í', ['i','í','y','ý']],
-          ['hr_že mrkev', 'y', ['i','í','y','ý']],
-          ['pěkn_ den', 'ý', ['i','í','y','ý']],
-          ['buď zt_cha', 'i', ['i','í','y','ý']],
-          ['byl vyn_kající', 'i', ['i','í','y','ý']],
-          ['zach_til mě', 'y', ['i','í','y','ý']],
-          ['ostrá d_ka', 'ý', ['i','í','y','ý']],
-          ['pod_vej se', 'í', ['i','í','y','ý']],
-          ['v baž_nách', 'i', ['i','í','y','ý']],
-          ['nejdelš_ lano', 'í', ['i','í','y','ý']],
-          ['nová žák_ně', 'y', ['i','í','y','ý']]
-        ]
-      },
-      {
-        title: '3. etapa',
-        words: [
-          ['mot_lí let', 'ý', ['i','í','y','ý']],
-          ['kraj_c chleba', 'í', ['i','í','y','ý']],
-          ['nen_ tady', 'í', ['i','í','y','ý']],
-          ['osel zah_kal', 'ý', ['i','í','y','ý']],
-          ['ut_ká ven', 'í', ['i','í','y','ý']],
-          ['je to c_zinec', 'i', ['i','í','y','ý']],
-          ['ž_tné pole', 'i', ['i','í','y','ý']],
-          ['zazář_l', 'i', ['i','í','y','ý']],
-          ['umí poč_tat', 'í', ['i','í','y','ý']],
-          ['tich_ pláč', 'ý', ['i','í','y','ý']],
-          ['hladk_ ubrus', 'ý', ['i','í','y','ý']],
-          ['had_ syčí', 'i', ['i','í','y','ý']],
-          ['v úter_', 'ý', ['i','í','y','ý']],
-          ['dlouhé klád_', 'y', ['i','í','y','ý']],
-          ['bílé šat_', 'y', ['i','í','y','ý']]
-        ]
-      }
-    ],
-    // Pro Mix-all sbírání — všech 45 spojení dohromady
-    get words() {
-      return this._stages.flatMap(s => s.words);
-    }
-  },
-  {
-    id: 'lowup-phrases', title: 'malé / velké (str. 18)', emoji: '🔠',
-    description: '3 etapy (19+18+18) — velká písmena ve jménech',
-    _stages: [
-      {
-        title: '1. etapa',
-        words: [
-          // koťátko mourek
-          ['_oťátko mourek', 'k', ['k','K']],
-          ['koťátko _ourek', 'm', ['m','M']],
-          // sestra je u Kláry
-          ['_estra je u Kláry', 's', ['s','S']],
-          ['sestra je u _láry', 'K', ['k','K']],
-          // z Brna do Zlína
-          ['z _rna do Zlína', 'B', ['b','B']],
-          ['z Brna do _lína', 'Z', ['z','Z']],
-          // v nedalekém městě
-          ['v nedalekém _ěstě', 'm', ['m','M']],
-          // pes umí plavat
-          ['_es umí plavat', 'p', ['p','P']],
-          // Tereza nebo Honza
-          ['_ereza nebo Honza', 'T', ['t','T']],
-          ['Tereza nebo _onza', 'H', ['h','H']],
-          // Rex vrčí na kočky
-          ['_ex vrčí na kočky', 'R', ['r','R']],
-          ['Rex vrčí na _očky', 'k', ['k','K']],
-          // malíř Josef Lada
-          ['_alíř Josef Lada', 'm', ['m','M']],
-          ['malíř _osef Lada', 'J', ['j','J']],
-          ['malíř Josef _ada', 'L', ['l','L']],
-          // Iva má neštovice
-          ['_va má neštovice', 'I', ['i','I']],
-          ['Iva má _eštovice', 'n', ['n','N']],
-          // pan Kučera
-          ['_an Kučera', 'p', ['p','P']],
-          ['pan _učera', 'K', ['k','K']]
-        ]
-      },
-      {
-        title: '2. etapa',
-        words: [
-          // Božena Němcová
-          ['_ožena Němcová', 'B', ['b','B']],
-          ['Božena _ěmcová', 'N', ['n','N']],
-          // papoušek v kleci
-          ['_apoušek v kleci', 'p', ['p','P']],
-          ['papoušek v _leci', 'k', ['k','K']],
-          // cesta do vesnice
-          ['_esta do vesnice', 'c', ['c','C']],
-          ['cesta do _esnice', 'v', ['v','V']],
-          // růže pro babičku
-          ['_ůže pro babičku', 'r', ['r','R']],
-          ['růže pro _abičku', 'b', ['b','B']],
-          // babička Marta
-          ['_abička Marta', 'b', ['b','B']],
-          ['babička _arta', 'M', ['m','M']],
-          // Bára bydlí v Praze
-          ['_ára bydlí v Praze', 'B', ['b','B']],
-          ['Bára bydlí v _raze', 'P', ['p','P']],
-          // krtek na louce
-          ['_rtek na louce', 'k', ['k','K']],
-          ['krtek na _ouce', 'l', ['l','L']],
-          // učitelka Vlasta
-          ['_čitelka Vlasta', 'u', ['u','U']],
-          ['učitelka _lasta', 'V', ['v','V']],
-          // Petr Suchánek
-          ['_etr Suchánek', 'P', ['p','P']],
-          ['Petr _uchánek', 'S', ['s','S']]
-        ]
-      },
-      {
-        title: '3. etapa',
-        words: [
-          // hudební skladatel
-          ['_udební skladatel', 'h', ['h','H']],
-          ['hudební _kladatel', 's', ['s','S']],
-          // Antonín Dvořák
-          ['_ntonín Dvořák', 'A', ['a','A']],
-          ['Antonín _vořák', 'D', ['d','D']],
-          // tygr je šelma
-          ['_ygr je šelma', 't', ['t','T']],
-          ['tygr je _elma', 'š', ['š','Š']],
-          // maminka a tatínek
-          ['_aminka a tatínek', 'm', ['m','M']],
-          ['maminka a _atínek', 't', ['t','T']],
-          // morče Ferdík
-          ['_orče Ferdík', 'm', ['m','M']],
-          ['morče _erdík', 'F', ['f','F']],
-          // vesnice Loukov
-          ['_esnice Loukov', 'v', ['v','V']],
-          ['vesnice _oukov', 'L', ['l','L']],
-          // Dan hraje fotbal
-          ['_an hraje fotbal', 'D', ['d','D']],
-          ['Dan hraje _otbal', 'f', ['f','F']],
-          // Šemík byl kůň
-          ['_emík byl kůň', 'Š', ['š','Š']],
-          ['Šemík byl _ůň', 'k', ['k','K']],
-          // dárek pro Filipa
-          ['_árek pro Filipa', 'd', ['d','D']],
-          ['dárek pro _ilipa', 'F', ['f','F']]
-        ]
-      }
-    ],
-    get words() {
-      return this._stages.flatMap(s => s.words);
-    }
-  },
-  {
-    id: 'bpvm-phrases-21', title: 'bě/pě/vě/mě (str. 21)', emoji: '🦊',
-    description: '2 etapy po 16 — celkem 32 spojení',
-    _stages: [
-      {
-        title: '1. etapa',
-        words: [
-          ['leží na slá_', 'mě', ['bě','pě','vě','mě']],
-          ['suchá _tev', 'vě', ['bě','pě','vě','mě']],
-          ['ještě neo_dvali', 'bě', ['bě','pě','vě','mě']],
-          ['_stuje mrkev', 'pě', ['bě','pě','vě','mě']],
-          ['nes_la cvičit', 'mě', ['bě','pě','vě','mě']],
-          ['s_chala ven', 'pě', ['bě','pě','vě','mě']],
-          ['boule na hla_', 'vě', ['bě','pě','vě','mě']],
-          ['zářivý _síc', 'mě', ['bě','pě','vě','mě']],
-          ['veselé pří_hy', 'bě', ['bě','pě','vě','mě']],
-          ['vysoké _že', 'vě', ['bě','pě','vě','mě']],
-          ['dobrá pa_ť', 'mě', ['bě','pě','vě','mě']],
-          ['K_tuška', 'vě', ['bě','pě','vě','mě']],
-          ['_kně čte', 'pě', ['bě','pě','vě','mě']],
-          ['koláč v trou_', 'bě', ['bě','pě','vě','mě']],
-          ['visí na _šáku', 'vě', ['bě','pě','vě','mě']],
-          ['šlápl na hrá_', 'bě', ['bě','pě','vě','mě']]
-        ]
-      },
-      {
-        title: '2. etapa',
-        words: [
-          ['ne_jte strach', 'mě', ['bě','pě','vě','mě']],
-          ['pestré _jíře', 'vě', ['bě','pě','vě','mě']],
-          ['je nej_knější', 'pě', ['bě','pě','vě','mě']],
-          ['prá_ odjel', 'vě', ['bě','pě','vě','mě']],
-          ['o_ ruce', 'bě', ['bě','pě','vě','mě']],
-          ['dos_lý člověk', 'pě', ['bě','pě','vě','mě']],
-          ['velká z_na', 'mě', ['bě','pě','vě','mě']],
-          ['d_ děvčata', 'vě', ['bě','pě','vě','mě']],
-          ['_lásek létá', 'bě', ['bě','pě','vě','mě']],
-          ['_tikoruna', 'pě', ['bě','pě','vě','mě']],
-          ['neu_la plavat', 'mě', ['bě','pě','vě','mě']],
-          ['ve vysoké trá_', 'vě', ['bě','pě','vě','mě']],
-          ['jezevčí dou_', 'pě', ['bě','pě','vě','mě']],
-          ['bílá _na', 'pě', ['bě','pě','vě','mě']],
-          ['plést _neček', 'vě', ['bě','pě','vě','mě']],
-          ['sněhové zá_je', 'vě', ['bě','pě','vě','mě']]
-        ]
-      }
-    ],
-    get words() {
-      return this._stages.flatMap(s => s.words);
-    }
-  },
-  {
-    id: 'bpvm-phrases-22', title: 'bě/pě/vě/mě (str. 22)', emoji: '🦔',
-    description: '2 etapy po 14 — celkem 28 spojení',
-    _stages: [
-      {
-        title: '1. etapa',
-        words: [
-          ['úzká _šina', 'pě', ['bě','pě','vě','mě']],
-          ['ukliď si _ci', 'vě', ['bě','pě','vě','mě']],
-          ['naše Alž_ta', 'bě', ['bě','pě','vě','mě']],
-          ['klisna a hří_', 'bě', ['bě','pě','vě','mě']],
-          ['pro člo_ka', 'vě', ['bě','pě','vě','mě']],
-          ['růžové pou_', 'pě', ['bě','pě','vě','mě']],
-          ['pták _nkava', 'pě', ['bě','pě','vě','mě']],
-          ['ze_dělec', 'mě', ['bě','pě','vě','mě']],
-          ['ch_je se', 'vě', ['bě','pě','vě','mě']],
-          ['umí to zpa_ti', 'mě', ['bě','pě','vě','mě']],
-          ['lední med_di', 'vě', ['bě','pě','vě','mě']],
-          ['rychle _hat', 'bě', ['bě','pě','vě','mě']],
-          ['na ná_stí', 'mě', ['bě','pě','vě','mě']],
-          ['tomu ne_řím', 'vě', ['bě','pě','vě','mě']]
-        ]
-      },
-      {
-        title: '2. etapa',
-        words: [
-          ['pořád se s_je', 'mě', ['bě','pě','vě','mě']],
-          ['po_děl mi to', 'vě', ['bě','pě','vě','mě']],
-          ['Brno je _sto', 'mě', ['bě','pě','vě','mě']],
-          ['od_hl z hřiště', 'bě', ['bě','pě','vě','mě']],
-          ['_trník se točí', 'vě', ['bě','pě','vě','mě']],
-          ['zalézá do ze_', 'mě', ['bě','pě','vě','mě']],
-          ['dostal _tku', 'pě', ['bě','pě','vě','mě']],
-          ['_lostný sníh', 'bě', ['bě','pě','vě','mě']],
-          ['s_tlá barva', 'vě', ['bě','pě','vě','mě']],
-          ['ve skle_', 'pě', ['bě','pě','vě','mě']],
-          ['za_stnanec', 'mě', ['bě','pě','vě','mě']],
-          ['roz_hl se', 'bě', ['bě','pě','vě','mě']],
-          ['na celém s_tě', 'vě', ['bě','pě','vě','mě']],
-          ['nes_chej tak', 'pě', ['bě','pě','vě','mě']]
-        ]
-      }
-    ],
-    get words() {
-      return this._stages.flatMap(s => s.words);
-    }
-  },
-  {
-    id: 'hch-phrases', title: 'h / ch (str. 26)', emoji: '🐺',
-    description: '3 etapy (15+15+14) — celkem 44 spojení',
-    _stages: [
-      {
-        title: '1. etapa',
-        words: [
-          ['velký stra_', 'ch', ['h','ch']],
-          ['hodný ho_', 'ch', ['h','ch']],
-          ['Vojtě_', 'ch', ['h','ch']],
-          ['nízký bře_', 'h', ['h','ch']],
-          ['lískový oře_', 'ch', ['h','ch']],
-          ['malý pstru_', 'h', ['h','ch']],
-          ['veselý smí_', 'ch', ['h','ch']],
-          ['velký úspě_', 'ch', ['h','ch']],
-          ['padal sní_', 'h', ['h','ch']],
-          ['dobrý či_', 'ch', ['h','ch']],
-          ['ro_ pokoje', 'h', ['h','ch']],
-          ['Jindři_', 'ch', ['h','ch']],
-          ['levný nocle_', 'h', ['h','ch']],
-          ['cvičí postře_', 'h', ['h','ch']],
-          ['měkký tvaro_', 'h', ['h','ch']]
-        ]
-      },
-      {
-        title: '2. etapa',
-        words: [
-          ['velký dlu_', 'h', ['h','ch']],
-          ['rozvr_ hodin', 'h', ['h','ch']],
-          ['železný plu_', 'h', ['h','ch']],
-          ['živoči_', 'ch', ['h','ch']],
-          ['pra_ na polici', 'ch', ['h','ch']],
-          ['prá_ u domu', 'h', ['h','ch']],
-          ['do Če_', 'ch', ['h','ch']],
-          ['vr_ koulí', 'h', ['h','ch']],
-          ['kluzký povr_', 'ch', ['h','ch']],
-          ['hluboký náde_', 'ch', ['h','ch']],
-          ['nový výta_', 'h', ['h','ch']],
-          ['prudký sva_', 'h', ['h','ch']],
-          ['čistý vzdu_', 'ch', ['h','ch']],
-          ['šest mu_', 'ch', ['h','ch']],
-          ['rychlý bě_', 'h', ['h','ch']]
-        ]
-      },
-      {
-        title: '3. etapa',
-        words: [
-          ['jeli na ji_', 'h', ['h','ch']],
-          ['několik kni_', 'h', ['h','ch']],
-          ['tvůj návr_', 'h', ['h','ch']],
-          ['bez poru_', 'ch', ['h','ch']],
-          ['pět spr_', 'ch', ['h','ch']],
-          ['hebký me_', 'ch', ['h','ch']],
-          ['výbě_ slonů', 'h', ['h','ch']],
-          ['kreslí kru_', 'h', ['h','ch']],
-          ['úzký pru_', 'h', ['h','ch']],
-          ['zralý hrá_', 'ch', ['h','ch']],
-          ['srnčí paro_', 'h', ['h','ch']],
-          ['pes Voře_', 'ch', ['h','ch']],
-          ['planý popla_', 'ch', ['h','ch']],
-          ['veletr_', 'h', ['h','ch']]
-        ]
-      }
-    ],
-    get words() {
-      return this._stages.flatMap(s => s.words);
-    }
-  },
-  {
-    id: 'vf-phrases', title: 'v / f (str. 27)', emoji: '🐈',
-    description: '3 etapy (15+15+14) — celkem 44 spojení',
-    _stages: [
-      {
-        title: '1. etapa',
-        words: [
-          ['Václa_', 'v', ['v','f']],
-          ['Jose_', 'f', ['v','f']],
-          ['tenká věte_', 'v', ['v','f']],
-          ['hou_ kuřat', 'f', ['v','f']],
-          ['do kopři_', 'v', ['v','f']],
-          ['hraje gol_', 'f', ['v','f']],
-          ['jíme mrke_', 'v', ['v','f']],
-          ['pozdra_ ho', 'v', ['v','f']],
-          ['Jarosla_', 'v', ['v','f']],
-          ['málo bare_', 'v', ['v','f']],
-          ['hrozný ře_', 'v', ['v','f']],
-          ['Ladisla_', 'v', ['v','f']],
-          ['na venko_', 'v', ['v','f']],
-          ['lo_ zvěře', 'v', ['v','f']],
-          ['Benešo_', 'v', ['v','f']]
-        ]
-      },
-      {
-        title: '2. etapa',
-        words: [
-          ['šé_ banky', 'f', ['v','f']],
-          ['pustý ostro_', 'v', ['v','f']],
-          ['rudá kre_', 'v', ['v','f']],
-          ['náš domo_', 'v', ['v','f']],
-          ['pár kra_', 'v', ['v','f']],
-          ['hezký zpě_', 'v', ['v','f']],
-          ['její úsmě_', 'v', ['v','f']],
-          ['Rudol_', 'f', ['v','f']],
-          ['bez podko_', 'v', ['v','f']],
-          ['pracovní odě_', 'v', ['v','f']],
-          ['pět vrste_', 'v', ['v','f']],
-          ['mladý le_', 'v', ['v','f']],
-          ['eso je trum_', 'f', ['v','f']],
-          ['na hřbito_', 'v', ['v','f']],
-          ['pár slo_', 'v', ['v','f']]
-        ]
-      },
-      {
-        title: '3. etapa',
-        words: [
-          ['výlo_ rybníka', 'v', ['v','f']],
-          ['Mirosla_', 'v', ['v','f']],
-          ['fotogra_', 'f', ['v','f']],
-          ['plná láhe_', 'v', ['v','f']],
-          ['nová kone_', 'v', ['v','f']],
-          ['minigol_', 'f', ['v','f']],
-          ['čistý chlé_', 'v', ['v','f']],
-          ['velký hně_', 'v', ['v','f']],
-          ['koropte_', 'v', ['v','f']],
-          ['Kryšto_', 'f', ['v','f']],
-          ['ruká_ košile', 'v', ['v','f']],
-          ['zlato je ko_', 'v', ['v','f']],
-          ['celý náze_', 'v', ['v','f']],
-          ['Stanisla_', 'v', ['v','f']]
-        ]
-      }
-    ],
-    get words() {
-      return this._stages.flatMap(s => s.words);
-    }
-  },
-  {
-    id: 'zs-phrases', title: 'z / s (str. 28)', emoji: '🐅',
-    description: '3 etapy (15+15+14) — celkem 44 spojení',
-    _stages: [
-      {
-        title: '1. etapa',
-        words: [
-          ['tuhý mrá_', 'z', ['z','s']],
-          ['tenký vla_', 's', ['z','s']],
-          ['zarostlá me_', 'z', ['z','s']],
-          ['nápi_ na zdi', 's', ['z','s']],
-          ['přísný záka_', 'z', ['z','s']],
-          ['můj průka_', 'z', ['z','s']],
-          ['oteklý no_', 's', ['z','s']],
-          ['nemám ča_', 's', ['z','s']],
-          ['silný prova_', 'z', ['z','s']],
-          ['liščí oca_', 's', ['z','s']],
-          ['slabý hla_', 's', ['z','s']],
-          ['hraje teni_', 's', ['z','s']],
-          ['ove_ je obilí', 's', ['z','s']],
-          ['prudký nára_', 'z', ['z','s']],
-          ['přive_ nákup', 'z', ['z','s']]
-        ]
-      },
-      {
-        title: '2. etapa',
-        words: [
-          ['tvůj podpi_', 's', ['z','s']],
-          ['nový časopi_', 's', ['z','s']],
-          ['ku_ cesty', 's', ['z','s']],
-          ['vosa je hmy_', 'z', ['z','s']],
-          ['lehký úra_', 'z', ['z','s']],
-          ['zápi_ do školy', 's', ['z','s']],
-          ['starý paře_', 'z', ['z','s']],
-          ['hluboký le_', 's', ['z','s']],
-          ['vysoká hrá_', 'z', ['z','s']],
-          ['pevný řetě_', 'z', ['z','s']],
-          ['černý obry_', 's', ['z','s']],
-          ['krásný obra_', 'z', ['z','s']],
-          ['rychlý vů_', 'z', ['z','s']],
-          ['plus a mínu_', 's', ['z','s']],
-          ['nový vynále_', 'z', ['z','s']]
-        ]
-      },
-      {
-        title: '3. etapa',
-        words: [
-          ['dělá rámu_', 's', ['z','s']],
-          ['málo peně_', 'z', ['z','s']],
-          ['odvo_ odpadků', 'z', ['z','s']],
-          ['cestovní pa_', 's', ['z','s']],
-          ['nele_ tam', 'z', ['z','s']],
-          ['město Brandý_', 's', ['z','s']],
-          ['rytmu_', 's', ['z','s']],
-          ['jeden poku_', 's', ['z','s']],
-          ['silniční provo_', 'z', ['z','s']],
-          ['Francou_', 'z', ['z','s']],
-          ['je_ na řece', 'z', ['z','s']],
-          ['be_ omluvy', 'z', ['z','s']],
-          ['autobu_', 's', ['z','s']],
-          ['šimpan_', 'z', ['z','s']]
-        ]
-      }
-    ],
-    get words() {
-      return this._stages.flatMap(s => s.words);
-    }
-  },
-  {
     id: 'y-after-h-2', title: 'y/ý po h (str. 2)', emoji: '🐴',
     description: '2 etapy (16+16) — y/ý a hy/hý',
     _stages: [
@@ -1325,6 +846,183 @@ const BONUS_CATEGORIES = [
     get words() { return this._stages.flatMap(s => s.words); }
   },
   {
+    id: 'iy-phrases', title: 'i/í – y/ý (str. 17)', emoji: '🐱',
+    description: '3 etapy po 15 — celkem 45 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['bez pot_ží', 'í', ['i','í','y','ý']],
+          ['plach_ srnec', 'ý', ['i','í','y','ý']],
+          ['je uř_cená', 'í', ['i','í','y','ý']],
+          ['č_stí boty', 'i', ['i','í','y','ý']],
+          ['umí š_t', 'í', ['i','í','y','ý']],
+          ['hlubok_ důl', 'ý', ['i','í','y','ý']],
+          ['je nejch_třejší', 'y', ['i','í','y','ý']],
+          ['r_tířský', 'y', ['i','í','y','ý']],
+          ['něco vyhod_l', 'i', ['i','í','y','ý']],
+          ['je v prác_', 'i', ['i','í','y','ý']],
+          ['do brad_', 'y', ['i','í','y','ý']],
+          ['čtvrt_ žák', 'ý', ['i','í','y','ý']],
+          ['tkan_čky', 'i', ['i','í','y','ý']],
+          ['malý zaj_ček', 'í', ['i','í','y','ý']],
+          ['bez zelenin_', 'y', ['i','í','y','ý']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['na pobřež_', 'í', ['i','í','y','ý']],
+          ['pavouč_ síť', 'í', ['i','í','y','ý']],
+          ['za Jiř_kem', 'í', ['i','í','y','ý']],
+          ['málo vláh_', 'y', ['i','í','y','ý']],
+          ['do c_le', 'í', ['i','í','y','ý']],
+          ['hr_že mrkev', 'y', ['i','í','y','ý']],
+          ['pěkn_ den', 'ý', ['i','í','y','ý']],
+          ['buď zt_cha', 'i', ['i','í','y','ý']],
+          ['byl vyn_kající', 'i', ['i','í','y','ý']],
+          ['zach_til mě', 'y', ['i','í','y','ý']],
+          ['ostrá d_ka', 'ý', ['i','í','y','ý']],
+          ['pod_vej se', 'í', ['i','í','y','ý']],
+          ['v baž_nách', 'i', ['i','í','y','ý']],
+          ['nejdelš_ lano', 'í', ['i','í','y','ý']],
+          ['nová žák_ně', 'y', ['i','í','y','ý']]
+        ]
+      },
+      {
+        title: '3. etapa',
+        words: [
+          ['mot_lí let', 'ý', ['i','í','y','ý']],
+          ['kraj_c chleba', 'í', ['i','í','y','ý']],
+          ['nen_ tady', 'í', ['i','í','y','ý']],
+          ['osel zah_kal', 'ý', ['i','í','y','ý']],
+          ['ut_ká ven', 'í', ['i','í','y','ý']],
+          ['je to c_zinec', 'i', ['i','í','y','ý']],
+          ['ž_tné pole', 'i', ['i','í','y','ý']],
+          ['zazář_l', 'i', ['i','í','y','ý']],
+          ['umí poč_tat', 'í', ['i','í','y','ý']],
+          ['tich_ pláč', 'ý', ['i','í','y','ý']],
+          ['hladk_ ubrus', 'ý', ['i','í','y','ý']],
+          ['had_ syčí', 'i', ['i','í','y','ý']],
+          ['v úter_', 'ý', ['i','í','y','ý']],
+          ['dlouhé klád_', 'y', ['i','í','y','ý']],
+          ['bílé šat_', 'y', ['i','í','y','ý']]
+        ]
+      }
+    ],
+    // Pro Mix-all sbírání — všech 45 spojení dohromady
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
+    id: 'lowup-phrases', title: 'malé / velké (str. 18)', emoji: '🔠',
+    description: '3 etapy (19+18+18) — velká písmena ve jménech',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          // koťátko mourek
+          ['_oťátko mourek', 'k', ['k','K']],
+          ['koťátko _ourek', 'm', ['m','M']],
+          // sestra je u Kláry
+          ['_estra je u Kláry', 's', ['s','S']],
+          ['sestra je u _láry', 'K', ['k','K']],
+          // z Brna do Zlína
+          ['z _rna do Zlína', 'B', ['b','B']],
+          ['z Brna do _lína', 'Z', ['z','Z']],
+          // v nedalekém městě
+          ['v nedalekém _ěstě', 'm', ['m','M']],
+          // pes umí plavat
+          ['_es umí plavat', 'p', ['p','P']],
+          // Tereza nebo Honza
+          ['_ereza nebo Honza', 'T', ['t','T']],
+          ['Tereza nebo _onza', 'H', ['h','H']],
+          // Rex vrčí na kočky
+          ['_ex vrčí na kočky', 'R', ['r','R']],
+          ['Rex vrčí na _očky', 'k', ['k','K']],
+          // malíř Josef Lada
+          ['_alíř Josef Lada', 'm', ['m','M']],
+          ['malíř _osef Lada', 'J', ['j','J']],
+          ['malíř Josef _ada', 'L', ['l','L']],
+          // Iva má neštovice
+          ['_va má neštovice', 'I', ['i','I']],
+          ['Iva má _eštovice', 'n', ['n','N']],
+          // pan Kučera
+          ['_an Kučera', 'p', ['p','P']],
+          ['pan _učera', 'K', ['k','K']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          // Božena Němcová
+          ['_ožena Němcová', 'B', ['b','B']],
+          ['Božena _ěmcová', 'N', ['n','N']],
+          // papoušek v kleci
+          ['_apoušek v kleci', 'p', ['p','P']],
+          ['papoušek v _leci', 'k', ['k','K']],
+          // cesta do vesnice
+          ['_esta do vesnice', 'c', ['c','C']],
+          ['cesta do _esnice', 'v', ['v','V']],
+          // růže pro babičku
+          ['_ůže pro babičku', 'r', ['r','R']],
+          ['růže pro _abičku', 'b', ['b','B']],
+          // babička Marta
+          ['_abička Marta', 'b', ['b','B']],
+          ['babička _arta', 'M', ['m','M']],
+          // Bára bydlí v Praze
+          ['_ára bydlí v Praze', 'B', ['b','B']],
+          ['Bára bydlí v _raze', 'P', ['p','P']],
+          // krtek na louce
+          ['_rtek na louce', 'k', ['k','K']],
+          ['krtek na _ouce', 'l', ['l','L']],
+          // učitelka Vlasta
+          ['_čitelka Vlasta', 'u', ['u','U']],
+          ['učitelka _lasta', 'V', ['v','V']],
+          // Petr Suchánek
+          ['_etr Suchánek', 'P', ['p','P']],
+          ['Petr _uchánek', 'S', ['s','S']]
+        ]
+      },
+      {
+        title: '3. etapa',
+        words: [
+          // hudební skladatel
+          ['_udební skladatel', 'h', ['h','H']],
+          ['hudební _kladatel', 's', ['s','S']],
+          // Antonín Dvořák
+          ['_ntonín Dvořák', 'A', ['a','A']],
+          ['Antonín _vořák', 'D', ['d','D']],
+          // tygr je šelma
+          ['_ygr je šelma', 't', ['t','T']],
+          ['tygr je _elma', 'š', ['š','Š']],
+          // maminka a tatínek
+          ['_aminka a tatínek', 'm', ['m','M']],
+          ['maminka a _atínek', 't', ['t','T']],
+          // morče Ferdík
+          ['_orče Ferdík', 'm', ['m','M']],
+          ['morče _erdík', 'F', ['f','F']],
+          // vesnice Loukov
+          ['_esnice Loukov', 'v', ['v','V']],
+          ['vesnice _oukov', 'L', ['l','L']],
+          // Dan hraje fotbal
+          ['_an hraje fotbal', 'D', ['d','D']],
+          ['Dan hraje _otbal', 'f', ['f','F']],
+          // Šemík byl kůň
+          ['_emík byl kůň', 'Š', ['š','Š']],
+          ['Šemík byl _ůň', 'k', ['k','K']],
+          // dárek pro Filipa
+          ['_árek pro Filipa', 'd', ['d','D']],
+          ['dárek pro _ilipa', 'F', ['f','F']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
     id: 'detene-19', title: 'dě – tě – ně (str. 19)', emoji: '🐈',
     description: '2 etapy po 15 — měkčení po d, t, n',
     _stages: [
@@ -1419,6 +1117,104 @@ const BONUS_CATEGORIES = [
       }
     ],
     get words() { return this._stages.flatMap(s => s.words); }
+  },
+  {
+    id: 'bpvm-phrases-21', title: 'bě/pě/vě/mě (str. 21)', emoji: '🦊',
+    description: '2 etapy po 16 — celkem 32 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['leží na slá_', 'mě', ['bě','pě','vě','mě']],
+          ['suchá _tev', 'vě', ['bě','pě','vě','mě']],
+          ['ještě neo_dvali', 'bě', ['bě','pě','vě','mě']],
+          ['_stuje mrkev', 'pě', ['bě','pě','vě','mě']],
+          ['nes_la cvičit', 'mě', ['bě','pě','vě','mě']],
+          ['s_chala ven', 'pě', ['bě','pě','vě','mě']],
+          ['boule na hla_', 'vě', ['bě','pě','vě','mě']],
+          ['zářivý _síc', 'mě', ['bě','pě','vě','mě']],
+          ['veselé pří_hy', 'bě', ['bě','pě','vě','mě']],
+          ['vysoké _že', 'vě', ['bě','pě','vě','mě']],
+          ['dobrá pa_ť', 'mě', ['bě','pě','vě','mě']],
+          ['K_tuška', 'vě', ['bě','pě','vě','mě']],
+          ['_kně čte', 'pě', ['bě','pě','vě','mě']],
+          ['koláč v trou_', 'bě', ['bě','pě','vě','mě']],
+          ['visí na _šáku', 'vě', ['bě','pě','vě','mě']],
+          ['šlápl na hrá_', 'bě', ['bě','pě','vě','mě']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['ne_jte strach', 'mě', ['bě','pě','vě','mě']],
+          ['pestré _jíře', 'vě', ['bě','pě','vě','mě']],
+          ['je nej_knější', 'pě', ['bě','pě','vě','mě']],
+          ['prá_ odjel', 'vě', ['bě','pě','vě','mě']],
+          ['o_ ruce', 'bě', ['bě','pě','vě','mě']],
+          ['dos_lý člověk', 'pě', ['bě','pě','vě','mě']],
+          ['velká z_na', 'mě', ['bě','pě','vě','mě']],
+          ['d_ děvčata', 'vě', ['bě','pě','vě','mě']],
+          ['_lásek létá', 'bě', ['bě','pě','vě','mě']],
+          ['_tikoruna', 'pě', ['bě','pě','vě','mě']],
+          ['neu_la plavat', 'mě', ['bě','pě','vě','mě']],
+          ['ve vysoké trá_', 'vě', ['bě','pě','vě','mě']],
+          ['jezevčí dou_', 'pě', ['bě','pě','vě','mě']],
+          ['bílá _na', 'pě', ['bě','pě','vě','mě']],
+          ['plést _neček', 'vě', ['bě','pě','vě','mě']],
+          ['sněhové zá_je', 'vě', ['bě','pě','vě','mě']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
+    id: 'bpvm-phrases-22', title: 'bě/pě/vě/mě (str. 22)', emoji: '🦔',
+    description: '2 etapy po 14 — celkem 28 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['úzká _šina', 'pě', ['bě','pě','vě','mě']],
+          ['ukliď si _ci', 'vě', ['bě','pě','vě','mě']],
+          ['naše Alž_ta', 'bě', ['bě','pě','vě','mě']],
+          ['klisna a hří_', 'bě', ['bě','pě','vě','mě']],
+          ['pro člo_ka', 'vě', ['bě','pě','vě','mě']],
+          ['růžové pou_', 'pě', ['bě','pě','vě','mě']],
+          ['pták _nkava', 'pě', ['bě','pě','vě','mě']],
+          ['ze_dělec', 'mě', ['bě','pě','vě','mě']],
+          ['ch_je se', 'vě', ['bě','pě','vě','mě']],
+          ['umí to zpa_ti', 'mě', ['bě','pě','vě','mě']],
+          ['lední med_di', 'vě', ['bě','pě','vě','mě']],
+          ['rychle _hat', 'bě', ['bě','pě','vě','mě']],
+          ['na ná_stí', 'mě', ['bě','pě','vě','mě']],
+          ['tomu ne_řím', 'vě', ['bě','pě','vě','mě']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['pořád se s_je', 'mě', ['bě','pě','vě','mě']],
+          ['po_děl mi to', 'vě', ['bě','pě','vě','mě']],
+          ['Brno je _sto', 'mě', ['bě','pě','vě','mě']],
+          ['od_hl z hřiště', 'bě', ['bě','pě','vě','mě']],
+          ['_trník se točí', 'vě', ['bě','pě','vě','mě']],
+          ['zalézá do ze_', 'mě', ['bě','pě','vě','mě']],
+          ['dostal _tku', 'pě', ['bě','pě','vě','mě']],
+          ['_lostný sníh', 'bě', ['bě','pě','vě','mě']],
+          ['s_tlá barva', 'vě', ['bě','pě','vě','mě']],
+          ['ve skle_', 'pě', ['bě','pě','vě','mě']],
+          ['za_stnanec', 'mě', ['bě','pě','vě','mě']],
+          ['roz_hl se', 'bě', ['bě','pě','vě','mě']],
+          ['na celém s_tě', 'vě', ['bě','pě','vě','mě']],
+          ['nes_chej tak', 'pě', ['bě','pě','vě','mě']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
   },
   {
     id: 'bp-23', title: 'b – p (str. 23)', emoji: '🐢',
@@ -1566,6 +1362,210 @@ const BONUS_CATEGORIES = [
       }
     ],
     get words() { return this._stages.flatMap(s => s.words); }
+  },
+  {
+    id: 'hch-phrases', title: 'h / ch (str. 26)', emoji: '🐺',
+    description: '3 etapy (15+15+14) — celkem 44 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['velký stra_', 'ch', ['h','ch']],
+          ['hodný ho_', 'ch', ['h','ch']],
+          ['Vojtě_', 'ch', ['h','ch']],
+          ['nízký bře_', 'h', ['h','ch']],
+          ['lískový oře_', 'ch', ['h','ch']],
+          ['malý pstru_', 'h', ['h','ch']],
+          ['veselý smí_', 'ch', ['h','ch']],
+          ['velký úspě_', 'ch', ['h','ch']],
+          ['padal sní_', 'h', ['h','ch']],
+          ['dobrý či_', 'ch', ['h','ch']],
+          ['ro_ pokoje', 'h', ['h','ch']],
+          ['Jindři_', 'ch', ['h','ch']],
+          ['levný nocle_', 'h', ['h','ch']],
+          ['cvičí postře_', 'h', ['h','ch']],
+          ['měkký tvaro_', 'h', ['h','ch']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['velký dlu_', 'h', ['h','ch']],
+          ['rozvr_ hodin', 'h', ['h','ch']],
+          ['železný plu_', 'h', ['h','ch']],
+          ['živoči_', 'ch', ['h','ch']],
+          ['pra_ na polici', 'ch', ['h','ch']],
+          ['prá_ u domu', 'h', ['h','ch']],
+          ['do Če_', 'ch', ['h','ch']],
+          ['vr_ koulí', 'h', ['h','ch']],
+          ['kluzký povr_', 'ch', ['h','ch']],
+          ['hluboký náde_', 'ch', ['h','ch']],
+          ['nový výta_', 'h', ['h','ch']],
+          ['prudký sva_', 'h', ['h','ch']],
+          ['čistý vzdu_', 'ch', ['h','ch']],
+          ['šest mu_', 'ch', ['h','ch']],
+          ['rychlý bě_', 'h', ['h','ch']]
+        ]
+      },
+      {
+        title: '3. etapa',
+        words: [
+          ['jeli na ji_', 'h', ['h','ch']],
+          ['několik kni_', 'h', ['h','ch']],
+          ['tvůj návr_', 'h', ['h','ch']],
+          ['bez poru_', 'ch', ['h','ch']],
+          ['pět spr_', 'ch', ['h','ch']],
+          ['hebký me_', 'ch', ['h','ch']],
+          ['výbě_ slonů', 'h', ['h','ch']],
+          ['kreslí kru_', 'h', ['h','ch']],
+          ['úzký pru_', 'h', ['h','ch']],
+          ['zralý hrá_', 'ch', ['h','ch']],
+          ['srnčí paro_', 'h', ['h','ch']],
+          ['pes Voře_', 'ch', ['h','ch']],
+          ['planý popla_', 'ch', ['h','ch']],
+          ['veletr_', 'h', ['h','ch']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
+    id: 'vf-phrases', title: 'v / f (str. 27)', emoji: '🐈',
+    description: '3 etapy (15+15+14) — celkem 44 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['Václa_', 'v', ['v','f']],
+          ['Jose_', 'f', ['v','f']],
+          ['tenká věte_', 'v', ['v','f']],
+          ['hou_ kuřat', 'f', ['v','f']],
+          ['do kopři_', 'v', ['v','f']],
+          ['hraje gol_', 'f', ['v','f']],
+          ['jíme mrke_', 'v', ['v','f']],
+          ['pozdra_ ho', 'v', ['v','f']],
+          ['Jarosla_', 'v', ['v','f']],
+          ['málo bare_', 'v', ['v','f']],
+          ['hrozný ře_', 'v', ['v','f']],
+          ['Ladisla_', 'v', ['v','f']],
+          ['na venko_', 'v', ['v','f']],
+          ['lo_ zvěře', 'v', ['v','f']],
+          ['Benešo_', 'v', ['v','f']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['šé_ banky', 'f', ['v','f']],
+          ['pustý ostro_', 'v', ['v','f']],
+          ['rudá kre_', 'v', ['v','f']],
+          ['náš domo_', 'v', ['v','f']],
+          ['pár kra_', 'v', ['v','f']],
+          ['hezký zpě_', 'v', ['v','f']],
+          ['její úsmě_', 'v', ['v','f']],
+          ['Rudol_', 'f', ['v','f']],
+          ['bez podko_', 'v', ['v','f']],
+          ['pracovní odě_', 'v', ['v','f']],
+          ['pět vrste_', 'v', ['v','f']],
+          ['mladý le_', 'v', ['v','f']],
+          ['eso je trum_', 'f', ['v','f']],
+          ['na hřbito_', 'v', ['v','f']],
+          ['pár slo_', 'v', ['v','f']]
+        ]
+      },
+      {
+        title: '3. etapa',
+        words: [
+          ['výlo_ rybníka', 'v', ['v','f']],
+          ['Mirosla_', 'v', ['v','f']],
+          ['fotogra_', 'f', ['v','f']],
+          ['plná láhe_', 'v', ['v','f']],
+          ['nová kone_', 'v', ['v','f']],
+          ['minigol_', 'f', ['v','f']],
+          ['čistý chlé_', 'v', ['v','f']],
+          ['velký hně_', 'v', ['v','f']],
+          ['koropte_', 'v', ['v','f']],
+          ['Kryšto_', 'f', ['v','f']],
+          ['ruká_ košile', 'v', ['v','f']],
+          ['zlato je ko_', 'v', ['v','f']],
+          ['celý náze_', 'v', ['v','f']],
+          ['Stanisla_', 'v', ['v','f']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
+  },
+  {
+    id: 'zs-phrases', title: 'z / s (str. 28)', emoji: '🐅',
+    description: '3 etapy (15+15+14) — celkem 44 spojení',
+    _stages: [
+      {
+        title: '1. etapa',
+        words: [
+          ['tuhý mrá_', 'z', ['z','s']],
+          ['tenký vla_', 's', ['z','s']],
+          ['zarostlá me_', 'z', ['z','s']],
+          ['nápi_ na zdi', 's', ['z','s']],
+          ['přísný záka_', 'z', ['z','s']],
+          ['můj průka_', 'z', ['z','s']],
+          ['oteklý no_', 's', ['z','s']],
+          ['nemám ča_', 's', ['z','s']],
+          ['silný prova_', 'z', ['z','s']],
+          ['liščí oca_', 's', ['z','s']],
+          ['slabý hla_', 's', ['z','s']],
+          ['hraje teni_', 's', ['z','s']],
+          ['ove_ je obilí', 's', ['z','s']],
+          ['prudký nára_', 'z', ['z','s']],
+          ['přive_ nákup', 'z', ['z','s']]
+        ]
+      },
+      {
+        title: '2. etapa',
+        words: [
+          ['tvůj podpi_', 's', ['z','s']],
+          ['nový časopi_', 's', ['z','s']],
+          ['ku_ cesty', 's', ['z','s']],
+          ['vosa je hmy_', 'z', ['z','s']],
+          ['lehký úra_', 'z', ['z','s']],
+          ['zápi_ do školy', 's', ['z','s']],
+          ['starý paře_', 'z', ['z','s']],
+          ['hluboký le_', 's', ['z','s']],
+          ['vysoká hrá_', 'z', ['z','s']],
+          ['pevný řetě_', 'z', ['z','s']],
+          ['černý obry_', 's', ['z','s']],
+          ['krásný obra_', 'z', ['z','s']],
+          ['rychlý vů_', 'z', ['z','s']],
+          ['plus a mínu_', 's', ['z','s']],
+          ['nový vynále_', 'z', ['z','s']]
+        ]
+      },
+      {
+        title: '3. etapa',
+        words: [
+          ['dělá rámu_', 's', ['z','s']],
+          ['málo peně_', 'z', ['z','s']],
+          ['odvo_ odpadků', 'z', ['z','s']],
+          ['cestovní pa_', 's', ['z','s']],
+          ['nele_ tam', 'z', ['z','s']],
+          ['město Brandý_', 's', ['z','s']],
+          ['rytmu_', 's', ['z','s']],
+          ['jeden poku_', 's', ['z','s']],
+          ['silniční provo_', 'z', ['z','s']],
+          ['Francou_', 'z', ['z','s']],
+          ['je_ na řece', 'z', ['z','s']],
+          ['be_ omluvy', 'z', ['z','s']],
+          ['autobu_', 's', ['z','s']],
+          ['šimpan_', 'z', ['z','s']]
+        ]
+      }
+    ],
+    get words() {
+      return this._stages.flatMap(s => s.words);
+    }
   },
   {
     id: 'zs-soft-29', title: 'ž – š (str. 29)', emoji: '🦔',
