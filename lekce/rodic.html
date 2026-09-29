@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f7f9">
+  <title>Přehled pro rodiče — Denní lekce se SUN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="rodic.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ═══════════════ ZAMČENO (PIN) ═══════════════ -->
+  <section id="screen-pin" class="screen active">
+    <a href="index.html" class="zpet-odkaz">← zpět k lekcím</a>
+
+    <div class="sun-uvitani">
+      <div class="sun-avatar velky" aria-hidden="true">🔒</div>
+      <h1 class="sun-nadpis">Přehled pro rodiče</h1>
+      <p class="sun-podnadpis" id="pin-popis">Zadejte PIN.</p>
+    </div>
+
+    <form id="form-pin" class="karta" autocomplete="off">
+      <label class="pole">
+        <span class="pole-popis" id="pin-label">PIN (4 číslice)</span>
+        <input type="password" id="vstup-pin" class="vstup vstup-pin" inputmode="numeric"
+               pattern="[0-9]*" maxlength="4" placeholder="••••" required>
+      </label>
+      <div id="pin-chyba" class="zpetna-vazba jemna" hidden></div>
+      <button type="submit" class="tlacitko-hlavni" id="btn-pin">Otevřít</button>
+    </form>
+
+    <div class="karta poznamka-rodic">
+      PIN chrání přehled jen před dítětem na stejném zařízení. Data samotná
+      jsou uložená pod dlouhým náhodným rodinným klíčem, který nikdo nemůže
+      uhádnout.
+    </div>
+  </section>
+
+  <!-- ═══════════════ PŘEHLED ═══════════════ -->
+  <section id="screen-prehled" class="screen">
+    <a href="index.html" class="zpet-odkaz">← zpět k lekcím</a>
+
+    <header class="rodic-hlavicka">
+      <h1 class="rodic-nadpis">Přehled</h1>
+      <div class="rodic-jmeno" id="rodic-jmeno"></div>
+    </header>
+
+    <nav class="zalozky" id="zalozky" role="tablist">
+      <button class="zalozka aktivni" data-panel="souhrn" role="tab">Souhrn</button>
+      <button class="zalozka" data-panel="cteni" role="tab">Čtení</button>
+      <button class="zalozka" data-panel="matika" role="tab">Matematika</button>
+      <button class="zalozka" data-panel="psani" role="tab">Psaní</button>
+      <button class="zalozka" data-panel="historie" role="tab">Historie</button>
+      <button class="zalozka" data-panel="nastaveni" role="tab">Nastavení</button>
+    </nav>
+
+    <div id="panel-souhrn" class="panel aktivni"></div>
+    <div id="panel-cteni" class="panel"></div>
+    <div id="panel-matika" class="panel"></div>
+    <div id="panel-psani" class="panel"></div>
+    <div id="panel-historie" class="panel"></div>
+    <div id="panel-nastaveni" class="panel"></div>
+  </section>
+
+  <!-- ═══════════════ DETAIL LEKCE ═══════════════ -->
+  <section id="screen-detail" class="screen">
+    <button class="about-zpet" id="btn-detail-zpet">← Zpět na přehled</button>
+    <div id="detail-obsah"></div>
+  </section>
+
+</div>
+
+<footer class="site-footer">
+  <a href="index.html">Zpět k lekcím</a>
+</footer>
+
+<script src="data/texty.js"></script>
+<script src="data/ulohy.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/postava.js"></script>
+<script src="js/pokrok.js"></script>
+<script src="js/matika.js"></script>
+<script src="js/cteni.js"></script>
+<script src="js/hodnoceni.js"></script>
+<script src="js/rodic.js"></script>
+</body>
+</html>

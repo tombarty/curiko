@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#f6f7f9">
+  <title>Denní lekce se SUN — Curiko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Tři písma, tři role: Atkinson Hyperlegible pro čtený text (jeho b/d/p/q
+       a a/o/e se dají rozlišit — přesně to, co Ami plete), Plus Jakarta Sans pro
+       rozhraní i nadpisy. -->
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ═══════════════ PRVNÍ SPUŠTĚNÍ ═══════════════ -->
+  <section id="screen-uvod" class="screen active">
+    <a href="../2-trida/index.html" class="zpet-odkaz">← zpět na 2. třídu</a>
+
+    <div class="sun-uvitani">
+      <div class="sun-avatar velky" id="sun-uvod" data-velikost="128"></div>
+      <h1 class="sun-nadpis">Ahoj, já jsem SUN</h1>
+      <p class="sun-podnadpis">
+        Budeme se spolu každý den chvíli učit — číst, psát a počítat.
+        Než začneme, řekni mi, jak ti mám říkat.
+      </p>
+    </div>
+
+    <form id="form-profil" class="karta" autocomplete="off">
+      <label class="pole">
+        <span class="pole-popis">Jak se jmenuješ?</span>
+        <input type="text" id="vstup-jmeno" class="vstup" maxlength="20" placeholder="Ami" required>
+      </label>
+
+      <label class="pole">
+        <span class="pole-popis">Kolik ti je let?</span>
+        <input type="number" id="vstup-vek" class="vstup" min="5" max="12" value="8" required>
+      </label>
+
+      <label class="pole">
+        <span class="pole-popis">Do které třídy chodíš?</span>
+        <select id="vstup-trida" class="vstup">
+          <option value="1">1. třída</option>
+          <option value="2">2. třída</option>
+          <option value="3" selected>3. třída</option>
+          <option value="4">4. třída</option>
+        </select>
+      </label>
+
+      <button type="submit" class="tlacitko-hlavni">Můžeme začít ➜</button>
+    </form>
+
+    <div class="karta poznamka-rodic">
+      <strong>Pro rodiče:</strong> první lekce je klidná seznamovací —
+      neříkáme jí test. Slouží jen k tomu, aby aplikace poznala, kde začít.
+      Rodičovský přehled najdete <a href="rodic.html">tady</a>.
+    </div>
+  </section>
+
+  <!-- ═══════════════ DOMOV ═══════════════ -->
+  <section id="screen-domov" class="screen">
+    <a href="../2-trida/index.html" class="zpet-odkaz">← zpět na 2. třídu</a>
+
+    <header class="domov-hlavicka">
+      <div class="sun-avatar" id="sun-domov" data-velikost="56"></div>
+      <div>
+        <h1 class="domov-nadpis" id="domov-pozdrav">Ahoj!</h1>
+        <p class="domov-podnadpis" id="domov-datum"></p>
+      </div>
+    </header>
+
+    <div class="prehled-radek">
+      <div class="prehled-dlazdice">
+        <div class="dlazdice-cislo" id="dlazdice-hvezdicky">0</div>
+        <div class="dlazdice-popis">hvězdiček celkem</div>
+      </div>
+      <div class="prehled-dlazdice">
+        <div class="dlazdice-cislo" id="dlazdice-serie">0</div>
+        <div class="dlazdice-popis">dní v řadě</div>
+      </div>
+      <div class="prehled-dlazdice">
+        <div class="dlazdice-cislo" id="dlazdice-lekce">0</div>
+        <div class="dlazdice-popis">dokončených lekcí</div>
+      </div>
+    </div>
+
+    <div id="domov-pokracovat" class="karta zvyraznena" hidden>
+      <div class="karta-nadpis">Máš rozdělanou lekci</div>
+      <p class="karta-text" id="pokracovat-popis">Můžeme pokračovat tam, kde jsme skončily.</p>
+      <button class="tlacitko-hlavni" id="btn-pokracovat">Pokračovat ➜</button>
+      <button class="tlacitko-textove" id="btn-zahodit">Začít radši novou lekci</button>
+    </div>
+
+    <div id="domov-nova" class="karta">
+      <div class="karta-nadpis">Co dnes objevíme</div>
+      <p class="karta-text" id="domov-co-ceka">Čtení, otázky, psaní a počítání. Můžeš získat až 10 hvězdiček.</p>
+      <button class="tlacitko-hlavni" id="btn-zacit">Začít dnešní lekci ➜</button>
+    </div>
+
+    <div class="karta" id="karta-milniky" hidden>
+      <div class="karta-nadpis">Co už jsi nasbírala</div>
+      <div class="milniky-mrizka" id="milniky-mrizka"></div>
+    </div>
+
+    <div class="domov-patka">
+      <a href="rodic.html" class="odkaz-rodic">👤 Pro rodiče</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════ BĚŽÍCÍ LEKCE ═══════════════ -->
+  <section id="screen-lekce" class="screen">
+    <div class="lekce-lista">
+      <button class="lista-tlacitko" id="btn-pauza" aria-label="Pauza">⏸</button>
+      <div class="postup-obal" aria-hidden="true">
+        <div class="postup-vypln" id="postup-vypln"></div>
+      </div>
+      <div class="lista-hvezdicky" id="lista-hvezdicky">⭐ 0</div>
+    </div>
+
+    <div class="postup-kroky" id="postup-kroky" role="list"></div>
+
+    <!-- Sem se vykresluje aktuální krok. V jeden okamžik je vidět jen jeden. -->
+    <div id="krok-obsah" class="krok-obsah" aria-live="polite"></div>
+  </section>
+
+  <!-- ═══════════════ ZÁVĚR ═══════════════ -->
+  <section id="screen-zaver" class="screen">
+    <div id="zaver-obsah"></div>
+  </section>
+
+  <!-- ═══════════════ AUTOR HRY ═══════════════ -->
+  <section id="screen-about" class="screen">
+    <button class="about-zpet" id="btn-about-zpet">← Zpět</button>
+    <h2 class="about-nadpis">✨ Autor hry</h2>
+
+    <div class="karta">
+      <div class="about-jmeno">Tomáš Bártek</div>
+      <div class="about-podnadpis">Vytvořeno s pomocí <strong>Claude Code</strong> 🤖</div>
+      <div class="about-zpetnavazba">💬 Pro nápady a zpětnou vazbu mi napiš na LinkedIn</div>
+      <a href="https://www.linkedin.com/in/tomasbartek/" target="_blank" rel="noopener" class="about-odkaz">
+        🔗 LinkedIn profil
+      </a>
+    </div>
+
+    <div class="karta">
+      <div class="about-kafe-nadpis">☕ Kupte mi kafe!</div>
+      <div class="about-kafe-text">Pokud se vám hry líbí, můžete autora podpořit částkou 30&nbsp;Kč.</div>
+      <div id="about-qr" class="about-qr"></div>
+      <div class="about-kafe-hint">Naskenuj telefonem v bankovní aplikaci 📱</div>
+    </div>
+
+    <div class="about-copyright">© 2026 Tomáš Bártek</div>
+  </section>
+
+</div>
+
+<!-- Hlášení o stavu spojení — objeví se jen když je co říct -->
+<div id="stav-spojeni" class="stav-spojeni" hidden></div>
+
+<footer class="site-footer">
+  <a id="footer-about">Autor hry</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="data/texty.js"></script>
+<script src="data/ulohy.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/postava.js"></script>
+<script src="js/pokrok.js"></script>
+<script src="js/matika.js"></script>
+<script src="js/cteni.js"></script>
+<script src="js/psani.js"></script>
+<script src="js/sun.js"></script>
+<script src="js/hodnoceni.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

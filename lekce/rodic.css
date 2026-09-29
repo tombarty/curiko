@@ -1,0 +1,294 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Rodičovský přehled — doplňkové styly
+
+   Navazuje na style.css. Rodičovská část smí být informačně bohatší než
+   dětská, ale pořád platí: raději jasná zjištění než záplava grafů.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.rodic-hlavicka { padding: 6px 0 2px; }
+.rodic-nadpis { font-size: 1.5em; font-weight: 900; }
+.rodic-jmeno { font-size: 0.9em; color: var(--inkoust-tlumeny); margin-top: 4px; }
+
+.vstup-pin { text-align: center; letter-spacing: 12px; font-size: 1.6em; font-weight: 800; }
+
+/* ─── Záložky ───────────────────────────────────────────────────────────── */
+
+.zalozky {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+  border-bottom: 2px solid var(--papir-stin);
+}
+.zalozky::-webkit-scrollbar { display: none; }
+
+.zalozka {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 10px 16px;
+  font-family: var(--pismo-ui);
+  font-size: 0.9em;
+  font-weight: 700;
+  color: var(--inkoust-tlumeny);
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.zalozka:hover { color: var(--inkoust); }
+.zalozka.aktivni { color: var(--svestka); border-bottom-color: var(--svestka); }
+
+.panel { display: none; flex-direction: column; gap: var(--mezera); }
+.panel.aktivni { display: flex; }
+
+/* ─── Dlaždice ──────────────────────────────────────────────────────────── */
+
+.dlazdice-mrizka {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(108px, 1fr));
+  gap: 10px;
+}
+
+/* ─── Řádky s údaji ─────────────────────────────────────────────────────── */
+
+.radek-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 0.92em;
+  border-bottom: 1px solid var(--papir-stin);
+}
+.radek-info:last-child { border-bottom: none; }
+.radek-info span { color: var(--inkoust-tlumeny); }
+.radek-info strong { text-align: right; }
+
+.karta-nadpis.maly { font-size: 0.9em; margin-top: 6px; }
+
+/* ─── Pruhy dovedností ──────────────────────────────────────────────────── */
+
+.radek-dovednost {
+  display: grid;
+  grid-template-columns: 1fr 90px 44px;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+}
+.dovednost-nazev { font-size: 0.9em; }
+.dovednost-cislo { font-size: 0.85em; font-weight: 800; text-align: right; color: var(--inkoust-tlumeny); }
+
+.pruh-obal {
+  height: 10px;
+  background: var(--merunkova-tmava);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.pruh {
+  height: 100%;
+  background: linear-gradient(90deg, var(--malina), var(--svestka), var(--borovice));
+  border-radius: 5px;
+}
+
+/* ─── Jednoduchý sloupcový graf ─────────────────────────────────────────── */
+
+.graf {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 150px;
+  padding-top: 10px;
+}
+.graf-sloupec-obal {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  gap: 4px;
+  min-width: 0;
+}
+.graf-hodnota { font-size: 0.72em; font-weight: 800; color: var(--svestka); }
+.graf-sloupec {
+  width: 100%;
+  max-width: 42px;
+  background: linear-gradient(180deg, var(--svestka-svetla), var(--svestka));
+  border-radius: 5px 5px 0 0;
+  min-height: 3px;
+}
+.graf-popisek {
+  font-size: 0.62em;
+  color: var(--inkoust-tlumeny);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* ─── Značky ────────────────────────────────────────────────────────────── */
+
+.znacky { display: flex; flex-wrap: wrap; gap: 7px; }
+.znacka {
+  padding: 7px 12px;
+  font-family: var(--pismo-ui);
+  font-size: 0.82em;
+  font-weight: 700;
+  color: var(--inkoust);
+  background: var(--merunkova-tmava);
+  border: 1px solid var(--papir-stin);
+  border-radius: 16px;
+}
+.znacka.prepinatelna { cursor: pointer; min-height: 40px; }
+.znacka.prepinatelna:hover { border-color: var(--svestka); }
+.znacka.vypnuta { opacity: 0.42; text-decoration: line-through; }
+.znacka.zvyraznena { border-color: var(--malina); color: var(--malina); }
+
+/* ─── Tabulky ───────────────────────────────────────────────────────────── */
+
+.tabulka-obal { overflow-x: auto; margin: 0 -4px; }
+.tabulka {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84em;
+  min-width: 480px;
+}
+.tabulka th,
+.tabulka td {
+  padding: 9px 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--papir-stin);
+}
+.tabulka th {
+  font-weight: 800;
+  color: var(--inkoust-tlumeny);
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 0.4px;
+  position: sticky;
+  top: 0;
+  background: var(--papir);
+}
+.tabulka tbody tr:hover { background: var(--merunkova-tmava); }
+
+/* ─── Seznam lekcí ──────────────────────────────────────────────────────── */
+
+.seznam-lekci { display: flex; flex-direction: column; gap: 6px; }
+.lekce-radek {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  font-family: var(--pismo-ui);
+  font-size: 0.9em;
+  color: var(--inkoust);
+  background: var(--merunkova-tmava);
+  border: 1px solid var(--papir-stin);
+  border-radius: var(--oblouk-maly);
+  cursor: pointer;
+  text-align: left;
+}
+.lekce-radek:hover { border-color: var(--svestka); }
+.lekce-datum { font-weight: 700; }
+.lekce-hvezdy { font-size: 0.7em; letter-spacing: -1px; overflow: hidden; }
+.lekce-znamka { font-weight: 900; color: var(--svestka); min-width: 24px; text-align: center; }
+.lekce-sipka { color: var(--inkoust-tlumeny); font-size: 1.3em; }
+
+/* ─── Odpovědi a citace ─────────────────────────────────────────────────── */
+
+.odpoved-blok {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--papir-stin);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.odpoved-blok:last-child { border-bottom: none; }
+.odpoved-otazka { font-size: 0.9em; font-weight: 700; color: var(--inkoust-tlumeny); }
+.odpoved-stav { font-size: 0.78em; color: var(--inkoust-tlumeny); font-style: italic; }
+
+.citace {
+  padding: 10px 14px;
+  font-family: var(--pismo-cteni);
+  font-size: 0.98em;
+  line-height: var(--radek);
+  background: var(--merunkova-tmava);
+  border-left: 3px solid var(--svestka-svetla);
+  border-radius: 0 var(--oblouk-maly) var(--oblouk-maly) 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.zadani-psani-maly { font-size: 0.88em; color: var(--inkoust-tlumeny); font-style: italic; line-height: var(--radek); }
+
+.hodnoceni-formular { display: flex; flex-direction: column; gap: 10px; }
+
+/* ─── Nastavení ─────────────────────────────────────────────────────────── */
+
+.prepinac-radek {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  min-height: 48px;
+  padding: 8px 0;
+  font-size: 0.92em;
+  border-bottom: 1px solid var(--papir-stin);
+  cursor: pointer;
+}
+.prepinac-radek:last-child { border-bottom: none; }
+
+.prepinac {
+  width: 46px;
+  height: 26px;
+  flex: 0 0 46px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--merunkova-tmava);
+  border: 2px solid var(--papir-stin);
+  border-radius: 13px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.prepinac::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: var(--inkoust-tlumeny);
+  border-radius: 50%;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.prepinac:checked { background: rgba(255, 201, 77, 0.22); border-color: var(--svestka); }
+.prepinac:checked::after { transform: translateX(20px); background: var(--svestka); }
+
+.vstup.uzky { width: 130px; min-height: 44px; flex: 0 0 130px; }
+
+.klic-box {
+  padding: 12px 14px;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 0.85em;
+  word-break: break-all;
+  background: var(--merunkova-tmava);
+  border: 2px solid var(--papir-stin);
+  border-radius: var(--oblouk-maly);
+}
+
+.tlacitko-druhotne.nebezpecne { border-color: var(--malina); color: var(--malina); }
+
+/* ─── Tisk ──────────────────────────────────────────────────────────────── */
+
+@media print {
+  .zalozky, .about-zpet, .site-footer, .zpet-odkaz { display: none !important; }
+  .karta { border: 1px solid #999; break-inside: avoid; margin-bottom: 10px; }
+  .tabulka { min-width: 0; font-size: 10pt; }
+  .graf { display: none; }
+}

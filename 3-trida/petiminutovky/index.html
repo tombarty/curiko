@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>✏️ Pravopisné pětiminutovky</title>
+  <title>✏️ Pravopisné pětiminutovky — 3. třída</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -279,9 +279,10 @@ body { padding-bottom: 36px !important; }
 
   <!-- VÝBĚR KATEGORIE -->
   <div id="screen-menu">
-    <a href="../2-trida/index.html" class="home-link">← zpět na 2. třídu</a>
+    <a href="../index.html" class="home-link">← zpět na 3. třídu</a>
     <div class="header">
       <h1>✏️ Pravopisné pětiminutovky</h1>
+      <p style="font-weight:800">3. třída</p>
       <p>Vyber si kategorii a procvičuj!</p>
     </div>
     <div id="categories" class="categories"></div>
@@ -555,7 +556,7 @@ const App = {
 
   getStagesDone(catId) {
     try {
-      const raw = localStorage.getItem('pp_stages_done');
+      const raw = localStorage.getItem('pp3_stages_done');
       const all = raw ? JSON.parse(raw) : {};
       return new Set(all[catId] || []);
     } catch (e) { return new Set(); }
@@ -563,11 +564,11 @@ const App = {
 
   markStageDone(catId, idx) {
     try {
-      const raw = localStorage.getItem('pp_stages_done');
+      const raw = localStorage.getItem('pp3_stages_done');
       const all = raw ? JSON.parse(raw) : {};
       if (!all[catId]) all[catId] = [];
       if (!all[catId].includes(idx)) all[catId].push(idx);
-      localStorage.setItem('pp_stages_done', JSON.stringify(all));
+      localStorage.setItem('pp3_stages_done', JSON.stringify(all));
     } catch (e) {}
   },
 

@@ -1,0 +1,289 @@
+/* ─── Obkresli obrázek — světlý, veselý vzhled pro předškoláky ──────────── */
+:root {
+  --bg: #fff7e8;
+  --card: #ffffff;
+  --border: #f2dcb3;
+  --text: #4a3a2a;
+  --text-sub: #8a7560;
+  --accent: #ff8a3d;
+  --accent-dark: #e26a1d;
+  --blue: #3d8bff;
+  --green: #2fbf71;
+  --red: #ff5a5a;
+  --dot: #6b5a48;
+  --line-template: #3d3a8f;
+  --line-user: #ff8a3d;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  min-height: 100%;
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  overflow-x: hidden;
+}
+body { padding-bottom: 40px; }
+button { font-family: inherit; cursor: pointer; }
+
+#app { max-width: 960px; margin: 0 auto; padding: 14px 16px; }
+
+.screen { display: none; }
+.screen.active { display: block; }
+.hidden { display: none !important; }
+
+/* ─── Menu ─────────────────────────────────────────────────────────────── */
+.back-link {
+  display: inline-block;
+  color: var(--text-sub);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+.header { text-align: center; margin: 10px 0 22px; }
+.header h1 { font-size: clamp(26px, 7vw, 38px); font-weight: 900; color: var(--accent-dark); }
+.header p { font-size: 16px; color: var(--text-sub); margin-top: 6px; }
+
+.level-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.level-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card);
+  border: 3px solid var(--border);
+  border-radius: 22px;
+  padding: 16px;
+  text-align: left;
+  color: var(--text);
+  box-shadow: 0 4px 0 var(--border);
+  transition: transform 0.12s;
+}
+.level-card:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--border); }
+.level-card .lv-emoji { font-size: 46px; }
+.level-card .lv-name { font-size: 22px; font-weight: 900; }
+.level-card .lv-desc { font-size: 13px; color: var(--text-sub); margin-top: 2px; }
+.level-card .lv-done { font-size: 13px; color: var(--green); font-weight: 800; margin-top: 4px; }
+
+.btn-small {
+  display: block;
+  margin: 22px auto 0;
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+
+/* ─── Hra ──────────────────────────────────────────────────────────────── */
+.game-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.btn-icon {
+  width: 52px; height: 52px;
+  font-size: 26px;
+  border-radius: 16px;
+  border: 3px solid var(--border);
+  background: var(--card);
+  flex-shrink: 0;
+}
+.progress { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.progress span {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: #f1e3c8;
+  border: 2px solid var(--border);
+}
+.progress span.done { background: var(--green); border-color: var(--green); }
+.progress span.now { background: var(--accent); border-color: var(--accent); transform: scale(1.15); }
+
+.task {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 800;
+  margin: 10px 0 8px;
+  min-height: 26px;
+}
+
+.boards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.board-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.board-label { font-size: 14px; font-weight: 800; color: var(--text-sub); }
+.board {
+  background: var(--card);
+  border: 3px solid var(--line-template);
+  border-radius: 14px;
+  display: block;
+  touch-action: none;
+}
+/* Na výšku (telefon): předloha nahoře menší, kreslicí plocha dole velká */
+.board-template .board { width: min(42vw, 21vh); height: min(42vw, 21vh); }
+.board-draw .board { width: min(90vw, 42vh); height: min(90vw, 42vh); }
+
+/* Na šířku (tablet, počítač): vlevo předloha, vpravo kreslení — jako na pracovním listu */
+@media (min-aspect-ratio: 1/1), (min-width: 700px) {
+  .boards { flex-direction: row; justify-content: center; align-items: flex-end; gap: 18px; }
+  .board-template .board, .board-draw .board { width: min(44vw, 62vh); height: min(44vw, 62vh); }
+}
+
+
+.board .dot { fill: var(--dot); }
+.board .dot.anchor { fill: var(--accent); }
+.board .hint-dot { fill: var(--accent); opacity: 0.25; }
+.board .line-template { stroke: var(--line-template); stroke-linecap: round; stroke-linejoin: round; fill: none; }
+.board .line-user { stroke: var(--line-user); stroke-linecap: round; fill: none; }
+.board .line-rubber { stroke: var(--line-user); stroke-linecap: round; opacity: 0.45; stroke-dasharray: 2 2; }
+.board .line-wrong { stroke: var(--red); stroke-linecap: round; transition: opacity 0.5s; }
+.board .line-ok { stroke: var(--green); stroke-linecap: round; }
+
+.game-buttons { display: flex; gap: 12px; justify-content: center; margin-top: 14px; }
+.btn-tool {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 12px 20px;
+  border-radius: 16px;
+  border: 3px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+}
+.btn-tool:active { transform: translateY(2px); }
+
+/* ─── Pochvala ─────────────────────────────────────────────────────────── */
+.praise {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 247, 232, 0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 50;
+  animation: fadeIn 0.3s;
+}
+.praise-emoji { font-size: 96px; animation: pop 0.5s; }
+.praise-text { font-size: 34px; font-weight: 900; color: var(--green); }
+.praise-stars { font-size: 36px; letter-spacing: 4px; }
+
+.btn-primary, .btn-secondary {
+  font-size: 20px;
+  font-weight: 900;
+  padding: 14px 28px;
+  border-radius: 18px;
+  border: none;
+  margin-top: 8px;
+}
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 5px 0 var(--accent-dark); }
+.btn-primary:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--accent-dark); }
+.btn-secondary { background: var(--card); color: var(--text); border: 3px solid var(--border); font-size: 16px; }
+
+/* ─── Odměna ───────────────────────────────────────────────────────────── */
+.reward-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding-top: 40px;
+}
+.reward-emoji { font-size: 120px; animation: pop 0.6s; }
+.reward-box h2 { font-size: 34px; font-weight: 900; color: var(--accent-dark); }
+.reward-box p { font-size: 18px; color: var(--text-sub); }
+.reward-stars { font-size: 34px; }
+
+.confetti {
+  position: fixed;
+  top: -40px;
+  font-size: 28px;
+  pointer-events: none;
+  z-index: 60;
+  animation: fall linear forwards;
+}
+
+@keyframes pop { 0% { transform: scale(0.2); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+/* ─── Patička a Autor hry (stejný obsah jako ostatní hry Curiko) ───────── */
+.site-footer {
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0;
+  width: 100%;
+  padding: 8px 0;
+  text-align: center;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  z-index: 99999;
+}
+.site-footer a {
+  color: var(--text-sub);
+  font-size: 12px;
+  text-decoration: underline;
+  opacity: 0.8;
+  cursor: pointer;
+}
+.about-back-btn {
+  background: var(--card);
+  border: 2px solid var(--border);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 10px;
+}
+#screen-about.active { display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 420px; margin: 0 auto; }
+#screen-about .about-back-btn { align-self: flex-start; }
+.about-title { font-size: 24px; color: var(--accent-dark); text-align: center; }
+.about-card {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+}
+.about-name { font-size: 22px; font-weight: 800; color: var(--accent-dark); margin-bottom: 8px; }
+.about-sub { font-size: 14px; color: var(--text-sub); margin-bottom: 12px; line-height: 1.5; }
+.about-feedback {
+  font-size: 13px;
+  margin-bottom: 14px;
+  line-height: 1.5;
+  padding: 8px 12px;
+  background: var(--bg);
+  border-radius: 8px;
+}
+.about-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+.about-coffee-title { font-size: 18px; font-weight: 800; color: var(--accent-dark); margin-bottom: 8px; }
+.about-coffee-text { font-size: 13px; color: var(--text-sub); margin-bottom: 14px; line-height: 1.5; }
+.about-qr { display: flex; justify-content: center; background: #fff; padding: 12px; border-radius: 10px; margin: 0 auto 12px; width: fit-content; }
+.about-qr img { display: block; width: 200px; height: 200px; }
+.about-coffee-hint { font-size: 12px; color: var(--text-sub); font-style: italic; }
+.about-copyright { font-size: 12px; color: var(--text-sub); opacity: 0.7; }

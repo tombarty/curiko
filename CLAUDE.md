@@ -27,7 +27,20 @@ Curiko/
 ├── .git/                  ← Git repozitář
 ├── .gitignore
 ├── CLAUDE.md              ← tento soubor
-├── index.html             ← rozcestník (hlavní stránka Curiko)
+├── index.html             ← hlavní rozcestník — výběr ročníku
+├── predskolaci/           ← rozcestník Předškoláci
+│   ├── index.html
+│   ├── obkreslovani/      ← Obkresli obrázek (samostatná, vlastní style.css + js/)
+│   ├── spolecne/          ← společný základ her níže (zaklad.css, zaklad.js, slova.js)
+│   ├── pamet/             ← 🧠 Zapamatuj si (index.html + hra.js)
+│   ├── pocty/             ← 🔢 Počítání
+│   ├── sluch/             ← 👂 Slova a zvuky
+│   ├── prostor/           ← 🧭 Kde to je?
+│   └── logika/            ← 🧩 Přemýšlej
+├── 2-trida/index.html     ← rozcestník 2. třída (odkazuje na 7 her níže)
+├── 3-trida/               ← rozcestník 3. třída
+│   ├── index.html
+│   └── petiminutovky/     ← Pětiminutovky 3 (index.html + data.js, kopie enginu z petiminutovky/)
 ├── netlify.toml           ← konfigurace nasazení
 ├── package.json           ← jen kvůli @netlify/blobs (počítadlo návštěv)
 ├── netlify/
@@ -53,27 +66,80 @@ Curiko/
 │   ├── index.html
 │   ├── style.css
 │   └── js/ (storage, sound, motivace, words, games, app)
-└── nasobilka/             ← Druhákova násobilka
-    ├── index.html
-    ├── style.css
-    └── js/ (storage, sound, motivace, games, app)
+├── nasobilka/             ← Druhákova násobilka
+│   ├── index.html
+│   ├── style.css
+│   └── js/ (storage, sound, motivace, games, app)
+└── lekce/                 ← Denní lekce se SUN (viz lekce/CLAUDE.md)
+    ├── index.html         ← dětský režim
+    ├── rodic.html         ← rodičovský přehled (PIN)
+    ├── style.css, rodic.css
+    ├── data/ (texty, ulohy)
+    ├── js/ (storage, sound, pokrok, matika, cteni, psani, sun, hodnoceni, app, rodic)
+    └── testy/ (node lekce/testy/spust-vse.js)
 ```
 
 Adresář `scany-petiminutovek/` (skeny učebnice) je jen pracovní materiál na disku —
 je v `.gitignore` a do repozitáře nepatří.
 
-## Rozcestník (index.html v rootu)
+## Rozcestníky podle ročníku (od září 2026)
 
-Hlavní stránka se 6 kartami — každá odkazuje na podadresář (v tomto pořadí):
+Hlavní stránka (`index.html`) nabízí 3 ročníky: 🧸 Předškoláci → `predskolaci/`,
+✏️ 2. třída → `2-trida/`, 📘 3. třída → `3-trida/`.
+
+- Rozcestníky ročníků jsou kopie hlavní stránky (stejný vzhled, patička, počítadlo)
+  s odkazem „← Všechny ročníky“.
+- **Hry 2. třídy zůstaly ve svých původních složkách** (`svet-poznani/`, `petiminutovky/`…),
+  aby se nerozbily záložky ani uložený postup. Jen jejich odkaz „zpět“ vede na `../2-trida/`.
+- Nová hra = složka uvnitř složky ročníku (např. `3-trida/nova-hra/`) + karta v rozcestníku ročníku.
+
+Rozcestník 2. třídy má 7 karet (v tomto pořadí):
 1. `./svet-poznani/` → ✨ Magický svět poznání
 2. `./petiminutovky/` → ✏️ Pravopisné pětiminutovky
 3. `./pribehova-hra/` → 🌲 Dobrodružství Laury
 4. `./hodiny/` → 🕐 Hodinový mistr
 5. `./pismena/` → 📚 Slovní ostrov
 6. `./nasobilka/` → ✖️ Druhákova násobilka
+7. `./lekce/` → 🌻 Denní lekce se SUN
 
 Tmavě fialový design, gradient logo "Curiko", font Nunito.
 Dole na stránce je počítadlo návštěv (viz níže).
+
+### Předškoláci — Obkresli obrázek (`predskolaci/obkreslovani/`)
+- Předloha (vlevo / na telefonu nahoře) + prázdná tečkovaná síť; dítě táhne prstem od tečky
+  k tečce (nebo ťukne na dvě tečky). Každá čára se hned kontroluje — špatná zčervená a zmizí.
+- Úrovně: Lehké 3×3, Střední 4×4, Těžké 5×5 (obrázky z pracovního listu IMG_4322).
+  Kolo = 5 obrázků, hvězdičky podle chyb, po 3 chybách slabá nápověda jedné čáry.
+  (Zrcadlová úroveň byla na přání odstraněna — pro předškoláky příliš těžká.)
+- Hlasové pokyny přes `speechSynthesis` (cs-CZ), dá se vypnout. Světlý veselý vzhled.
+- Obrázky jsou v `js/tvary.js` jako lomené čáry v souřadnicích [sloupec, řádek] od 0.
+- localStorage: `obk_hotovo`, `obk_hlas`.
+
+### Předškoláci — 5 her na společném základu (`predskolaci/spolecne/`)
+- Každá hra = `index.html` (jen načte skripty) + `hra.js`, který zavolá
+  `Zaklad.start({ id, nazev, emoji, popis, rezimy: [...] })`. Režim má funkci `uloha(ctx)`,
+  která postaví jeden úkol do `ctx.stage` a po odpovědi volá `ctx.spravne()` / `ctx.spatne()`.
+- `zaklad.js` řeší vše společné: menu režimů, kolo 5 úkolů, hlas (`speechSynthesis` cs-CZ),
+  zvuky, hvězdičky, odměnu, patičku Autor hry. **Obtížnost 1–3 se upravuje sama**
+  (4–5 úkolů napoprvé → těžší, ≤ 2 → lehčí), uloženo v localStorage `pred_urovne`.
+- `slova.js` = společná slovní zásoba (obrázek, slovo, slabiky) + rýmy.
+- Hry a režimy:
+  - 🧠 **Zapamatuj si** — Co zmizelo? · Co přibylo? · Kde to bylo? · Slyšel jsi? (sluchová paměť)
+  - 🔢 **Počítání** — Kolik jich je? (po odpovědi společné počítání nahlas) · Čeho je víc? · Nakrm zvířátko
+  - 👂 **Slova a zvuky** — Vytleskej slovo (bubínek) · Na co slovo začíná? · Co se rýmuje?
+    Samotné hlásky počítačový hlas neumí → dítě vždy porovnává celá slova.
+  - 🧭 **Kde to je?** — Polož to (nad/pod/vlevo/vpravo/rohy) · Najdi obrázek (vč. před/za) · Vlevo, vpravo
+  - 🧩 **Přemýšlej** — Co nepatří? · Co bude dál? · Najdi stín · Seřaď příběh
+- Obrázky jsou jen emoji (žádné soubory). Vlevo/vpravo je vždy z pohledu dítěte.
+
+### 3. třída — Pravopisné pětiminutovky 3 (`3-trida/petiminutovky/`)
+- Sešit *Pravopisné pětiminutovky 3* (Alter), **strany 1–27**, 1446 položek.
+- **1 strana = 1 kategorie, 1 sloupec = 1 etapa** (počty položek sedí s čísly v rámečcích sešitu).
+- ID `téma-NN` (např. `bp-04`, `vyjm-m-26`); na konci `mix-all`.
+- `index.html` je kopie z `petiminutovky/` — liší se jen odkazem zpět, podnadpisem „3. třída“
+  a klíčem localStorage `pp3_stages_done` (aby se nemíchal postup s 2. třídou).
+- Engine v `data.js` (od „Motivační motivy“) je kopie z `petiminutovky/data.js` — opravu enginu
+  je potřeba udělat v obou souborech.
 
 ## Počítadlo návštěv
 
@@ -108,7 +174,7 @@ QR kód se generuje pomocí CDN knihovny `qrcode-generator`.
 - **Workflow**: úprava kódu → `git add . && git commit -m "popis" && git push` → automaticky online
 - **Pozor**: `push` znamená okamžité zveřejnění. Před commitem a pushem se vždy zeptat.
 
-## Šest her — přehled
+## Sedm her 2. třídy — přehled
 
 ### 1. Magický svět poznání (`svet-poznani/`)
 - 6 říší (vesmír, les, draci, zvířata, roboti, zahrada), 3 levely, 17 kapitol
@@ -165,6 +231,20 @@ QR kód se generuje pomocí CDN knihovny `qrcode-generator`.
 - 6 úkolů + Mix: `mul2/mul3/mul4` a `div2/div3/div4`
 - Odměna: truhla s mincemi (`screen-truhla`)
 
+### 7. Denní lekce se SUN (`lekce/`)
+- **Není to hra na jedno posezení, ale denní režim** — jedna lekce ≈ 30 minut
+- Průvodkyně **SUN** (čte se česky „Sun“) vede dítě čtením, otázkami k textu,
+  psaním a patnácti matematickými úlohami
+- Úkoly se dávkují po jednom, aby dítě nezahltily
+- Adaptivní obtížnost podle skutečných výsledků; sleduje se každá dovednost zvlášť
+- Ukládá **na server** (Netlify Blobs) pod náhodným rodinným klíčem, se zálohou
+  v prohlížeči pro případ výpadku internetu
+- Má **rodičovský přehled** (`rodic.html`, chráněný PINem) s grafy, historií,
+  fotkami napsaných úkolů a exportem pro učitelku
+- Zatím **bez AI** — texty jsou předpřipravené, fotky hodnotí rodič
+- Vlastní testy: `node lekce/testy/spust-vse.js`
+- Detailní dokumentace: viz `lekce/CLAUDE.md`
+
 ### Společná stavba her 4–6
 Hodiny, Slovní ostrov i Násobilka sdílejí stejnou kostru:
 `index.html` + `style.css` + `js/` s moduly `storage` (localStorage),
@@ -174,8 +254,8 @@ Novou hru tohoto typu je nejjednodušší postavit zkopírováním `nasobilka/` 
 
 ## Při přidávání nové hry do Curiko
 
-1. Vytvořit podadresář v `Curiko/`
-2. Přidat kartu do `index.html` rozcestníku
+1. Vytvořit podadresář ve složce ročníku (`predskolaci/`, `3-trida/`…)
+2. Přidat kartu do `index.html` rozcestníku daného ročníku (odkaz „zpět“ ve hře vede na `../index.html`)
 3. Přidat fixní patičku s "Autor hry" (viz vzor v ostatních hrách)
 4. Přidat stránku "Autor hry" se stejným obsahem (LinkedIn, QR kód)
 5. Otestovat, ukázat Tomášovi a **až po odsouhlasení** commitnout a pushnout

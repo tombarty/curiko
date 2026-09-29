@@ -4,3 +4,7 @@ node_modules/
 package-lock.json
 .netlify/
 scany-petiminutovek/
+
+# Podklady (skeny sešitů, fotky listů) — autorská práva, do repozitáře nepatří
+*.pdf
+IMG_*

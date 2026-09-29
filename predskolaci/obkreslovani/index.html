@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>🖍️ Obkresli obrázek — Curiko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- MENU -->
+  <section id="screen-menu" class="screen active">
+    <a href="../index.html" class="back-link">← zpět na předškoláky</a>
+    <div class="header">
+      <h1>🖍️ Obkresli obrázek</h1>
+      <p>Podívej se na obrázek a nakresli ho stejně na prázdné tečky.</p>
+    </div>
+    <div id="level-list" class="level-list"></div>
+    <button id="btn-sound" class="btn-small">🔊 Hlas zapnutý</button>
+  </section>
+
+  <!-- HRA -->
+  <section id="screen-game" class="screen">
+    <div class="game-top">
+      <button class="btn-icon" id="btn-game-back" aria-label="Zpět do menu">🏠</button>
+      <div id="progress" class="progress"></div>
+      <button class="btn-icon" id="btn-say" aria-label="Zopakovat pokyn">🔊</button>
+    </div>
+
+    <div id="task" class="task"></div>
+
+    <div id="boards" class="boards">
+      <div class="board-wrap board-template">
+        <div class="board-label">👀 Předloha</div>
+        <svg id="svg-template" class="board" viewBox="0 0 100 100"></svg>
+      </div>
+      <div class="board-wrap board-draw">
+        <div class="board-label">✏️ Tady kresli</div>
+        <svg id="svg-draw" class="board" viewBox="0 0 100 100"></svg>
+      </div>
+    </div>
+
+    <div class="game-buttons">
+      <button class="btn-tool" id="btn-undo">↩️ Zpět</button>
+      <button class="btn-tool" id="btn-clear">🧽 Smazat</button>
+    </div>
+
+    <div id="praise" class="praise hidden">
+      <div class="praise-emoji" id="praise-emoji">🎉</div>
+      <div class="praise-text" id="praise-text">Výborně!</div>
+      <div class="praise-stars" id="praise-stars"></div>
+      <button class="btn-primary" id="btn-next">Další obrázek ➡️</button>
+    </div>
+  </section>
+
+  <!-- ODMĚNA -->
+  <section id="screen-reward" class="screen">
+    <div class="reward-box">
+      <div class="reward-emoji" id="reward-emoji">🏆</div>
+      <h2 id="reward-title">Jsi šikula!</h2>
+      <p id="reward-text"></p>
+      <div class="reward-stars" id="reward-stars"></div>
+      <button class="btn-primary" id="btn-again">🔄 Ještě jednou</button>
+      <button class="btn-secondary" id="btn-reward-menu">📋 Vybrat jinou úroveň</button>
+    </div>
+  </section>
+
+  <!-- AUTOR HRY -->
+  <section id="screen-about" class="screen">
+    <button class="about-back-btn" id="btn-about-back">← Zpět</button>
+    <h2 class="about-title">✨ Autor hry</h2>
+
+    <div class="about-card">
+      <div class="about-name">Tomáš Bártek</div>
+      <div class="about-sub">Vytvořeno s pomocí <strong>Claude Code</strong> 🤖</div>
+      <div class="about-feedback">💬 Pro nápady a zpětnou vazbu mi napiš na LinkedIn</div>
+      <a href="https://www.linkedin.com/in/tomasbartek/" target="_blank" rel="noopener" class="about-link">
+        🔗 LinkedIn profil
+      </a>
+    </div>
+
+    <div class="about-card">
+      <div class="about-coffee-title">☕ Kupte mi kafe!</div>
+      <div class="about-coffee-text">Pokud se vám hry líbí, můžete autora podpořit částkou 30&nbsp;Kč.</div>
+      <div id="about-qr" class="about-qr"></div>
+      <div class="about-coffee-hint">Naskenuj telefonem v bankovní aplikaci 📱</div>
+    </div>
+
+    <div class="about-copyright">© 2026 Tomáš Bártek</div>
+  </section>
+
+</div>
+
+<footer class="site-footer">
+  <a id="footer-about">Autor hry</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="js/tvary.js"></script>
+<script src="js/hra.js"></script>
+</body>
+</html>
