@@ -4,7 +4,7 @@
 
 **Curiko** je značka sdružující vzdělávací webové hry pro děti ve 2. třídě ZŠ (7–8 let). Název vychází z latinského *curiositas* (zvědavost) a zní jako japonské holčičí jméno. Doména `curiko.cz` je volná (stav duben 2026).
 
-Projekt je určený primárně pro dceru Amélii, která má speciální vzdělávací potřeby (SVP I. stupně) — doporučení z diagnostiky zahrnují:
+Projekt je určený primárně pro dceru, která má speciální vzdělávací potřeby (SVP I. stupně) — doporučení z diagnostiky zahrnují:
 - Krátké a časté procvičování ("pracovat krátce a častěji")
 - Čtení s porozuměním (10 min denně)
 - Sluchové vnímání (rozlišování hlásek, sklad/rozklad slov)
@@ -180,7 +180,7 @@ QR kód se generuje pomocí CDN knihovny `qrcode-generator`.
 - 6 říší (vesmír, les, draci, zvířata, roboti, zahrada), 3 levely, 17 kapitol
 - Předměty: matematika, čeština, angličtina
 - 14 typů mini-her + 3 arkádové hry (Snake, Flappy, Breakout) jako odměna za level
-- Level 3 rozšířen o 3 specifické hry pro Amélii (čtení s porozuměním, diakritika, skládání slov)
+- Level 3 rozšířen o 3 specifické hry podle doporučení z diagnostiky (čtení s porozuměním, diakritika, skládání slov)
 - Gamifikace: hvězdičky, hodnosti, série (až do 10+), tematické motivační hlášky per říše
 - Detailní dokumentace: viz `svet-poznani/CLAUDE.md`
 

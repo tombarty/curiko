@@ -154,4 +154,4 @@ Každá říše má 5 vlastních hodností v `theme.ranks`:
 - `english-spelling` — složení anglického slova z písmen
 - `english-reading` — čtení krátkých anglických textů
 
-Hry označené ⭐ NOVÉ byly přidány na základě diagnostiky SVP pro Amélii.
+Hry označené ⭐ NOVÉ byly přidány na základě doporučení z diagnostiky SVP.

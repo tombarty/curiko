@@ -2,7 +2,7 @@
 
 ## O projektu
 
-Aplikace pro **Ami** (8 let, od září 3. třída) — každý den jedna samostatná
+Aplikace pro dítě (8 let, od září 3. třída) — každý den jedna samostatná
 lekce: čtení, porozumění textu, psaní a matematika. Průvodkyní je postava
 **SUN** (čte se česky „Sun“, ne anglicky jako slunce).
 
@@ -83,7 +83,7 @@ Deset za lekci: 3 čtení · 2 porozumění · 1 psaní · 3 matematika · 1 vyt
 
 **Klíčové pravidlo:** hvězdičky se nedávají jen za správné výsledky. Odměňuje
 se i dočtení obtížného slova, oprava vlastní chyby, vysvětlení postupu,
-odpověď celou větou nebo to, že si Ami řekla o nápovědu místo aby to vzdala.
+odpověď celou větou nebo to, že si dítě řeklo o nápovědu, místo aby to vzdalo.
 Poslední hvězdičku za vytrvalost nelze získat za správnost vůbec.
 
 Známka je vždy **1, 1− nebo 2**. Horší se nedává. Ve slabý nebo nedokončený
@@ -123,7 +123,7 @@ odměna `#c9820f`. Tmavý motiv (`data-motiv="tma"`) je tlumený, na čtení ve�
 **Písma:** **Plus Jakarta Sans** na rozhraní i nadpisy (jedno písmo v celém
 rozsahu řezů drží stránku pohromadě a je současnější než míchat dvě
 dekorativní), **Atkinson Hyperlegible** jen na čtený text — nenahrazovat,
-jeho b/d/p/q a a/o/e se dají rozlišit, což je přesně to, co Ami plete.
+jeho b/d/p/q a a/o/e se dají rozlišit, což je přesně to, co dítě plete.
 
 **Ukazovátko** potlačuje nezvýrazněné řádky na `opacity: 0.55` — ne níž,
 jinak se dítě nemůže očima vrátit o věty výš.
@@ -153,9 +153,9 @@ postava bila do očí a přetahovala pozornost od textu. Šest výrazů:
 | `povzbuzeni` | po chybě |
 | `zamysleni` | u nápovědy a otázek |
 | `nadseni` | u odměn a milníků |
-| `unaveni` | když Ami řekne, že je unavená |
+| `unaveni` | když dítě řekne, že je unavené |
 
-Výraz se mění přes `App.vyrazSUN(situace)`. Když Ami zvolí „jsem unavená",
+Výraz se mění přes `App.vyrazSUN(situace)`. Když dítě zvolí „jsem unavená",
 zůstane SUN ztišená **celou lekci** — ne jen na tu sekundu po odpovědi.
 Řeší to `bublinaSUN()` podle `lekce.energie`.
 
@@ -171,7 +171,7 @@ Sluchátka se kreslí **až po tváři**, jinak je tvář překryje.
 Tohle je to, co dělá rozdíl mezi hlasem aplikace a kamarádkou. V `sun.js`:
 
 - `vzpominkaNaMinule(stav)` — naváže na minulou lekci: delší pauzu, téma
-  textu, opravené chyby, i konkrétní větu, kterou Ami napsala. Bez dat vrací
+  textu, opravené chyby, i konkrétní větu, kterou dítě napsalo. Bez dat vrací
   `null` a nic se nevymýšlí.
 - `procTentoText(id)` — SUN řekne, proč si text vybrala. Dítě pak nečte
   zadaný text, ale něco, co jí někdo přinesl. **Nový text = doplnit i sem.**
@@ -185,7 +185,7 @@ Slovo **„mise" se nepoužívá** — znělo technicky.
 
 ## Přístupnost
 
-Vychází z toho, co Ami dělá potíže: plete si a/o, p/b/d, i/e a domýšlí si
+Vychází z toho, co dítěti dělá potíže: plete si a/o, p/b/d, i/e a domýšlí si
 konce slov.
 
 - Čtený text sází **Atkinson Hyperlegible** — písmo navržené tak, aby se tyhle
@@ -217,7 +217,7 @@ zakázanou formulaci a že na sebe soubory navazují.
 Aplikace zatím **nepoužívá žádnou AI** — texty jsou předpřipravené a odpovědi
 se vyhodnocují podle klíčových slov a stavby věty (`js/cteni.js`).
 
-Fotky napsaných úkolů proto **nelze automaticky vyhodnotit**. Ami za odevzdání
+Fotky napsaných úkolů proto **nelze automaticky vyhodnotit**. Dítě za odevzdání
 dostane hvězdičku a fotku ohodnotí rodič v přehledu.
 
 Kdyby se AI někdy zapínala, jsou na to připravená dvě místa:
@@ -247,8 +247,8 @@ podobný příklad). Pokud má názornou ukázku, doplnit i případ do
 ## Známé odchylky od původního zadání
 
 - **Mikrofon a nahrávání čtení** nejsou. České rozpoznávání řeči v prohlížeči
-  na iPadu není dost spolehlivé na to, aby se z něj dalo poznat, jestli Ami
-  zaměnila b/d — vedlo by to k falešným hlášením.
+  na iPadu není dost spolehlivé na to, aby se z něj dalo poznat, jestli dítě
+  zaměnilo b/d — vedlo by to k falešným hlášením.
 - **Fotky se nevyhodnocují automaticky** — viz oddíl „Bez AI“ výše.
 - **Úroveň 5** (text na stranu A4) zatím nemá žádný text. Aplikace si v tom
   případě půjčí z nejbližší nižší úrovně.
