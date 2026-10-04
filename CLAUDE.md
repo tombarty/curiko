@@ -41,7 +41,8 @@ Curiko/
 ├── 3-trida/               ← rozcestník 3. třída
 │   ├── index.html
 │   ├── petiminutovky/     ← Pětiminutovky 3 (index.html + data.js, kopie enginu z petiminutovky/)
-│   └── nasobilka/         ← Třeťákova násobilka ×5–×9, :5–:9 (kopie nasobilka/)
+│   ├── nasobilka/         ← Třeťákova násobilka ×5–×9, :5–:9 (kopie nasobilka/)
+│   └── zavod/             ← 🏁 Závod na tabuli — 2 týmy proti sobě (prototyp, násobilka 5–9)
 ├── netlify.toml           ← konfigurace nasazení
 ├── package.json           ← jen kvůli @netlify/blobs (počítadlo návštěv)
 ├── netlify/
@@ -150,6 +151,19 @@ Dole na stránce je počítadlo návštěv (viz níže).
 - Typy úkolů `mulK` / `divK` se generují obecně z `Games.CISLA` v `js/games.js`
   (přidat další číslo = jen rozšířit pole).
 - localStorage `nasobilka3_save` (mince se nemíchají s 2. třídou).
+
+### 3. třída — Závod na tabuli (`3-trida/zavod/`) — PROTOTYP
+- Pro interaktivní tabuli ve třídě: učitelka udělá 2 řady dětí, ty se střídají.
+  Nahoře dráha se 2 autíčky, dole levá polovina = 🔴 Červení, pravá = 🔵 Modří,
+  každý tým má vlastní příklady. Správně = auto o krok dál, špatně = ukáže se výsledek,
+  auto stojí, po 1,8 s nový příklad. Kdo první dojede (5/10/15 příkladů), vyhrává.
+- Odpovědi přes `pointerdown` → na vícedotykové tabuli mohou oba týmy ťukat **současně**.
+  Jedno ťuknutí = jedna odpověď (tým se do dalšího příkladu zamkne).
+- Nastavení: **čísla 5–9** (lze vybrat víc, výchozí 6–9) × **druh** (násobení / dělení / obojí)
+  × délka závodu. `js/ulohy.js` — `generuj(cisla, druh)` vrací `{ otazka, spravne, moznosti }`;
+  jiný typ úloh (např. pravopis) = nová funkce se stejným výstupem. `js/zavod.js` — logika, auto je SVG.
+- Světlý kontrastní vzhled kvůli projektoru, rozměry ve vw/vh (tabule na šířku 16:9).
+- Nic neukládá (žádný localStorage).
 
 ## Počítadlo návštěv
 

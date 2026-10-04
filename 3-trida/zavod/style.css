@@ -1,0 +1,255 @@
+/* ─── Závod na tabuli ────────────────────────────────────────────────────── */
+/* Navrženo pro interaktivní tabuli na šířku (16:9). Světlé barvy a velký      */
+/* kontrast, aby bylo vše čitelné i přes projektor ze zadní lavice.            */
+:root {
+  --bg: #f4f7fb;
+  --card: #ffffff;
+  --text: #1f2a3a;
+  --text-sub: #5b6b80;
+  --border: #d5deea;
+  --red: #e5383b;
+  --red-soft: #ffe3e3;
+  --blue: #2f6fe4;
+  --blue-soft: #e1ecff;
+  --green: #22a85a;
+  --gold: #f4b400;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%;
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+button { font-family: inherit; cursor: pointer; color: inherit; }
+.hidden { display: none !important; }
+
+.screen { display: none; height: calc(100vh - 32px); }
+.screen.active { display: flex; flex-direction: column; }
+
+/* ─── Nastavení ────────────────────────────────────────────────────────── */
+#screen-setup { align-items: center; padding: 2vh 4vw; gap: 2.2vh; overflow-y: auto; }
+.back-link { align-self: flex-start; color: var(--text-sub); font-weight: 800; text-decoration: none; font-size: 16px; }
+#screen-setup h1 { font-size: clamp(30px, 5vw, 60px); font-weight: 900; }
+.sub { max-width: 900px; text-align: center; font-size: clamp(15px, 1.6vw, 22px); color: var(--text-sub); }
+.setup-block { text-align: center; }
+.setup-block h2 { font-size: clamp(18px, 2vw, 28px); margin-bottom: 1vh; }
+.choices { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.choice {
+  font-size: clamp(16px, 1.8vw, 26px);
+  font-weight: 800;
+  padding: 1.4vh 2.2vw;
+  border-radius: 16px;
+  border: 3px solid var(--border);
+  background: var(--card);
+}
+.choice.num { min-width: 4.2em; }
+.setup-block h2 small { font-size: 0.6em; color: var(--text-sub); font-weight: 700; }
+.choice.sel { border-color: var(--blue); background: var(--blue-soft); color: var(--blue); }
+.setup-actions { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.btn-big {
+  font-size: clamp(22px, 2.6vw, 38px);
+  font-weight: 900;
+  padding: 1.8vh 4vw;
+  border-radius: 20px;
+  border: none;
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 6px 0 #178045;
+}
+.btn-big:active { transform: translateY(4px); box-shadow: 0 2px 0 #178045; }
+.btn-small {
+  font-size: clamp(14px, 1.4vw, 20px);
+  font-weight: 800;
+  padding: 1.2vh 1.6vw;
+  border-radius: 14px;
+  border: 3px solid var(--border);
+  background: var(--card);
+}
+.tip { font-size: 14px; color: var(--text-sub); }
+
+/* ─── Dráha ────────────────────────────────────────────────────────────── */
+.track {
+  position: relative;
+  height: 27vh;
+  background: #7cc46b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.2vh;
+  padding: 1.2vh calc(2vw + 46px) 1.2vh 2vw;  /* vpravo místo pro tlačítko ✕ */
+  border-bottom: 6px solid #5a9e4b;
+}
+.lane { display: flex; align-items: center; gap: 1vw; height: 10.5vh; }
+.lane-name {
+  width: 11vw;
+  font-size: clamp(14px, 1.8vw, 28px);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+.road {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  background: #4a4f57;
+  border-radius: 10px;
+  background-image: repeating-linear-gradient(90deg, transparent 0 40px, #f3f3f3 40px 70px);
+  background-size: 100% 4px;
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+}
+.road::before {
+  /* startovní čára */
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: #fff;
+}
+.finish {
+  width: 3vw;
+  height: 100%;
+  border-radius: 6px;
+  background:
+    conic-gradient(#111 25%, #fff 0 50%, #111 0 75%, #fff 0) 0 0 / 1.5vw 1.5vw;
+}
+.car {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 9vh;
+  height: 5.5vh;
+  transform: translate(0, -50%);
+  transition: left 0.8s cubic-bezier(.3, 1.4, .5, 1);
+}
+.car svg { width: 100%; height: 100%; display: block; }
+.car.boost { animation: boost 0.8s; }
+.race-menu {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+/* ─── Týmy ─────────────────────────────────────────────────────────────── */
+.teams { flex: 1; display: flex; }
+.team {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3vh;
+  padding: 2vh 2vw;
+  touch-action: none;
+}
+.team-a { background: var(--red-soft); border-right: 4px solid #fff; }
+.team-b { background: var(--blue-soft); border-left: 4px solid #fff; }
+.team-head { display: flex; align-items: center; gap: 1.5vw; font-size: clamp(18px, 2.4vw, 36px); font-weight: 900; }
+.team-a .team-head { color: var(--red); }
+.team-b .team-head { color: var(--blue); }
+.team-score {
+  font-size: 0.8em;
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.2em 0.8em;
+}
+.question {
+  font-size: clamp(40px, 7.5vw, 120px);
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+.question .qmark { color: var(--gold); }
+.answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2vh 1.6vw;
+  width: min(100%, 40vw);
+}
+.ans {
+  font-size: clamp(30px, 5vw, 80px);
+  font-weight: 900;
+  padding: 1.8vh 0;
+  border-radius: 22px;
+  border: 4px solid var(--border);
+  background: var(--card);
+  box-shadow: 0 6px 0 var(--border);
+  touch-action: none;
+}
+.team-a .ans { color: var(--red); }
+.team-b .ans { color: var(--blue); }
+.ans.ok { background: var(--green); border-color: var(--green); color: #fff !important; box-shadow: 0 6px 0 #178045; }
+.ans.bad { background: #ffd0d0; border-color: var(--red); animation: shake 0.45s; }
+.team.locked .ans { pointer-events: none; }
+.team.wait .answers { opacity: 0.35; }
+.team-msg { font-size: clamp(16px, 2vw, 30px); font-weight: 900; min-height: 1.3em; }
+.team-a .team-msg { color: var(--red); }
+.team-b .team-msg { color: var(--blue); }
+
+/* ─── Odpočet a vítěz ──────────────────────────────────────────────────── */
+.countdown {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30vh;
+  font-weight: 900;
+  color: var(--text);
+  background: rgba(244, 247, 251, 0.75);
+  z-index: 50;
+}
+.countdown span { animation: pop 0.6s; }
+
+#screen-win { align-items: center; justify-content: center; }
+.win-box { display: flex; flex-direction: column; align-items: center; gap: 2.5vh; text-align: center; }
+.win-cup { font-size: 22vh; animation: pop 0.7s; }
+#win-title { font-size: clamp(36px, 6vw, 90px); font-weight: 900; }
+#win-score { font-size: clamp(18px, 2.4vw, 34px); color: var(--text-sub); font-weight: 800; }
+.confetti { position: fixed; top: -40px; font-size: 40px; pointer-events: none; z-index: 60; animation: fall linear forwards; }
+
+@keyframes pop { 0% { transform: scale(0.2); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-12px); } 40% { transform: translateX(12px); } 60% { transform: translateX(-8px); } 80% { transform: translateX(8px); } }
+@keyframes boost { 0%, 100% { transform: translate(0, -50%) rotate(0); } 30% { transform: translate(0, -50%) rotate(-6deg); } }
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+/* ─── Patička a Autor hry ──────────────────────────────────────────────── */
+.site-footer {
+  position: fixed;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  z-index: 99999;
+}
+.site-footer a { color: var(--text-sub); font-size: 12px; text-decoration: underline; cursor: pointer; }
+#screen-about.active { align-items: center; gap: 18px; padding: 20px; overflow-y: auto; }
+#screen-about > * { width: 100%; max-width: 420px; }
+.about-back-btn { align-self: center; background: var(--card); border: 2px solid var(--border); font-size: 14px; font-weight: 700; padding: 8px 14px; border-radius: 10px; width: auto !important; }
+.about-title { font-size: 24px; text-align: center; }
+.about-card { background: var(--card); border: 2px solid var(--border); border-radius: 16px; padding: 20px; text-align: center; }
+.about-name { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+.about-sub { font-size: 14px; color: var(--text-sub); margin-bottom: 12px; }
+.about-feedback { font-size: 13px; margin-bottom: 14px; padding: 8px 12px; background: var(--bg); border-radius: 8px; }
+.about-link { display: inline-block; padding: 10px 20px; background: var(--blue); color: #fff; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px; }
+.about-coffee-title { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+.about-coffee-text { font-size: 13px; color: var(--text-sub); margin-bottom: 14px; }
+.about-qr { display: flex; justify-content: center; background: #fff; padding: 12px; border-radius: 10px; margin: 0 auto 12px; width: fit-content; }
+.about-qr img { display: block; width: 200px; height: 200px; }
+.about-coffee-hint { font-size: 12px; color: var(--text-sub); font-style: italic; }
+.about-copyright { font-size: 12px; color: var(--text-sub); text-align: center; }
