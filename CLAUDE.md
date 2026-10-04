@@ -40,7 +40,8 @@ Curiko/
 ├── 2-trida/index.html     ← rozcestník 2. třída (odkazuje na 7 her níže)
 ├── 3-trida/               ← rozcestník 3. třída
 │   ├── index.html
-│   └── petiminutovky/     ← Pětiminutovky 3 (index.html + data.js, kopie enginu z petiminutovky/)
+│   ├── petiminutovky/     ← Pětiminutovky 3 (index.html + data.js, kopie enginu z petiminutovky/)
+│   └── nasobilka/         ← Třeťákova násobilka ×5–×9, :5–:9 (kopie nasobilka/)
 ├── netlify.toml           ← konfigurace nasazení
 ├── package.json           ← jen kvůli @netlify/blobs (počítadlo návštěv)
 ├── netlify/
@@ -140,6 +141,15 @@ Dole na stránce je počítadlo návštěv (viz níže).
   a klíčem localStorage `pp3_stages_done` (aby se nemíchal postup s 2. třídou).
 - Engine v `data.js` (od „Motivační motivy“) je kopie z `petiminutovky/data.js` — opravu enginu
   je potřeba udělat v obou souborech.
+
+### 3. třída — Třeťákova násobilka (`3-trida/nasobilka/`)
+- Kopie Druhákovy násobilky (`nasobilka/`) — stejný koncept: 10 příkladů na kolo, 4 možnosti,
+  mince do truhly, „Procvič chyby“, výsledky s hvězdičkami.
+- Násobení a dělení **5, 6, 7, 8 a 9** (výsledek dělení / druhý činitel 1–10) + Mix.
+  Menu: v každém řádku vlevo × N, vpravo : N.
+- Typy úkolů `mulK` / `divK` se generují obecně z `Games.CISLA` v `js/games.js`
+  (přidat další číslo = jen rozšířit pole).
+- localStorage `nasobilka3_save` (mince se nemíchají s 2. třídou).
 
 ## Počítadlo návštěv
 
