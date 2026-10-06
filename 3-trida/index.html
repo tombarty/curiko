@@ -71,6 +71,20 @@ html, body {
   color: #f0e8ff;
   transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
 }
+/* Štítek pro hry na interaktivní tabuli — „visí“ na horním okraji karty */
+.game-card { position: relative; }
+.card-stitek {
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #f4c842;
+  color: #1e1040;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
 .game-card:hover {
   transform: scale(1.02);
   box-shadow: 0 0 20px rgba(244, 200, 66, 0.3);
@@ -319,10 +333,31 @@ body { padding-bottom: 36px !important; }
       </a>
 
       <a href="./zavod/index.html" class="game-card">
+        <span class="card-stitek">🖥️ Interaktivní tabule</span>
         <div class="card-emoji">🏁</div>
         <div class="card-info">
-          <div class="card-title">Závod na tabuli</div>
-          <div class="card-desc">Dva týmy proti sobě na interaktivní tabuli — kdo dřív dojede do cíle?</div>
+          <div class="card-title">Závod aut</div>
+          <div class="card-desc">Násobení a dělení 2 až 9 — dva týmy proti sobě. Kdo dřív dojede do cíle?</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="./medved/index.html" class="game-card">
+        <span class="card-stitek">🖥️ Interaktivní tabule</span>
+        <div class="card-emoji">🍯</div>
+        <div class="card-info">
+          <div class="card-title">Med pro medvěda</div>
+          <div class="card-desc">Sčítání a odčítání s přechodem přes desítku — dva týmy proti sobě. Kdo dřív naplní sklenici?</div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="./pretahovana/index.html" class="game-card">
+        <span class="card-stitek">🖥️ Interaktivní tabule</span>
+        <div class="card-emoji">💪</div>
+        <div class="card-info">
+          <div class="card-title">Přetahovaná</div>
+          <div class="card-desc">Vyjmenovaná slova po b, l, m — dva týmy proti sobě. Kdo přetáhne lano na svou stranu?</div>
         </div>
         <div class="card-arrow">→</div>
       </a>

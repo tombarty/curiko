@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>💪 Přetahovaná — Curiko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NASTAVENÍ (pro učitelku) -->
+<section id="screen-setup" class="screen active">
+  <div class="top-bar">
+    <a href="../index.html" class="back-link">← zpět na 3. třídu</a>
+    <div class="logo-mini">Curiko</div>
+  </div>
+  <h1>💪 Přetahovaná</h1>
+  <p class="sub">Dva týmy, jedno lano. Děti se v řadách střídají — každý doplní jedno vyjmenované slovo.
+    Správná odpověď přitáhne lano k vašemu týmu. Kdo přetáhne stužku přes svou čáru, vyhrává!</p>
+
+  <div class="setup-block">
+    <h2>Vyjmenovaná slova po… <small>(můžeš vybrat víc)</small></h2>
+    <div class="choices" id="ch-pismena"></div>
+  </div>
+
+  <div class="setup-block">
+    <h2>Jak dlouhá přetahovaná? <small>(o kolik tahů musí tým vést)</small></h2>
+    <div class="choices" id="ch-delka"></div>
+  </div>
+
+  <div class="setup-actions">
+    <button class="btn-big" id="btn-start">💪 Start</button>
+    <button class="btn-small" id="btn-fullscreen">⛶ Celá obrazovka</button>
+  </div>
+  <p class="tip">Tip: Na tabuli zapněte celou obrazovku. Oba týmy mohou ťukat současně.</p>
+</section>
+
+<!-- HRA -->
+<section id="screen-race" class="screen">
+  <div class="arena" id="arena">
+    <div class="slunce"></div>
+    <div class="mrak mrak-1"></div>
+    <div class="mrak mrak-2"></div>
+    <div class="kopce"></div>
+    <div class="trava"></div>
+    <div class="cara cara-stred"></div>
+    <div class="cara cara-a"><span class="prapor"></span></div>
+    <div class="cara cara-b"><span class="prapor"></span></div>
+    <div class="lano-skupina" id="lano">
+      <div class="lano"></div>
+      <div class="stuha"></div>
+      <div class="tahaci tahaci-a" id="tahaci-a"></div>
+      <div class="tahaci tahaci-b" id="tahaci-b"></div>
+    </div>
+    <button class="race-menu" id="btn-race-menu" title="Ukončit hru">✕</button>
+  </div>
+
+  <div class="teams">
+    <div class="team team-a" id="team-a"></div>
+    <div class="team team-b" id="team-b"></div>
+  </div>
+
+  <div class="countdown hidden" id="countdown"></div>
+</section>
+
+<!-- VÍTĚZ -->
+<section id="screen-win" class="screen">
+  <div class="win-box">
+    <div class="win-cup">🏆</div>
+    <h2 id="win-title">Vyhrávají Červení!</h2>
+    <p id="win-score"></p>
+    <div class="setup-actions">
+      <button class="btn-big" id="btn-rematch">🔄 Odveta</button>
+      <button class="btn-small" id="btn-win-setup">⚙️ Změnit nastavení</button>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOR HRY -->
+<section id="screen-about" class="screen">
+  <button class="about-back-btn" id="btn-about-back">← Zpět</button>
+  <h2 class="about-title">✨ Autor hry</h2>
+  <div class="about-card">
+    <div class="about-name">Tomáš Bártek</div>
+    <div class="about-sub">Vytvořeno s pomocí <strong>Claude Code</strong> 🤖</div>
+    <div class="about-feedback">💬 Pro nápady a zpětnou vazbu mi napiš na LinkedIn</div>
+    <a href="https://www.linkedin.com/in/tomasbartek/" target="_blank" rel="noopener" class="about-link">🔗 LinkedIn profil</a>
+  </div>
+  <div class="about-card">
+    <div class="about-coffee-title">☕ Kupte mi kafe!</div>
+    <div class="about-coffee-text">Pokud se vám hry líbí, můžete autora podpořit částkou 30&nbsp;Kč.</div>
+    <div id="about-qr" class="about-qr"></div>
+    <div class="about-coffee-hint">Naskenuj telefonem v bankovní aplikaci 📱</div>
+  </div>
+  <div class="about-copyright">© 2026 Tomáš Bártek</div>
+</section>
+
+<footer class="site-footer">
+  <a id="footer-about">Autor hry</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script src="../petiminutovky/data.js"></script>
+<script src="js/ulohy.js"></script>
+<script src="js/pretahovana.js"></script>
+</body>
+</html>

@@ -61,10 +61,14 @@ s kartami her. Rozcestníky jsou kopie hlavní stránky (stejné CSS, patička, 
 | `index.html` + `style.css` + `js/{storage,sound,motivace,games,app}.js` | `hodiny/`, `pismena/`, `nasobilka/`, `3-trida/nasobilka/` | `games.js` generuje úkol podle `data-mode` z menu, `app.js` řídí menu → hra → výsledky → odměna. Nejmenší vzor je `nasobilka/`. |
 | Pětiminutovky: `index.html` + `data.js` (data + engine) | `petiminutovky/`, `3-trida/petiminutovky/` | Pole `BONUS_CATEGORIES`, položka `['slo_vo', 'odpověď', [volby]]`, kategorie s `_stages` = etapy. |
 | `predskolaci/spolecne/zaklad.js` (+ `zaklad.css`, `slova.js`) | `predskolaci/{pamet,pocty,sluch,prostor,logika}/` | Hra = `index.html` (jen skripty) + `hra.js` volající `Zaklad.start({ id, nazev, emoji, popis, rezimy })`. Režim má `uloha(ctx)`, staví úkol do `ctx.stage` a volá `ctx.spravne()` / `ctx.spatne()`. Engine řeší kolo 5 úkolů, hlas (`speechSynthesis` cs-CZ — předškolák nečte), hvězdičky a **adaptivní úroveň 1–3**. Obrázky jsou jen emoji. |
-| Samostatné | `predskolaci/obkreslovani/`, `3-trida/zavod/`, `svet-poznani/`, `pribehova-hra/`, `lekce/` | Vlastní struktura — viz komentáře v kódu a podsložková CLAUDE.md. |
+| Samostatné | `predskolaci/obkreslovani/`, `3-trida/zavod/` (+ kopie `medved/`, `pretahovana/`), `svet-poznani/`, `pribehova-hra/`, `lekce/` | Vlastní struktura — viz komentáře v kódu a podsložková CLAUDE.md. |
 
 **Pozor na kopie kódu:** `3-trida/petiminutovky/data.js` obsahuje kopii enginu z
-`petiminutovky/data.js` (od „Motivační motivy“) a `3-trida/nasobilka/` je kopie `nasobilka/`.
+`petiminutovky/data.js` (od „Motivační motivy“), `3-trida/nasobilka/` je kopie `nasobilka/`
+a `3-trida/medved/` (Med pro medvěda — sčítání/odčítání s přechodem) i `3-trida/pretahovana/`
+(Přetahovaná — vyjmenovaná slova) jsou kopie `3-trida/zavod/` s jiným vzhledem a úlohami.
+`3-trida/pretahovana/` čte slova přímo z `3-trida/petiminutovky/data.js` (kategorie `vyjm-*`) —
+při změně formátu dat nebo ID kategorií zkontrolovat i ji.
 Oprava chyby v enginu se musí udělat v obou.
 
 `3-trida/zavod/` (dva týmy proti sobě na interaktivní tabuli): odpovědi přes `pointerdown`, aby
