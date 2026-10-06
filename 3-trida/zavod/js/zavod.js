@@ -1,4 +1,4 @@
-// ─── Závod na tabuli — dva týmy proti sobě ─────────────────────────────────
+// ─── Závod aut — dva týmy proti sobě ─────────────────────────────────
 // Levá polovina = tým A (Červení), pravá = tým B (Modří). Každý tým má vlastní
 // příklady. Odpovědi se zachytávají přes pointerdown, takže na tabuli
 // s vícedotykem mohou oba týmy ťukat současně a navzájem se neruší.
