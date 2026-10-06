@@ -73,7 +73,7 @@ const Zavod = {
     $('btn-about-back').addEventListener('click', () => this.ukaz(this._pred === 'race' ? 'setup' : (this._pred || 'setup')));
   },
 
-  // Čísla 5–9: lze vybrat víc najednou, aspoň jedno musí zůstat
+  // Čísla 2–9: lze vybrat víc najednou, aspoň jedno musí zůstat
   vyberCisel() {
     const box = document.getElementById('ch-cisla');
     CISLA.forEach(c => {
@@ -84,7 +84,7 @@ const Zavod = {
         if (this.cisla.includes(c)) {
           if (this.cisla.length === 1) return;
           this.cisla = this.cisla.filter(x => x !== c);
-        } else this.cisla = [...this.cisla, c].sort();
+        } else this.cisla = [...this.cisla, c].sort((a, b) => a - b);
         b.classList.toggle('sel', this.cisla.includes(c));
       });
       box.appendChild(b);

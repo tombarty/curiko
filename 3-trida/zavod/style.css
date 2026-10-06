@@ -34,7 +34,19 @@ button { font-family: inherit; cursor: pointer; color: inherit; }
 
 /* ─── Nastavení ────────────────────────────────────────────────────────── */
 #screen-setup { align-items: center; padding: 2vh 4vw; gap: 2.2vh; overflow-y: auto; }
-.back-link { align-self: flex-start; color: var(--text-sub); font-weight: 800; text-decoration: none; font-size: 16px; }
+.top-bar { align-self: stretch; display: flex; justify-content: space-between; align-items: center; }
+/* Logo Curiko — stejný barevný přechod jako na hlavní stránce, jen malé */
+.logo-mini {
+  font-size: clamp(18px, 1.8vw, 26px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #f4c842, #ff8a65, #f06292);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.85;
+}
+.back-link { color: var(--text-sub); font-weight: 800; text-decoration: none; font-size: 16px; }
 #screen-setup h1 { font-size: clamp(30px, 5vw, 60px); font-weight: 900; }
 .sub { max-width: 900px; text-align: center; font-size: clamp(15px, 1.6vw, 22px); color: var(--text-sub); }
 .setup-block { text-align: center; }

@@ -1,5 +1,5 @@
 // ─── Úlohy pro závod ───────────────────────────────────────────────────────
-// Úloha = { otazka, spravne, moznosti }. Učitelka vybere čísla (5–9) a druh
+// Úloha = { otazka, spravne, moznosti }. Učitelka vybere čísla (2–9) a druh
 // počítání (násobení / dělení / obojí); generuj() z toho skládá příklady.
 // Jiný typ úloh (např. pravopis) = nová funkce se stejným výstupem.
 
@@ -28,7 +28,7 @@ function deleni(k) {
   return { otazka: `${n * k} : ${k}`, spravne: n, moznosti: moznostiK(n, 1) };
 }
 
-const CISLA = [5, 6, 7, 8, 9];
+const CISLA = [2, 3, 4, 5, 6, 7, 8, 9];
 const DRUHY = [
   ['mul', '✖️ Násobení'],
   ['div', '➗ Dělení'],
